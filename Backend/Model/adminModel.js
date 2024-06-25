@@ -49,4 +49,20 @@ const createQuiz = (req, res, call) => {
 };
 
 
-module.exports = { createQuiz  };
+const deleteQuiz = (req ,res)=>{
+    connection.query(`delete from quizz where id=${req.params.id}`, (err , result , field)=>{
+        if(err){
+            console.log(err);
+            return;
+        }
+        connection.query(`delete from question where quizid=${req.params.id}`, (err1 , result1 , field1)=>{
+            if(err1){
+                console.log(err);
+                return;
+            }
+            res.json({"status" : "good"})
+        })         
+    })
+}
+
+module.exports = { createQuiz  , deleteQuiz };
