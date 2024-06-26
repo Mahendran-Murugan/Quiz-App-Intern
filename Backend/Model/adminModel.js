@@ -1,8 +1,10 @@
 const connection = require("../db");
 const app = require("express")();
-const upload = require("./imageStorage");
 
 const createQuiz = (req, res, call) => {
+  if (req.file) {
+    console.log(req.file);
+  }
   const body = req.body;
   try {
     if (body.name && body.count && body.questions) {
@@ -16,10 +18,14 @@ const createQuiz = (req, res, call) => {
             });
             return;
           }
-
+          
           body.questions.map((e) => {
+            if(e.ch1 == undefined) e.ch1 = null
+            if(e.ch2 == undefined) e.ch2 = null
+            if(e.ch3 == undefined) e.ch3 = null
+            if(e.ch4 == undefined) e.ch4 = null
             connection.query(
-              `insert into question( quizid , question , ch1 , ch2 , ch3 , ch4 , answer , image , points) values (${result.insertId} , "${e.question}" ,"${e.ch1}", "${e.ch2}" ,"${e.ch3}" ,"${e.ch4}", "${e.answer}" ,"${e.image}" ,${e.points})`,
+              `insert into question( quizid , question , ch1 , ch2 , ch3 , ch4 , answer , image , points) values (${result.insertId} , "${e.question}" ,"${e.ch1}", "${e.ch2 }" ,"${e.ch3}" ,"${e.ch4}", "${e.answer}" ,"${e.image}" ,${e.points})`,
               (err, result, field) => {
                 if (err) {
                   console.log(err);
@@ -84,4 +90,32 @@ const updateQuestion = (req, res) => {
   );
 };
 
-module.exports = { createQuiz, deleteQuiz, updateQuestion };
+const showQuestionsByID = (req, res) => {
+  const { id } = req.body;
+  connection.query(`SELECT * FROM QUESTION where ID = ${id}`, (err, result) => {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    res.json(result);
+    return;
+  });
+};
+const showQuestions = (req, res) => {
+  connection.query(`SELECT * FROM QUESTION `, (err, result) => {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    res.json(result);
+    return;
+  });
+};
+
+module.exports = {
+  createQuiz,
+  deleteQuiz,
+  updateQuestion,
+  showQuestionsByID,
+  showQuestions,
+};
