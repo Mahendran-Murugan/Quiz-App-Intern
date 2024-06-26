@@ -2,17 +2,22 @@ import React, { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import axios from "axios";
 import { Box, Container, Paper, Typography } from "@mui/material";
+import { QuestContext } from "../Context/QuestionContext";
 export const ListQuiz = () => {
   const [quizall, setQuiz] = useState([]);
   const [quizCount, setQuixCount] = useState(0);
+  const { QID, setQID } = QuestContext();
   useEffect(() => {
-    const res = axios
-      .get("http://localhost:8000/api/user" + "/quiz/list")
-      .then((res) => {
-        setQuiz(res.data);
-        // setQuixCount(quizall.length);
-      });
+    axios.get("http://localhost:8000/api/user/quiz/list").then((res) => {
+      setQuiz(res.data);
+      setQuixCount(res.data.length);
+    });
   }, []);
+
+  const handleClick = (id) => {
+    setQID(id);
+  };
+
   const quizStatus = quizCount > 0;
 
   return (
@@ -24,7 +29,7 @@ export const ListQuiz = () => {
         {quizall.map((quiz, index) => {
           return (
             <Paper sx={{ m: 2, p: 2 }} key={index} elevation={5}>
-              <Link to={`${quiz.id}`}>
+              <Link to={`${quiz.id}`} onClick={() => handleClick(quiz.id)}>
                 <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                   <Typography variant="h6" color="initial"></Typography>
                   <Typography variant="h6" color="initial">

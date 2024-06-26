@@ -18,14 +18,14 @@ const createQuiz = (req, res, call) => {
             });
             return;
           }
-          
+
           body.questions.map((e) => {
-            if(e.ch1 == undefined) e.ch1 = null
-            if(e.ch2 == undefined) e.ch2 = null
-            if(e.ch3 == undefined) e.ch3 = null
-            if(e.ch4 == undefined) e.ch4 = null
+            if (e.ch1 == undefined) e.ch1 = null;
+            if (e.ch2 == undefined) e.ch2 = null;
+            if (e.ch3 == undefined) e.ch3 = null;
+            if (e.ch4 == undefined) e.ch4 = null;
             connection.query(
-              `insert into question( quizid , question , ch1 , ch2 , ch3 , ch4 , answer , image , points) values (${result.insertId} , "${e.question}" ,"${e.ch1}", "${e.ch2 }" ,"${e.ch3}" ,"${e.ch4}", "${e.answer}" ,"${e.image}" ,${e.points})`,
+              `insert into question( quizid , question , ch1 , ch2 , ch3 , ch4 , answer , image , points) values (${result.insertId} , "${e.question}" ,"${e.ch1}", "${e.ch2}" ,"${e.ch3}" ,"${e.ch4}", "${e.answer}" ,"${e.image}" ,${e.points})`,
               (err, result, field) => {
                 if (err) {
                   console.log(err);
@@ -54,6 +54,11 @@ const createQuiz = (req, res, call) => {
 };
 
 const deleteQuiz = (req, res) => {
+  if (isNaN(req.params.id)) {
+    console.log("Error in id type");
+    res.json({ status: "bad" });
+    return;
+  }
   connection.query(
     `delete from quizz where id=${req.params.id}`,
     (err, result, field) => {
@@ -92,6 +97,11 @@ const updateQuestion = (req, res) => {
 
 const showQuestionsByID = (req, res) => {
   const { id } = req.body;
+  if (isNaN(id)) {
+    console.log("Error in id type");
+    res.json({ status: "bad" });
+    return;
+  }
   connection.query(`SELECT * FROM QUESTION where ID = ${id}`, (err, result) => {
     if (err) {
       console.log(err);
