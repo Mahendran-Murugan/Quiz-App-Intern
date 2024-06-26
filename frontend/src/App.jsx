@@ -24,7 +24,7 @@ export const App = () => {
           <Route index element={<ListQuiz />} />
           <Route path=':quiz_id'>
             <Route index element={<QuizInstructions />} />
-            <Route path=':question_id' element={<Questions />} />
+            <Route path='questions' element={<Questions />} />
           </Route>
         </Route>
       </Routes>

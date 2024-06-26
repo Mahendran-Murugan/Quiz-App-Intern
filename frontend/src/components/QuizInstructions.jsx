@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 export const QuizInstructions = () => {
     const navigate = useNavigate()
     const navToQuestions = () => {
-        navigate('1')
+        navigate('questions')
     }
     return (
         <div className='h-screen flex flex-col justify-center items-center'>
