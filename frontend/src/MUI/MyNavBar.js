@@ -104,7 +104,7 @@ function MyNavBar(props) {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <AppBar component="nav" position="fixed">
+      <AppBar component="nav" position="sticky">
         <Toolbar>
           <IconButton
             color="inherit"
@@ -140,7 +140,9 @@ function MyNavBar(props) {
                 </NavLink>
               </>
             )}
-            <NavLink to={user.name != "" ? "/quiz" : "/login"}>
+            <NavLink
+              to={localStorage.getItem("name") != "" ? "/quiz" : "/login"}
+            >
               <Button sx={{ color: "#fff" }}>Quiz</Button>
             </NavLink>
             <NavLink to="/profile">
