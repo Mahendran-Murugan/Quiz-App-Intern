@@ -3,6 +3,7 @@ import { SingleChoice } from "./SingleChoice";
 import { Alert, Box, Paper, RadioGroup, Typography } from "@mui/material";
 import { UseAnswer } from "./Questions";
 import CheckIcon from "@mui/icons-material/Check";
+import CloseIcon from "@mui/icons-material/Close";
 
 export const SingleQuestion = ({ question, index }) => {
   const [choices, setChoice] = useState([]);
@@ -20,13 +21,24 @@ export const SingleQuestion = ({ question, index }) => {
     if (question.ch3) setChoice((prev) => [...prev, ch3]);
     if (question.ch4) setChoice((prev) => [...prev, ch4]);
   }, []);
-
   const [select, setSelect] = useState("");
-  const { setAnswered, setCorrect, isSubmitted } = UseAnswer();
+  const { setAnswered, setCorrect, isSubmitted, right, setRight } = UseAnswer();
   const handleSelect = (e) => {
     if (select == "") setAnswered((prev) => prev + 1);
     setSelect(e.target.value);
+    if (e.target.value == question.answer) {
+      const newNumbers = [...right];
+      newNumbers.splice(index, 1, true);
+      setCorrect(newNumbers.filter((a) => a == true).length);
+      setRight(newNumbers);
+    } else {
+      const newNumbers = [...right];
+      newNumbers.splice(index, 1, false);
+      setCorrect(newNumbers.filter((a) => a == true).length);
+      setRight(newNumbers);
+    }
   };
+
   return (
     <Paper sx={{ m: 1, p: 2 }} elevation={3}>
       <Typography variant="h6">{`${index + 1}. ${
@@ -45,11 +57,11 @@ export const SingleQuestion = ({ question, index }) => {
           {isSubmitted ? (
             select === answer ? (
               <Alert icon={<CheckIcon fontSize="inherit" />} severity="success">
-                This is Correct
+                Correct Answer
               </Alert>
             ) : select !== "" ? (
-              <Alert icon={<CheckIcon fontSize="inherit" />} severity="error">
-                This is Correct
+              <Alert icon={<CloseIcon fontSize="inherit" />} severity="error">
+                Wrong Answer. {answer} is Correct Answer
               </Alert>
             ) : (
               ""
