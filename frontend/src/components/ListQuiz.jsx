@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import axios from "axios";
-import { Box, Container, Paper, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Container,
+  Paper,
+  Stack,
+  Typography,
+} from "@mui/material";
 import { QuestContext } from "../Context/QuestionContext";
 export const ListQuiz = () => {
   const [quizall, setQuiz] = useState([]);
@@ -22,21 +29,29 @@ export const ListQuiz = () => {
 
   return (
     <Container>
-      {(quizStatus && (
-        <h1>Welcome Students, These are {quizCount} quizes available </h1>
-      )) || <h1>Welcome Students, These are no available quizes</h1>}
+      <center>
+        {(quizStatus && (
+          <Typography variant="h6">
+            Welcome Students, These are {quizCount} quizes available{" "}
+          </Typography>
+        )) || <h1>Welcome Students, These are no available quizes</h1>}
+      </center>
       <Box>
         {quizall.map((quiz, index) => {
           return (
             <Paper sx={{ m: 2, p: 2 }} key={index} elevation={5}>
               <Link to={`${quiz.id}`} onClick={() => handleClick(quiz.id)}>
                 <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-                  <Typography variant="h6" color="initial"></Typography>
-                  <Typography variant="h6" color="initial">
-                    {quiz.name.replace(/^./, quiz.name[0].toUpperCase())}
-                  </Typography>
-                  <Typography variant="h6" color="initial">
-                    {quiz.count}
+                  <Stack direction={"row"} spacing={3} alignItems={"center"}>
+                    <Typography variant="button" color="initial">
+                      {index + 1}
+                    </Typography>
+                    <Typography variant="button" color="initial">
+                      {quiz.name.replace(/^./, quiz.name[0].toUpperCase())}
+                    </Typography>
+                  </Stack>
+                  <Typography variant="body" color="initial">
+                    <Button color="primary">{quiz.count} Questions</Button>
                   </Typography>
                 </Box>
               </Link>
