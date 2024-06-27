@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, Navigate } from "react-router-dom";
 import axios from "axios";
 import {
   Box,
@@ -40,6 +40,9 @@ export const ListQuiz = () => {
         {quizall.map((quiz, index) => {
           return (
             <Paper sx={{ m: 2, p: 2 }} key={index} elevation={5}>
+              {localStorage.getItem("name") == "" && (
+                <Navigate to="/login"></Navigate>
+              )}
               <Link to={`${quiz.id}`} onClick={() => handleClick(quiz.id)}>
                 <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                   <Stack direction={"row"} spacing={3} alignItems={"center"}>

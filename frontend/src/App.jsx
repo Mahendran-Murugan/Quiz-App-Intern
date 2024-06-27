@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { Home } from "./components/Home";
 import { Login } from "./Authentication/Login";
 import { Register } from "./Authentication/Register";
@@ -15,12 +15,12 @@ import MyNavBar from "./MUI/MyNavBar";
 import { UseAuth } from "./Authentication/AuthContext";
 
 export const App = () => {
-
   return (
     <>
       <MyNavBar />
       <Box sx={{ m: 3 }}>
         <QuestionContext>
+          
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />

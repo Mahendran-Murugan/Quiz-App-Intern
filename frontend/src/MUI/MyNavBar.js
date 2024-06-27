@@ -102,6 +102,7 @@ function MyNavBar(props) {
     window !== undefined ? () => window().document.body : undefined;
 
   return (
+    
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
       <AppBar component="nav" position="sticky">
@@ -145,7 +146,7 @@ function MyNavBar(props) {
             >
               <Button sx={{ color: "#fff" }}>Quiz</Button>
             </NavLink>
-            <NavLink to="/profile">
+            <NavLink to={localStorage.getItem("name") != "" ? "/profile" : "/login"}>
               <Button sx={{ color: "#fff" }}>Profile</Button>
             </NavLink>
             {localStorage.getItem("name") != "" && (
