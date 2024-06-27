@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import { Home } from "./components/Home";
-import { Login } from "./components/Login";
-import { Register } from "./components/Register";
+import { Login } from "./Authentication/Login";
+import { Register } from "./Authentication/Register";
 import { Admin } from "./components/Admin";
 import { Student } from "./components/Student";
 import { Quiz } from "./components/Quiz";
@@ -12,8 +12,10 @@ import { QuizInstructions } from "./components/QuizInstructions";
 import { QuestionContext } from "./Context/QuestionContext";
 import { Box } from "@mui/material";
 import MyNavBar from "./MUI/MyNavBar";
+import { UseAuth } from "./Authentication/AuthContext";
 
 export const App = () => {
+
   return (
     <>
       <MyNavBar />

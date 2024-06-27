@@ -40,7 +40,6 @@ export default function MyScrollDialog({ props }) {
         {props.name}
       </Button>
       <Dialog
-        
         open={open}
         onClose={handleClose}
         PaperComponent={PaperComponent}

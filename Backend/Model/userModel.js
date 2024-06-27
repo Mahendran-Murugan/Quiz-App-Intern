@@ -23,7 +23,7 @@ const showSingleQuiz = (req, res) => {
       (err, result, field) => {
         if (err) {
           console.log(err);
-          res.json({ status: 404 });
+          res.json({ error: err.sqlMessage });
           return;
         }
         res.json(result);
@@ -34,4 +34,39 @@ const showSingleQuiz = (req, res) => {
   }
 };
 
-module.exports = { showAllQuiz, showSingleQuiz };
+const registerUser = (req, res) => {
+  const { name, password, email } = req.body;
+
+  if (name == "" && password == "" && email == "") {
+    res.status(404).end();
+  }
+  connection
+    .query(
+      `INSERT INTO user (name , password , email) VALUES ("${name}" ,"${password}" ,"${email}")`
+    )
+    .on("error", (err) => {
+      res.status(404).send();
+    })
+    .on("result", (result) => {
+      res.status(200).json({
+        status: "good",
+      });
+    });
+};
+
+const loginUser = (req, res) => {
+  const { email, password } = req.body;
+  if (email == "" || password == "") res.status(404).json({ status: "error" });
+  connection
+    .query(
+      `SELECT * FROM user where email = "${email}" and password = "${password}"`
+    )
+    .on("error", (err) => {
+      res.status(404).json({ status: err });
+    })
+    .on("result", (result) => {
+      res.status(200).json(result);
+    });
+};
+
+module.exports = { showAllQuiz, showSingleQuiz, registerUser, loginUser };

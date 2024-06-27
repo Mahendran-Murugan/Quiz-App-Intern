@@ -14,18 +14,25 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { UseAuth } from "../Authentication/AuthContext";
+import { colors } from "@mui/material";
 
 const drawerWidth = 240;
 const navItems = ["Home", "Quiz", "Profile"];
 const navLink = ["/", "/quiz", "/profile"];
 
 function MyNavBar(props) {
+  const { user, logout } = UseAuth();
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
+  };
+
+  const handleLogout = () => {
+    logout();
   };
 
   const drawer = (
@@ -35,16 +42,61 @@ function MyNavBar(props) {
       </Typography>
       <Divider />
       <List>
-        {navItems.map((item) => (
-          <ListItem key={item} disablePadding>
+        {user.name == "" && (
+          <>
+            <NavLink to="/login">
+              <ListItem disablePadding>
+                <ListItemButton sx={{ textAlign: "center" }}>
+                  <ListItemText primary="Login" />
+                </ListItemButton>
+              </ListItem>
+            </NavLink>
+            <NavLink to={"/register"}>
+              <ListItem disablePadding>
+                <ListItemButton sx={{ textAlign: "center" }}>
+                  <ListItemText primary="Register" />
+                </ListItemButton>
+              </ListItem>
+            </NavLink>
+          </>
+        )}
+
+        {user.email == "admin@gmail.com" && (
+          <ListItem disablePadding>
             <ListItemButton sx={{ textAlign: "center" }}>
-              <ListItemText primary={item} />
+              <ListItemText primary="Admin" />
             </ListItemButton>
           </ListItem>
-        ))}
+        )}
+        {user.name != "" && (
+          <NavLink to="/quiz">
+            <ListItem disablePadding>
+              <ListItemButton sx={{ textAlign: "center" }}>
+                <ListItemText primary="Quiz" />
+              </ListItemButton>
+            </ListItem>
+          </NavLink>
+        )}
+        <NavLink to="/profile">
+          <ListItem disablePadding>
+            <ListItemButton sx={{ textAlign: "center" }}>
+              <ListItemText primary="Profile" />
+            </ListItemButton>
+          </ListItem>
+        </NavLink>
+        <ListItem disablePadding>
+          <ListItemButton sx={{ textAlign: "center" }}>
+            <ListItemText
+              onClick={handleLogout}
+              primary="Logout"
+              sx={{ background: "red", color: "white", borderRadius: "10px" }}
+            />
+          </ListItemButton>
+        </ListItem>
       </List>
     </Box>
   );
+  const navigate = useNavigate();
 
   const container =
     window !== undefined ? () => window().document.body : undefined;
@@ -52,7 +104,7 @@ function MyNavBar(props) {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <AppBar component="nav" position="fixked">
+      <AppBar component="nav" position="fixed">
         <Toolbar>
           <IconButton
             color="inherit"
@@ -71,13 +123,42 @@ function MyNavBar(props) {
             Silicon Software Solution
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
-            {navItems.map((item, index) => (
-              <NavLink to={`${navLink[index]}`}>
-                <Button key={item} sx={{ color: "#fff" }}>
-                  {item}
-                </Button>
-              </NavLink>
-            ))}
+            {localStorage.getItem("name") == "" && (
+              <>
+                <NavLink to="/login">
+                  <Button sx={{ color: "#fff" }}>Login</Button>
+                </NavLink>
+                <NavLink to="/register">
+                  <Button sx={{ color: "#fff" }}>Register</Button>
+                </NavLink>
+              </>
+            )}
+            {localStorage.getItem("email") == "admin@gmail.com" && (
+              <>
+                <NavLink to="/admin">
+                  <Button sx={{ color: "#fff" }}>Admin</Button>
+                </NavLink>
+              </>
+            )}
+            <NavLink to={user.name != "" ? "/quiz" : "/login"}>
+              <Button sx={{ color: "#fff" }}>Quiz</Button>
+            </NavLink>
+            <NavLink to="/profile">
+              <Button sx={{ color: "#fff" }}>Profile</Button>
+            </NavLink>
+            {localStorage.getItem("name") != "" && (
+              <>
+                <NavLink to="/profile">
+                  <Button
+                    onClick={handleLogout}
+                    sx={{ color: "#fff" }}
+                    color="error"
+                  >
+                    Logout
+                  </Button>
+                </NavLink>
+              </>
+            )}
           </Box>
         </Toolbar>
       </AppBar>
@@ -88,7 +169,7 @@ function MyNavBar(props) {
           open={mobileOpen}
           onClose={handleDrawerToggle}
           ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
+            keepMounted: true,
           }}
           sx={{
             display: { xs: "block", sm: "none" },

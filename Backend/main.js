@@ -4,6 +4,8 @@ require("dotenv").config();
 const bodyParser = require("body-parser");
 const app = express();
 app.use(express.json());
+app.use(bodyParser.json());
+app.use(bodyParser({ extended: true }));
 app.use("/Image", express.static(__dirname + "/Public"));
 const cors = require("cors");
 const { router } = require("./Router/adminRouter");

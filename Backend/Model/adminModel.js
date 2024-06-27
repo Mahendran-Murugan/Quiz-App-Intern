@@ -51,6 +51,7 @@ const createQuiz = (req, res, call) => {
   } catch (ex) {
     console.log(ex);
   }
+  res.end();
 };
 
 const deleteQuiz = (req, res) => {
