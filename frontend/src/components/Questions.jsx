@@ -73,13 +73,16 @@ export const Questions = () => {
               ),
               text: (
                 <>
-                  <Typography variant="h6" color="initial">
+                  <Typography variant="body1" color="initial">
+                    Questions : {data.length}
+                  </Typography>
+                  <Typography variant="body1" color="initial">
                     Answered : {answed}
                   </Typography>
-                  <Typography variant="h6" color="initial">
+                  <Typography variant="body1" color="initial">
                     Correct : {isCorrect}
                   </Typography>
-                  <Typography variant="h6" color="initial">
+                  <Typography variant="body1" color="initial">
                     Wrong : {answed - isCorrect}
                   </Typography>
                 </>
