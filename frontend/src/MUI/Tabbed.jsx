@@ -3,6 +3,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import PropTypes from "prop-types";
+import CreateQuiz from "../ManageQuiz/CreateQuiz";
 export default function Tabbed() {
   const [value, setValue] = React.useState(0);
 
@@ -51,7 +52,9 @@ export default function Tabbed() {
         <Tab label="Manage Questions" />
         <Tab label="Manage Users" />
       </Tabs>
-      <CustomTabPanel value={value} index={0}></CustomTabPanel>
+      <CustomTabPanel value={value} index={0}>
+        <CreateQuiz></CreateQuiz>
+      </CustomTabPanel>
       <CustomTabPanel value={value} index={1}></CustomTabPanel>
     </Box>
   );

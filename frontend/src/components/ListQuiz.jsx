@@ -32,9 +32,14 @@ export const ListQuiz = () => {
       <center>
         {(quizStatus && (
           <Typography variant="h6">
-            Welcome Students, These are {quizCount} quizes available{" "}
+            Welcome {localStorage.getItem("name")}, These are {quizCount} quizes available{" "}
           </Typography>
-        )) || <h1>Welcome Students, These are no available quizes</h1>}
+        )) || (
+          <h1>
+            Welcome {localStorage.getItem("name")}, These are no available
+            quizes
+          </h1>
+        )}
       </center>
       <Box>
         {quizall.map((quiz, index) => {

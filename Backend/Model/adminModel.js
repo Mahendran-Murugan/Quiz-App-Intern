@@ -6,6 +6,7 @@ const createQuiz = (req, res, call) => {
     console.log(req.file);
   }
   const body = req.body;
+  // console.log(body);
   try {
     if (body.name && body.count && body.questions) {
       connection.query(
