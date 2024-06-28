@@ -36,7 +36,7 @@ export default function CreateQuiz({ props }) {
   };
   return (
     <React.Fragment>
-      <Button variant="contained" onClick={handleClickOpen}>
+      <Button   variant="contained" onClick={handleClickOpen}>
         Create
       </Button>
       <QuizContext.Provider

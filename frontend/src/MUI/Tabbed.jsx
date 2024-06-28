@@ -4,6 +4,8 @@ import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import PropTypes from "prop-types";
 import CreateQuiz from "../ManageQuiz/CreateQuiz";
+import QuizManipulate from "../ManageQuiz/QuizManipulate";
+import { Stack } from "@mui/material";
 export default function Tabbed() {
   const [value, setValue] = React.useState(0);
 
@@ -40,7 +42,7 @@ export default function Tabbed() {
   }
 
   return (
-    <Box sx={{ maxWidth: { xs: 320, sm: 480 }, bgcolor: "background.paper" }}>
+    <Box sx={{ maxWidth: { xs: 320, sm: 720 }, bgcolor: "background.paper" }}>
       <Tabs
         value={value}
         onChange={handleChange}
@@ -53,7 +55,13 @@ export default function Tabbed() {
         <Tab label="Manage Users" />
       </Tabs>
       <CustomTabPanel value={value} index={0}>
-        <CreateQuiz></CreateQuiz>
+        <Stack>
+          <center>
+            <CreateQuiz  />
+          </center>
+          <br />
+          <QuizManipulate />
+        </Stack>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}></CustomTabPanel>
     </Box>

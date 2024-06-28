@@ -9,6 +9,7 @@ const createQuiz = (req, res, call) => {
   // console.log(body);
   try {
     if (body.name && body.count && body.questions) {
+      console.log(body.questions);
       connection.query(
         `insert into quizz( name , count) values ( "${body.name}" , ${body.count}) `,
         (err, result) => {
@@ -82,6 +83,59 @@ const deleteQuiz = (req, res) => {
   );
 };
 
+const updateQuiz = (req, res, call) => {
+  if (req.file) {
+    console.log(req.file);
+  }
+  const body = req.body;
+  try {
+    if (body.name && body.count && body.questions && body.id) {
+      connection.query(
+        `update quizz set name = "${body.name}" , count = ${body.count} where id = ${body.id}`,
+        (err, result) => {
+          if (err) {
+            console.log(err);
+            res.status(404).json({
+              status: "bad",
+            });
+            return;
+          }
+
+          body.questions.map((e) => {
+            if (e.ch1 == undefined) e.ch1 = null;
+            if (e.ch2 == undefined) e.ch2 = null;
+            if (e.ch3 == undefined) e.ch3 = null;
+            if (e.ch4 == undefined) e.ch4 = null;
+            connection.query(
+              `update question  set question = "${e.question}" , ch1 = "${e.ch1}" , ch2 = "${e.ch2}" , ch3  ="${e.ch3}" , ch4 = "${e.ch4}" , answer  ="${e.answer}" , image = "${e.image}" , points = ${e.points} where quizid = ${body.id}`,
+              (err, result, field) => {
+                if (err) {
+                  console.log(err);
+                  res.status(404).json({
+                    status: "bad",
+                  });
+                  return;
+                }
+                res.status(200).json({
+                  status: "good",
+                });
+              }
+            );
+          });
+        }
+      );
+    } else {
+      res.json({
+        status: "bad",
+      });
+    }
+    return;
+  } catch (ex) {
+    console.log(ex);
+  }
+  res.end();
+};
+
 const updateQuestion = (req, res) => {
   const e = req.body;
   connection.query(
@@ -130,4 +184,5 @@ module.exports = {
   updateQuestion,
   showQuestionsByID,
   showQuestions,
+  updateQuiz,
 };
