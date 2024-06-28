@@ -19,13 +19,12 @@ export function Login() {
   const { login } = UseAuth();
   const navigate = useNavigate();
   const handleSubmit = (event) => {
-    event.preventDefault();
     const data = new FormData(event.currentTarget);
     const all = {
       email: data.get("email"),
       password: data.get("password"),
     };
-    if (all.email == "" || all.password == "") {
+    if (all.email === "" || all.password === "") {
       alert("Input Field should be filled");
       return;
     }
@@ -36,6 +35,7 @@ export function Login() {
         navigate("/");
       })
       .catch((err) => alert(err));
+    event.preventDefault();
   };
 
   return (

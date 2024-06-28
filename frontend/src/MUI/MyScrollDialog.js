@@ -23,8 +23,7 @@ function PaperComponent(props) {
 }
 
 export default function MyScrollDialog({ props }) {
-  const [open, setOpen] = React.useState(false);
-  const { setSubmitted } = UseAnswer();
+  const { setSubmitted, open, setOpen } = UseAnswer();
   const handleClickOpen = () => {
     setOpen(true);
     setSubmitted(true);
