@@ -32,7 +32,8 @@ export const ListQuiz = () => {
       <center>
         {(quizStatus && (
           <Typography variant="h6">
-            Welcome {localStorage.getItem("name")}, These are {quizCount} quizes available{" "}
+            Welcome {localStorage.getItem("name")}, These are {quizCount} quizes
+            available{" "}
           </Typography>
         )) || (
           <h1>
@@ -44,7 +45,7 @@ export const ListQuiz = () => {
       <Box>
         {quizall.map((quiz, index) => {
           return (
-            <Paper sx={{ m: 2, p: 2 }} key={index} elevation={5}>
+            <Paper sx={{ m: 2, p: 2 }} elevation={5}>
               {localStorage.getItem("name") == "" && (
                 <Navigate to="/login"></Navigate>
               )}

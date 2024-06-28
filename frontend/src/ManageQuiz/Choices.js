@@ -4,6 +4,7 @@ import { UseChoiceContext } from "./Form";
 
 const Choices = ({ myChoices, count }) => {
   const { question } = UseChoiceContext();
+
   const [choiceCount, setChoiceCount] = useState(count);
   const [choiceValue, setChoiceValue] = useState(myChoices);
   const handleChoiceCount = () => {
@@ -21,12 +22,15 @@ const Choices = ({ myChoices, count }) => {
             name="Choice"
             label={`Choice ${ind + 1}`}
             fullWidth
-            value={choiceValue[ind] !== "" && choiceValue[ind]}
             onChange={(e) => {
-              choiceValue[ind] = e.target.value;
-
+              setChoiceValue((prevItems) => {
+                const newItems = [...prevItems];
+                newItems.splice(ind, 1, e.target.value);
+                return newItems;
+              });
               question.choices = choiceValue;
             }}
+            value={choiceValue[ind]}
             autoComplete="shipping address-level2"
           />
         </Grid>

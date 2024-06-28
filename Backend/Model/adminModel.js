@@ -103,7 +103,6 @@ const updateQuiz = (req, res, call) => {
             e.image,
             e.points,
             body.id,
-          
           ];
           console.log(updateQuestionValues);
           return new Promise((resolve, reject) => {
@@ -181,8 +180,35 @@ const showQuestions = (req, res) => {
   });
 };
 
+const addQuestion = (req, res) => {
+  const body = req.body;
+  console.log(body);
+  const values = [
+    body.question,
+    body.answer,
+    body.image,
+    body.points,
+    body.choices,
+    body.quizid,
+  ];
+  connection.query(
+    `INSERT INTO QUESTION(question , answer , image , points , choices, quizid) values ( ? , ? , ? , ? , ? , ? ) `,
+    values,
+    (err, result) => {
+      if (err) {
+        console.log(err);
+        return;
+      }
+      re;
+      s.json(result);
+      return;
+    }
+  );
+};
+
 module.exports = {
   createQuiz,
+  addQuestion,
   deleteQuiz,
   updateQuestion,
   showQuestionsByID,

@@ -26,7 +26,7 @@ export default function CreateQuiz({ props }) {
     setOpen(false);
   };
   const handleCreate = () => {
-    console.log(questions);
+    // console.log(questions);
     axios.post("http://localhost:8000/api/admin/quiz/create", {
       name: name,
       count: count,

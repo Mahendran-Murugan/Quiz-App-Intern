@@ -98,7 +98,6 @@ export default function Conformation({
           <Button
             autoFocus
             onClick={() => {
-              handleEdit(id);
               handleClose();
             }}
           >
