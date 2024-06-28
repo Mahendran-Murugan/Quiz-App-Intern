@@ -59,10 +59,7 @@ export default function Conformation({
         ...p,
         {
           question: ele.question,
-          ch1: ele.ch1,
-          ch2: ele.ch2,
-          ch3: ele.ch3,
-          ch4: ele.ch4,
+          choices: Object.values(JSON.parse(ele.choices)),
           answer: ele.answer,
           image: ele.image,
           points: ele.points,

@@ -65,7 +65,7 @@ export default function Form() {
                 />
               </Grid>
               <ChoiceContext.Provider value={{ question }}>
-                <Choices />
+                <Choices myChoices={[""]} count={1} />
               </ChoiceContext.Provider>
 
               <Grid item xs={12} sm={6}>
@@ -122,7 +122,7 @@ export default function Form() {
   );
 }
 
-const ChoiceContext = createContext();
+export const ChoiceContext = React.createContext();
 
 export const UseChoiceContext = () => {
   return useContext(ChoiceContext);

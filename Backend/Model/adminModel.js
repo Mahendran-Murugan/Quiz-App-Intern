@@ -76,45 +76,67 @@ const updateQuiz = (req, res, call) => {
   if (req.file) {
     console.log(req.file);
   }
+
   const body = req.body;
   try {
     if (body.name && body.count && body.questions && body.id) {
-      connection
-        .query(
-          `update quizz set name = "${body.name}" , count = ${body.count} where id = ${body.id}`
-        )
-        .on("error", (err) => {
-          res.end();
-        })
-        .on("result", (result) => {
-          body.questions.map((e) => {
-            if (e.ch1 == undefined) e.ch1 = null;
-            if (e.ch2 == undefined) e.ch2 = null;
-            if (e.ch3 == undefined) e.ch3 = null;
-            if (e.ch4 == undefined) e.ch4 = null;
-            connection
-              .query(
-                `update question  set question = "${e.question}" , ch1 = "${e.ch1}" , ch2 = "${e.ch2}" , ch3  ="${e.ch3}" , ch4 = "${e.ch4}" , answer  ="${e.answer}" , image = "${e.image}" , points = ${e.points} where quizid = ${body.id}`
-              )
-              .on("error", (err) => {
-                res.end();
-              })
-              .on("result", (result) => {
-                res.end();
-              });
-            res.end();
+      const updateQuizSql = `UPDATE quizz SET name = ?, count = ? WHERE id = ?`;
+      const updateQuizValues = [body.name, body.count, body.id];
+
+      connection.query(updateQuizSql, updateQuizValues, (err, results) => {
+        if (err) {
+          console.error("Error updating quiz:", err);
+          res.status(500).end();
+          return;
+        }
+
+        const questionPromises = body.questions.map((e) => {
+          const updateQuestionSql = `
+                      UPDATE question 
+                      SET question = ?, choices = ?, answer = ?, image = ?, points = ? 
+                      WHERE quizid = ? 
+                  `;
+          const updateQuestionValues = [
+            e.question,
+            JSON.stringify(Object.assign({}, e.choices)),
+            e.answer,
+            e.image,
+            e.points,
+            body.id,
+          
+          ];
+          console.log(updateQuestionValues);
+          return new Promise((resolve, reject) => {
+            connection.query(
+              updateQuestionSql,
+              updateQuestionValues,
+              (err, results) => {
+                if (err) {
+                  reject(err);
+                } else {
+                  resolve(results);
+                }
+              }
+            );
           });
         });
-    } else {
-      res.json({
-        status: "bad",
+
+        Promise.all(questionPromises)
+          .then(() => {
+            res.json({ status: "success" });
+          })
+          .catch((err) => {
+            console.error("Error updating questions:", err);
+            res.status(500).end();
+          });
       });
+    } else {
+      res.json({ status: "bad" });
     }
-    return;
   } catch (ex) {
     console.log(ex);
+    res.status(500).end();
   }
-  res.end();
 };
 
 const updateQuestion = (req, res) => {

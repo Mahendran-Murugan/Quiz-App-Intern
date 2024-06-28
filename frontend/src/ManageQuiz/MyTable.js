@@ -10,6 +10,8 @@ import Conformation from "./Conformation";
 import axios from "axios";
 import Typography from "@mui/material/Typography";
 import { Grid, TextField } from "@mui/material";
+import Choices from "./Choices";
+import { ChoiceContext } from "./Form";
 const MyQuizTableContext = React.createContext();
 export default function MyTable({ rows }) {
   const [name, setName] = React.useState("");
@@ -101,60 +103,12 @@ export default function MyTable({ rows }) {
                                 autoComplete="shipping address-line1"
                               />
                             </Grid>
-                            <Grid item xs={12} sm={6}>
-                              <TextField
-                                required
-                                id="city"
-                                name="city"
-                                label="Choice 1"
-                                value={question.ch1}
-                                fullWidth
-                                onChange={(e) => {
-                                  question.ch1 = e.target.value;
-                                }}
-                                autoComplete="shipping address-level2"
+                            <ChoiceContext.Provider value={{ question }}>
+                              <Choices
+                                myChoices={question.choices}
+                                count={question.choices.length}
                               />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                              <TextField
-                                required
-                                value={question.ch2}
-                                id="state"
-                                name="state"
-                                onChange={(e) => {
-                                  question.ch2 = e.target.value;
-                                }}
-                                label="Choice 2"
-                                fullWidth
-                              />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                              <TextField
-                                id="zip"
-                                value={question.ch3}
-                                name="zip"
-                                onChange={(e) => {
-                                  question.ch3 = e.target.value;
-                                }}
-                                label="Choice 3"
-                                fullWidth
-                                autoComplete="shipping postal-code"
-                              />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                              <TextField
-                                id="country"
-                                name="country"
-                                value={question.ch4}
-                                onChange={(e) => {
-                                  question.ch4 = e.target.value;
-                                }}
-                                required
-                                label="Choice 4"
-                                fullWidth
-                                autoComplete="shipping country"
-                              />
-                            </Grid>
+                            </ChoiceContext.Provider>
                             <Grid item xs={12} sm={6}>
                               <TextField
                                 id="answer"

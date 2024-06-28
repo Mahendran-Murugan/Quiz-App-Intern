@@ -2,10 +2,10 @@ import { Button, Grid, TextField } from "@mui/material";
 import React, { useState } from "react";
 import { UseChoiceContext } from "./Form";
 
-const Choices = () => {
+const Choices = ({ myChoices, count }) => {
   const { question } = UseChoiceContext();
-  const [choiceCount, setChoiceCount] = useState(1);
-  const [choiceValue, setChoiceValue] = useState([""]);
+  const [choiceCount, setChoiceCount] = useState(count);
+  const [choiceValue, setChoiceValue] = useState(myChoices);
   const handleChoiceCount = () => {
     const increement = choiceCount + 1;
     setChoiceValue([...choiceValue, ""]);
@@ -21,8 +21,10 @@ const Choices = () => {
             name="Choice"
             label={`Choice ${ind + 1}`}
             fullWidth
+            value={choiceValue[ind] !== "" && choiceValue[ind]}
             onChange={(e) => {
               choiceValue[ind] = e.target.value;
+
               question.choices = choiceValue;
             }}
             autoComplete="shipping address-level2"
