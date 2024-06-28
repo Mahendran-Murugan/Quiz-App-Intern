@@ -4,7 +4,7 @@ const showAllQuiz = (req, res) => {
   connection.query("SELECT * FROM QUIZZ", (err, result, fields) => {
     if (err) {
       console.log(err);
-      res.json({ status: 404 });
+      res.end();
       return;
     }
     res.json(result);

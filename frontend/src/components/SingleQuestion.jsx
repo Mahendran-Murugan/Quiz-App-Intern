@@ -52,7 +52,7 @@ export const SingleQuestion = ({ question, index }) => {
           value={select}
         >
           {choices.map((choice, index) => (
-            <SingleChoice key={index} choice={choice} />
+            <SingleChoice  key={index} choice={choice} />
           ))}
           {isSubmitted ? (
             select === answer ? (

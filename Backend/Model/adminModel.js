@@ -15,9 +15,7 @@ const createQuiz = (req, res, call) => {
         (err, result) => {
           if (err) {
             console.log(err);
-            res.status(404).json({
-              status: "bad",
-            });
+            res.end();
             return;
           }
 
@@ -26,28 +24,21 @@ const createQuiz = (req, res, call) => {
             if (e.ch2 == undefined) e.ch2 = null;
             if (e.ch3 == undefined) e.ch3 = null;
             if (e.ch4 == undefined) e.ch4 = null;
-            connection.query(
-              `insert into question( quizid , question , ch1 , ch2 , ch3 , ch4 , answer , image , points) values (${result.insertId} , "${e.question}" ,"${e.ch1}", "${e.ch2}" ,"${e.ch3}" ,"${e.ch4}", "${e.answer}" ,"${e.image}" ,${e.points})`,
-              (err, result, field) => {
-                if (err) {
-                  console.log(err);
-                  res.status(404).json({
-                    status: "bad",
-                  });
-                  return;
-                }
-                res.status(200).json({
-                  status: "good",
-                });
-              }
-            );
+            connection
+              .query(
+                `insert into question( quizid , question , ch1 , ch2 , ch3 , ch4 , answer , image , points) values (${result.insertId} , "${e.question}" ,"${e.ch1}", "${e.ch2}" ,"${e.ch3}" ,"${e.ch4}", "${e.answer}" ,"${e.image}" ,${e.points})`
+              )
+              .on("error", (err) => {
+                res.status(404).json({ status: err });
+              })
+              .on("result", (result) => {
+                res.status(200).json(result);
+              });
           });
         }
       );
     } else {
-      res.json({
-        status: "bad",
-      });
+      res.end();
     }
     return;
   } catch (ex) {
@@ -69,16 +60,14 @@ const deleteQuiz = (req, res) => {
         console.log(err);
         return;
       }
-      connection.query(
-        `delete from question where quizid=${req.params.id}`,
-        (err1, result1, field1) => {
-          if (err1) {
-            console.log(err);
-            return;
-          }
-          res.json({ status: "good" });
-        }
-      );
+      connection
+        .query(`delete from question where quizid=${req.params.id}`)
+        .on("error", (err) => {
+          res.status(404).json({ status: err });
+        })
+        .on("result", (result) => {
+          res.status(200).json(result);
+        });
     }
   );
 };
@@ -90,40 +79,32 @@ const updateQuiz = (req, res, call) => {
   const body = req.body;
   try {
     if (body.name && body.count && body.questions && body.id) {
-      connection.query(
-        `update quizz set name = "${body.name}" , count = ${body.count} where id = ${body.id}`,
-        (err, result) => {
-          if (err) {
-            console.log(err);
-            res.status(404).json({
-              status: "bad",
-            });
-            return;
-          }
-
+      connection
+        .query(
+          `update quizz set name = "${body.name}" , count = ${body.count} where id = ${body.id}`
+        )
+        .on("error", (err) => {
+          res.end();
+        })
+        .on("result", (result) => {
           body.questions.map((e) => {
             if (e.ch1 == undefined) e.ch1 = null;
             if (e.ch2 == undefined) e.ch2 = null;
             if (e.ch3 == undefined) e.ch3 = null;
             if (e.ch4 == undefined) e.ch4 = null;
-            connection.query(
-              `update question  set question = "${e.question}" , ch1 = "${e.ch1}" , ch2 = "${e.ch2}" , ch3  ="${e.ch3}" , ch4 = "${e.ch4}" , answer  ="${e.answer}" , image = "${e.image}" , points = ${e.points} where quizid = ${body.id}`,
-              (err, result, field) => {
-                if (err) {
-                  console.log(err);
-                  res.status(404).json({
-                    status: "bad",
-                  });
-                  return;
-                }
-                res.status(200).json({
-                  status: "good",
-                });
-              }
-            );
+            connection
+              .query(
+                `update question  set question = "${e.question}" , ch1 = "${e.ch1}" , ch2 = "${e.ch2}" , ch3  ="${e.ch3}" , ch4 = "${e.ch4}" , answer  ="${e.answer}" , image = "${e.image}" , points = ${e.points} where quizid = ${body.id}`
+              )
+              .on("error", (err) => {
+                res.end();
+              })
+              .on("result", (result) => {
+                res.end();
+              });
+            res.end();
           });
-        }
-      );
+        });
     } else {
       res.json({
         status: "bad",
@@ -138,17 +119,16 @@ const updateQuiz = (req, res, call) => {
 
 const updateQuestion = (req, res) => {
   const e = req.body;
-  connection.query(
-    `update question set quizid = ${e.quizid} ,question= "${e.question}" ,ch1="${e.ch1}",ch2= "${e.ch2}" ,ch3="${e.ch3}" ,ch4="${e.ch4}", answer="${e.answer}" ,image="${e.image}" ,points=${e.points} where id = ${req.params.id}`,
-    (err, r, f) => {
-      if (err) {
-        console.log(err);
-        return;
-      }
-      res.json({ status: "good" });
-      return;
-    }
-  );
+  connection
+    .query(
+      `update question set quizid = ${e.quizid} ,question= "${e.question}" ,ch1="${e.ch1}",ch2= "${e.ch2}" ,ch3="${e.ch3}" ,ch4="${e.ch4}", answer="${e.answer}" ,image="${e.image}" ,points=${e.points} where id = ${req.params.id}`
+    )
+    .on("error", (err) => {
+      res.status(404).json({ status: err });
+    })
+    .on("result", (result) => {
+      res.status(200).json(result);
+    });
 };
 
 const showQuestionsByID = (req, res) => {
@@ -158,14 +138,14 @@ const showQuestionsByID = (req, res) => {
     res.json({ status: "bad" });
     return;
   }
-  connection.query(`SELECT * FROM QUESTION where ID = ${id}`, (err, result) => {
-    if (err) {
-      console.log(err);
-      return;
-    }
-    res.json(result);
-    return;
-  });
+  connection
+    .query(`SELECT * FROM QUESTION where ID = ${id}`)
+    .on("error", (err) => {
+      res.status(404).json({ status: err });
+    })
+    .on("result", (result) => {
+      res.status(200).json(result);
+    });
 };
 const showQuestions = (req, res) => {
   connection.query(`SELECT * FROM QUESTION `, (err, result) => {
@@ -173,7 +153,8 @@ const showQuestions = (req, res) => {
       console.log(err);
       return;
     }
-    res.json(result);
+    re;
+    s.json(result);
     return;
   });
 };

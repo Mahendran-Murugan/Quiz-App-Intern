@@ -14,8 +14,7 @@ export default function Form() {
 
   const handleCount = () => {
     setCount((p) => p + 1);
-    setQuestions([]);
-    for (let i = 0; i <= count; i++) {
+    
       setQuestions((p) => [
         ...p,
         {
@@ -29,7 +28,7 @@ export default function Form() {
           points: "",
         },
       ]);
-    }
+    
     console.log(questions);
   };
   return (
