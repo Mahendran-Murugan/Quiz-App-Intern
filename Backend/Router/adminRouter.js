@@ -8,7 +8,6 @@ const {
   updateQuiz,
 } = require("../Model/adminModel");
 const router = express.Router();
-const upload = require("../Model/imageStorage");
 router.post("/quiz/create", createQuiz);
 router.delete("/quiz/delete/:id", deleteQuiz);
 router.put("/update/question/:id", updateQuestion);
