@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { createContext, useContext, useState } from "react";
 import {
   Button,
   Checkbox,
@@ -8,28 +8,26 @@ import {
   Typography,
 } from "@mui/material";
 import { UseQuiz } from "./CreateQuiz";
+import Choices from "./Choices";
 
 export default function Form() {
   const { setName, name, count, setCount, setQuestions, questions } = UseQuiz();
 
+  const handleChoiceCount = () => {};
+
   const handleCount = () => {
     setCount((p) => p + 1);
-    
-      setQuestions((p) => [
-        ...p,
-        {
-          question: "",
-          ch1: "",
-          ch2: "",
-          ch3: "",
-          ch4: "",
-          answer: "",
-          image: "",
-          points: "",
-        },
-      ]);
-    
-    console.log(questions);
+
+    setQuestions((p) => [
+      ...p,
+      {
+        question: "",
+        choices: [],
+        answer: "",
+        image: "",
+        points: 0,
+      },
+    ]);
   };
   return (
     <React.Fragment>
@@ -66,56 +64,10 @@ export default function Form() {
                   autoComplete="shipping address-line1"
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  id="city"
-                  name="city"
-                  label="Choice 1"
-                  fullWidth
-                  onChange={(e) => {
-                    question.ch1 = e.target.value;
-                  }}
-                  autoComplete="shipping address-level2"
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  id="state"
-                  name="state"
-                  onChange={(e) => {
-                    question.ch2 = e.target.value;
-                  }}
-                  label="Choice 2"
-                  fullWidth
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  id="zip"
-                  name="zip"
-                  onChange={(e) => {
-                    question.ch3 = e.target.value;
-                  }}
-                  label="Choice 3"
-                  fullWidth
-                  autoComplete="shipping postal-code"
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  id="country"
-                  name="country"
-                  onChange={(e) => {
-                    question.ch4 = e.target.value;
-                  }}
-                  required
-                  label="Choice 4"
-                  fullWidth
-                  autoComplete="shipping country"
-                />
-              </Grid>
+              <ChoiceContext.Provider value={{ question }}>
+                <Choices />
+              </ChoiceContext.Provider>
+
               <Grid item xs={12} sm={6}>
                 <TextField
                   id="answer"
@@ -169,3 +121,9 @@ export default function Form() {
     </React.Fragment>
   );
 }
+
+const ChoiceContext = createContext();
+
+export const UseChoiceContext = () => {
+  return useContext(ChoiceContext);
+};

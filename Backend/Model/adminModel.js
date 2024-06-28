@@ -1,50 +1,50 @@
 const connection = require("../db");
 const app = require("express")();
 
-const createQuiz = (req, res, call) => {
-  if (req.file) {
-    console.log(req.file);
-  }
-  const body = req.body;
-  // console.log(body);
-  try {
-    if (body.name && body.count && body.questions) {
-      console.log(body.questions);
-      connection.query(
-        `insert into quizz( name , count) values ( "${body.name}" , ${body.count}) `,
-        (err, result) => {
-          if (err) {
-            console.log(err);
-            res.end();
-            return;
-          }
+function jsonConverter(arr) {
+  return Object.assign({}, arr);
+}
 
-          body.questions.map((e) => {
-            if (e.ch1 == undefined) e.ch1 = null;
-            if (e.ch2 == undefined) e.ch2 = null;
-            if (e.ch3 == undefined) e.ch3 = null;
-            if (e.ch4 == undefined) e.ch4 = null;
-            connection
-              .query(
-                `insert into question( quizid , question , ch1 , ch2 , ch3 , ch4 , answer , image , points) values (${result.insertId} , "${e.question}" ,"${e.ch1}", "${e.ch2}" ,"${e.ch3}" ,"${e.ch4}", "${e.answer}" ,"${e.image}" ,${e.points})`
-              )
-              .on("error", (err) => {
-                res.status(404).json({ status: err });
-              })
-              .on("result", (result) => {
-                res.status(200).json(result);
-              });
-          });
-        }
-      );
-    } else {
-      res.end();
-    }
-    return;
-  } catch (ex) {
-    console.log(ex);
+const createQuiz = (req, res, call) => {
+  const body = req.body;
+  console.log(body);
+
+  if (body.name && body.count && body.questions) {
+    connection
+      .query(
+        `insert into quizz( name , count) values ( "${body.name}" , ${body.count}) `
+      )
+      .on("error", (err) => {
+        console.log(err);
+        res.end();
+      })
+      .on("result", (result) => {
+        body.questions.map((e) => {
+          const json = jsonConverter(e.choices);
+          const sql = `INSERT INTO question (quizid, question, choices, answer, image, points)
+          VALUES (?, ?, ?, ?, ?, ?)`;
+
+          const values = [
+            result.insertId,
+            e.question,
+            JSON.stringify(json),
+            e.answer,
+            e.image,
+            e.points,
+          ];
+          connection
+            .query(sql, values)
+            .on("error", (err) => {
+              console.log(err);
+              res.end();
+            })
+            .on("result", (result) => {
+              res.end();
+            });
+        });
+        res.end();
+      });
   }
-  res.end();
 };
 
 const deleteQuiz = (req, res) => {
