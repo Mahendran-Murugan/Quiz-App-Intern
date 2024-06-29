@@ -37,7 +37,7 @@ const showImageQuiz = (res, req) => {
 
 const createQuiz = (req, res, call) => {
   const body = req.body;
-  // console.log(body);
+  console.log(body);
 
   if (body.name && body.count && body.questions) {
     connection
@@ -46,9 +46,11 @@ const createQuiz = (req, res, call) => {
       )
       .on("error", (err) => {
         console.log(err);
+
         res.end();
       })
       .on("result", (result) => {
+        res.json({ id: result.insertId });
         body.questions.map((e) => {
           const json = JSON.stringify(Object.assign({}, e.choices));
           const sql = `INSERT INTO question (quizid, question, choices, answer, image, points)
@@ -70,7 +72,8 @@ const createQuiz = (req, res, call) => {
             })
             .on("result", (result2) => {
               // console.log(result2);
-              res.end();
+              res.end(result.insertId);
+              return;
             });
         });
         res.end();

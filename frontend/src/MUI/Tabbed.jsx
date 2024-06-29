@@ -6,6 +6,9 @@ import PropTypes from "prop-types";
 import CreateQuiz from "../ManageQuiz/CreateQuiz";
 import QuizManipulate from "../ManageQuiz/QuizManipulate";
 import { Stack } from "@mui/material";
+import { Provider } from "react-redux";
+import { store } from "../app/store";
+
 export default function Tabbed() {
   const [value, setValue] = React.useState(0);
 
@@ -56,10 +59,14 @@ export default function Tabbed() {
       <CustomTabPanel value={value} index={0}>
         <Stack>
           <center>
-            <CreateQuiz />
+            <Provider store={store}>
+              <CreateQuiz />
+            </Provider>
           </center>
           <br />
-          <QuizManipulate />
+          <Provider store={store}>
+            <QuizManipulate />
+          </Provider>
         </Stack>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}></CustomTabPanel>

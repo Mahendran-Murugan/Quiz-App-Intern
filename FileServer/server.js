@@ -7,17 +7,19 @@ const PORT = 4000;
 app.use(cors({ origin: "*" }));
 app.use(express.json());
 app.use(express.static("Images"));
-app.post("/api/post/image", upload.single("image"), (req, res) => {
+app.post("/api/post/image", upload.single("qimage"), (req, res) => {
+  console.log(req.file);
   if (req.file) {
     res.json({ file: req.file });
     return;
   }
+  console.log("error");
   res.json({ file: "error" });
 });
 
 app.get("/Images/:name", (req, res) => {
   console.log(req.params);
-
+  
   fs.readFileSync(`./Images/${req.params.name}`, (err, data) => {
     if (err) {
       console.log(err);

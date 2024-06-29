@@ -12,11 +12,16 @@ import { UseQuiz } from "./CreateQuiz";
 import Choices from "./Choices";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Uploader from "../MUI/Uploader";
-
+import { useSelector, useDispatch } from "react-redux";
+import { addAction, removeAction } from "../feature/imageQuizSlice";
 export default function Form() {
   const { setName, name, count, setCount, setQuestions, questions } = UseQuiz();
+  const questionFiles = useSelector((state) => state.imageFiles.data);
+  const questionFilesDispatcher = useDispatch();
   const childRef = useRef();
-  const handleRemove = (index) => {
+  const handleRemove = (e, index) => {
+    e.preventDefault();
+    questionFilesDispatcher(removeAction(index));
     setQuestions((prevItems) => {
       const newItems = prevItems.filter((_, i) => i !== index);
       prevItems.choices = [];
@@ -27,7 +32,10 @@ export default function Form() {
       childRef.current.handleChoiceDelete();
     }
   };
-  const handleCount = () => {
+  const handleCount = (e) => {
+    e.preventDefault();
+    questionFilesDispatcher(addAction(null));
+
     setCount((p) => p + 1);
 
     setQuestions((p) => [
@@ -65,13 +73,15 @@ export default function Form() {
                   Question {index + 1}
                   <IconButton
                     color="error"
-                    onClick={() => {
-                      handleRemove(index);
+                    onClick={(e) => {
+                      handleRemove(e, index);
                     }}
                   >
                     <DeleteIcon />
                   </IconButton>
                 </Typography>
+                <Uploader index={index} />
+
                 <TextField
                   required
                   id="address1"
@@ -121,28 +131,6 @@ export default function Form() {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
-                  id="image"
-                  name="image"
-                  onChange={(e) => {
-                    setQuestions((p) => {
-                      const newA = [...p];
-                      newA.splice(index, 1, {
-                        ...question,
-                        image: e.target.value,
-                      });
-                      return newA;
-                    });
-                    question.image = e.target.value;
-                  }}
-                  value={question.image}
-                  required
-                  label="Image"
-                  fullWidth
-                  autoComplete="Image"
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
                   required
                   id="points"
                   name="points"
@@ -170,7 +158,7 @@ export default function Form() {
         })}
 
         <Grid item xs={12} sm={8}>
-          <Button onClick={() => handleCount()}>Add Question</Button>
+          <Button onClick={(e) => handleCount(e)}>Add Question</Button>
         </Grid>
       </Grid>
     </React.Fragment>

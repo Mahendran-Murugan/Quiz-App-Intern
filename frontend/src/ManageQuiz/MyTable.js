@@ -13,25 +13,88 @@ import Typography from "@mui/material/Typography";
 import { Button, Grid, IconButton, TextField } from "@mui/material";
 import Choices from "./Choices";
 import { ChoiceContext } from "./Form";
+import Uploader from "../MUI/Uploader";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addAction,
+  removeAction,
+  resetAction,
+} from "../feature/imageQuizSlice";
 const MyQuizTableContext = React.createContext();
 export default function MyTable({ rows }) {
   const [name, setName] = React.useState("");
   const [count, setCount] = React.useState(0);
   const [questions, setQuestions] = React.useState([]);
-  const handleDelete = (id) => {
+  const selector = useSelector((state) => state.imageFiles.data);
+
+  const handleDelete = (e, id) => {
+    e.preventDefault();
     axios.delete("http://localhost:8000/api/admin/quiz/delete/" + id);
   };
-  const handleEdit = (id) => {
-    axios.delete("http://localhost:8000/api/admin/quiz/delete/" + id);
-    // console.log(questions);
-    axios.post("http://localhost:8000/api/admin/quiz/create", {
-      name: name,
-      count: questions.length,
-      questions: questions,
-    });
+  const dispatcher = useDispatch();
+  const handleEdit = async (e, id) => {
+    e.preventDefault();
+    try {
+      console.log(selector);
+
+      const isFile = (input) => input instanceof File;
+      const uploadPromises = selector.map(async (select, index) => {
+        var file = "";
+        console.log(select);
+        if (isFile(select.qimage)) {
+          const formData = new FormData();
+          formData.append("qimage", select.qimage);
+
+          const response = await axios.post(
+            "http://localhost:4000/api/post/image",
+            formData,
+            {
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+            }
+          );
+          file = response.data.file.filename || "none";
+        } else {
+          file = select.qimage;
+        }
+        console.log(file);
+        setQuestions((prevQuestions) => {
+          const newQuestions = [...prevQuestions];
+          newQuestions[index] = {
+            ...prevQuestions[index],
+            image: file,
+          };
+          return newQuestions;
+        });
+        questions[index].image = file;
+      });
+
+      await Promise.all(uploadPromises);
+
+      handleDelete(e, id);
+      // console.log(questions);
+      await axios
+        .post("http://localhost:8000/api/admin/quiz/create", {
+          name: name,
+          count: count,
+          questions: questions,
+        })
+        .then((resu) => {
+          // console.log(resu);
+        })
+        .catch((err) => console.log(err));
+      // console.log(questions);
+    } catch (error) {
+      console.error("Error creating quiz:", error);
+    }
+
+    dispatcher(resetAction());
   };
   const childRef = React.useRef();
-  const handleRemove = (index) => {
+  const handleRemove = (e, index) => {
+    e.preventDefault();
+    dispatcher(removeAction(index));
     setQuestions((prevItems) => {
       const newItems = prevItems.filter((_, i) => i !== index);
       prevItems.choices = [];
@@ -43,7 +106,9 @@ export default function MyTable({ rows }) {
     }
   };
 
-  const handleCount = () => {
+  const handleCount = (e) => {
+    e.preventDefault();
+    dispatcher(addAction(null));
     setQuestions((prevQuestions) => {
       const newQuestions = [
         ...prevQuestions,
@@ -94,6 +159,7 @@ export default function MyTable({ rows }) {
                   <Conformation
                     button="Edit"
                     header={"Edit"}
+                    id={row.id}
                     ConfirmName={row.name}
                     questCount={row.count}
                     body={
@@ -117,18 +183,25 @@ export default function MyTable({ rows }) {
                           </Grid>
                           {questions.map((question, index) => (
                             <>
-                              <Grid item xs={10} sm={10}>
+                              <Grid item xs={10} sm={12}>
                                 <Typography variant="h6" gutterBottom>
                                   Question {index + 1}
                                   <IconButton
                                     color="error"
                                     onClick={(e) => {
-                                      handleRemove(index);
+                                      handleRemove(e, index);
                                     }}
                                   >
                                     <DeleteIcon />
                                   </IconButton>
                                 </Typography>
+                                {selector[index] && (
+                                  <Uploader
+                                    index={index}
+                                    src={selector[index].qimage}
+                                  />
+                                )}
+
                                 <TextField
                                   required
                                   id="address1"
@@ -164,20 +237,7 @@ export default function MyTable({ rows }) {
                                   autoComplete="Answer"
                                 />
                               </Grid>
-                              <Grid item xs={12} sm={6}>
-                                <TextField
-                                  id="image"
-                                  value={question.image}
-                                  name="image"
-                                  onChange={(e) => {
-                                    question.image = e.target.value;
-                                  }}
-                                  required
-                                  label="Image"
-                                  fullWidth
-                                  autoComplete="Image"
-                                />
-                              </Grid>
+
                               <Grid item xs={12} sm={6}>
                                 <TextField
                                   required
@@ -199,13 +259,12 @@ export default function MyTable({ rows }) {
                           ))}
                         </Grid>
                         <Grid item xs={12} sm={8}>
-                          <Button onClick={() => handleCount()}>
+                          <Button onClick={(e) => handleCount(e)}>
                             Add Question
                           </Button>
                         </Grid>
                       </>
                     }
-                    id={row.id}
                     left="Cancel"
                     right="Save"
                     color="primary"

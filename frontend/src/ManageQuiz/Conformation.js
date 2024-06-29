@@ -9,6 +9,8 @@ import Paper from "@mui/material/Paper";
 import Draggable from "react-draggable";
 import { UseQuizTableContext } from "./MyTable";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { addAction, resetAction } from "../feature/imageQuizSlice";
 
 function PaperComponent(props) {
   return (
@@ -43,20 +45,24 @@ export default function Conformation({
   } = UseQuizTableContext();
   const [open, setOpen] = React.useState(false);
 
-  const handleClickOpen = () => {
+  const handleClickOpen = (e) => {
+    e.preventDefault();
     AsyncFunction();
     setName(ConfirmName);
     setCount(questCount);
     setOpen(true);
   };
+  const selector = useSelector((state) => state.imageFiles.data);
+  const dispatch = useDispatch();
   async function AsyncFunction() {
-    // console.log(id);
+    dispatch(resetAction());
     const result = (
       await axios.get("http://localhost:8000/api/user/quiz/" + id)
     ).data;
-
     setQuestions([]);
     result.map((ele) => {
+      dispatch(addAction(ele.image));
+      
       setQuestions((p) => [
         ...p,
         {
@@ -70,14 +76,18 @@ export default function Conformation({
     });
   }
 
-
   const handleClose = () => {
+    dispatch(resetAction());
     setOpen(false);
   };
 
   return (
     <React.Fragment>
-      <Button variant="outlined" color={color} onClick={handleClickOpen}>
+      <Button
+        variant="outlined"
+        color={color}
+        onClick={(e) => handleClickOpen(e)}
+      >
         {button}
       </Button>
       <Dialog
@@ -94,7 +104,6 @@ export default function Conformation({
         </DialogContent>
         <DialogActions>
           <Button
-            autoFocus
             onClick={() => {
               handleClose();
             }}
@@ -102,9 +111,12 @@ export default function Conformation({
             {left}
           </Button>
           <Button
-            onClick={() => {
-              if (right.toLowerCase() == "save") handleEdit(id);
-              if (right.toLowerCase() == "delete") handleDelete(id);
+            onClick={(e) => {
+              if (right.toLowerCase() == "save") {
+                handleEdit(e, id);
+                handleDelete(e, id);
+              }
+              if (right.toLowerCase() == "delete") handleDelete(e, id);
               handleClose();
             }}
           >
