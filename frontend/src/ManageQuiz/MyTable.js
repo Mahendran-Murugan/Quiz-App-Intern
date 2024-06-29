@@ -35,12 +35,12 @@ export default function MyTable({ rows }) {
   const handleEdit = async (e, id) => {
     e.preventDefault();
     try {
-      console.log(selector);
+      // console.log(selector);
 
       const isFile = (input) => input instanceof File;
       const uploadPromises = selector.map(async (select, index) => {
         var file = "";
-        console.log(select);
+        // console.log(select);
         if (isFile(select.qimage)) {
           const formData = new FormData();
           formData.append("qimage", select.qimage);
@@ -58,7 +58,7 @@ export default function MyTable({ rows }) {
         } else {
           file = select.qimage;
         }
-        console.log(file);
+        // console.log(file);
         setQuestions((prevQuestions) => {
           const newQuestions = [...prevQuestions];
           newQuestions[index] = {
