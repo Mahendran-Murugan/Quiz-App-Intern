@@ -22,6 +22,7 @@ export default function MyTable({ rows }) {
   };
   const handleEdit = (id) => {
     axios.delete("http://localhost:8000/api/admin/quiz/delete/" + id);
+    console.log(questions);
     axios.post("http://localhost:8000/api/admin/quiz/create", {
       name: name,
       count: questions.length,

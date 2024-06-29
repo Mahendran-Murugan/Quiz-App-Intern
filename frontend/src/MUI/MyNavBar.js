@@ -38,7 +38,7 @@ function MyNavBar(props) {
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
       <Typography variant="h6" sx={{ my: 2 }}>
-        Silicon Software Solution
+        Silicon Software Services
       </Typography>
       <Divider />
       <List>
@@ -102,7 +102,6 @@ function MyNavBar(props) {
     window !== undefined ? () => window().document.body : undefined;
 
   return (
-    
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
       <AppBar component="nav" position="sticky">
@@ -121,7 +120,7 @@ function MyNavBar(props) {
             component="div"
             sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
           >
-            Silicon Software Solution
+            Silicon Software Services
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
             {localStorage.getItem("name") == "" && (
@@ -146,7 +145,9 @@ function MyNavBar(props) {
             >
               <Button sx={{ color: "#fff" }}>Quiz</Button>
             </NavLink>
-            <NavLink to={localStorage.getItem("name") != "" ? "/profile" : "/login"}>
+            <NavLink
+              to={localStorage.getItem("name") != "" ? "/profile" : "/login"}
+            >
               <Button sx={{ color: "#fff" }}>Profile</Button>
             </NavLink>
             {localStorage.getItem("name") != "" && (

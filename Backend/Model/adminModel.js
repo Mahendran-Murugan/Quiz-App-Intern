@@ -7,7 +7,7 @@ function jsonConverter(arr) {
 
 const createQuiz = (req, res, call) => {
   const body = req.body;
-  console.log(body);
+  // console.log(body);
 
   if (body.name && body.count && body.questions) {
     connection
@@ -20,25 +20,26 @@ const createQuiz = (req, res, call) => {
       })
       .on("result", (result) => {
         body.questions.map((e) => {
-          const json = jsonConverter(e.choices);
+          const json = JSON.stringify(Object.assign({}, e.choices));
           const sql = `INSERT INTO question (quizid, question, choices, answer, image, points)
           VALUES (?, ?, ?, ?, ?, ?)`;
 
           const values = [
             result.insertId,
             e.question,
-            JSON.stringify(json),
+            json,
             e.answer,
             e.image,
             e.points,
           ];
           connection
             .query(sql, values)
-            .on("error", (err) => {
-              console.log(err);
+            .on("error", (err2) => {
+              // console.log(err2);
               res.end();
             })
-            .on("result", (result) => {
+            .on("result", (result2) => {
+              // console.log(result2);
               res.end();
             });
         });

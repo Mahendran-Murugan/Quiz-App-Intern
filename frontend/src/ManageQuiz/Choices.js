@@ -10,8 +10,9 @@ const Choices = ({ myChoices, count }) => {
   const handleChoiceCount = () => {
     const increement = choiceCount + 1;
     setChoiceValue([...choiceValue, ""]);
-    setChoiceCount(choiceCount + 1);
+    setChoiceCount((p) => p + 1);
   };
+
   return (
     <>
       {choiceValue.map((choice, ind) => (
@@ -28,9 +29,11 @@ const Choices = ({ myChoices, count }) => {
                 newItems.splice(ind, 1, e.target.value);
                 return newItems;
               });
-              question.choices = choiceValue;
+              choiceValue[ind] = e.target.value;
+              question.choices[ind] = choiceValue[ind];
+              console.log(choiceValue);
             }}
-            value={choiceValue[ind]}
+            value={choice}
             autoComplete="shipping address-level2"
           />
         </Grid>
