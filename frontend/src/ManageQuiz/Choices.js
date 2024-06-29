@@ -31,7 +31,7 @@ const Choices = ({ myChoices, count }) => {
               });
               choiceValue[ind] = e.target.value;
               question.choices[ind] = choiceValue[ind];
-              console.log(choiceValue);
+              // console.log(choiceValue);
             }}
             value={choice}
             autoComplete="shipping address-level2"

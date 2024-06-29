@@ -44,11 +44,13 @@ export default function Conformation({
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
+    AsyncFunction();
     setCount(questCount);
     setName(ConfirmName);
     setOpen(true);
   };
   async function AsyncFunction() {
+    // console.log(id);
     const result = (
       await axios.get("http://localhost:8000/api/user/quiz/" + id)
     ).data;
@@ -68,11 +70,7 @@ export default function Conformation({
     });
   }
 
-  React.useEffect(() => {
-    setName(ConfirmName);
-    setCount(questCount);
-    AsyncFunction();
-  }, []);
+
   const handleClose = () => {
     setOpen(false);
   };
