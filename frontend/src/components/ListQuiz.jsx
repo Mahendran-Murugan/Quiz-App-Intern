@@ -36,17 +36,17 @@ export const ListQuiz = () => {
             available{" "}
           </Typography>
         )) || (
-          <h1>
-            Welcome {localStorage.getItem("name")}, These are no available
-            quizes
-          </h1>
-        )}
+            <h1>
+              Welcome {localStorage.getItem("name")}, These are no available
+              quizes
+            </h1>
+          )}
       </center>
       <Box>
         {quizall.map((quiz, index) => {
           return (
             <Paper sx={{ m: 2, p: 2 }} elevation={5}>
-              {localStorage.getItem("name") == "" && (
+              {localStorage.getItem("name") === "" && (
                 <Navigate to="/login"></Navigate>
               )}
               <Link to={`${quiz.id}`} onClick={() => handleClick(quiz.id)}>

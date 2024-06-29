@@ -103,8 +103,8 @@ export default function Conformation({
           </Button>
           <Button
             onClick={() => {
-              if (right.toLowerCase() == "save") handleEdit(id);
-              if (right.toLowerCase() == "delete") handleDelete(id);
+              if (right.toLowerCase() === "save") handleEdit(id);
+              if (right.toLowerCase() === "delete") handleDelete(id);
               handleClose();
             }}
           >

@@ -56,7 +56,7 @@ export default function CreateQuiz({ props }) {
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose}>Close</Button>
-            {count > 0 && name != "" && (
+            {count > 0 && name !== "" && (
               <Button type="submit" onClick={handleCreate} autoFocus>
                 Create
               </Button>
