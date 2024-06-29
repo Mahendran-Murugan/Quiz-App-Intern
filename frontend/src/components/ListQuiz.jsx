@@ -13,16 +13,18 @@ import { QuestContext } from "../Context/QuestionContext";
 export const ListQuiz = () => {
   const [quizall, setQuiz] = useState([]);
   const [quizCount, setQuixCount] = useState(0);
-  const { QID, setQID } = QuestContext();
+  const { QID, setQID, min, setMin } = QuestContext();
   useEffect(() => {
     axios.get("http://localhost:8000/api/user/quiz/list").then((res) => {
       setQuiz(res.data);
       setQuixCount(res.data.length);
+      setMin(res.data.duration);
     });
   }, []);
 
-  const handleClick = (id) => {
+  const handleClick = (index, id) => {
     setQID(id);
+    setMin(quizall[index].duration);
   };
 
   const quizStatus = quizCount > 0;
@@ -36,11 +38,11 @@ export const ListQuiz = () => {
             available{" "}
           </Typography>
         )) || (
-            <h1>
-              Welcome {localStorage.getItem("name")}, These are no available
-              quizes
-            </h1>
-          )}
+          <h1>
+            Welcome {localStorage.getItem("name")}, These are no available
+            quizes
+          </h1>
+        )}
       </center>
       <Box>
         {quizall.map((quiz, index) => {
@@ -49,7 +51,10 @@ export const ListQuiz = () => {
               {localStorage.getItem("name") == "" && (
                 <Navigate to="/login"></Navigate>
               )}
-              <Link to={`${quiz.id}`} onClick={() => handleClick(quiz.id)}>
+              <Link
+                to={`${quiz.id}`}
+                onClick={() => handleClick(index, quiz.id)}
+              >
                 <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                   <Stack direction={"row"} spacing={3} alignItems={"center"}>
                     <Typography variant="button" color="initial">
@@ -59,9 +64,16 @@ export const ListQuiz = () => {
                       {quiz.name.replace(/^./, quiz.name[0].toUpperCase())}
                     </Typography>
                   </Stack>
-                  <Typography variant="body" color="initial">
-                    <Button color="primary">{quiz.count} Questions</Button>
-                  </Typography>
+                  <Box spacing={2}>
+                    <Typography variant="body" color="initial">
+                      <Typography m={1} variant="button" color="initial">
+                        {quiz.duration} minutes
+                      </Typography>
+                      <Typography m={1} color="primary" variant="button">
+                        {quiz.count} Questions
+                      </Typography>
+                    </Typography>
+                  </Box>
                 </Box>
               </Link>
             </Paper>

@@ -5,8 +5,11 @@ const MyContext = createContext();
 
 export const QuestionContext = ({ children }) => {
   const [QID, setQID] = useState(0);
+  const [min, setMin] = useState(0);
   return (
-    <MyContext.Provider value={{ QID, setQID }}>{children}</MyContext.Provider>
+    <MyContext.Provider value={{ QID, setQID, min, setMin }}>
+      {children}
+    </MyContext.Provider>
   );
 };
 

@@ -25,6 +25,7 @@ export default function MyTable({ rows }) {
   const [name, setName] = React.useState("");
   const [count, setCount] = React.useState(0);
   const [questions, setQuestions] = React.useState([]);
+
   const selector = useSelector((state) => state.imageFiles.data);
 
   const handleDelete = (e, id) => {

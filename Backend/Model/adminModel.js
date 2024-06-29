@@ -42,7 +42,7 @@ const createQuiz = (req, res, call) => {
   if (body.name && body.count && body.questions) {
     connection
       .query(
-        `insert into quizz( name , count) values ( "${body.name}" , ${body.count}) `
+        `insert into quizz( name , count , duration) values ( "${body.name}" , ${body.count} , ${body.duration}) `
       )
       .on("error", (err) => {
         console.log(err);
@@ -114,8 +114,8 @@ const updateQuiz = (req, res, call) => {
   const body = req.body;
   try {
     if (body.name && body.count && body.questions && body.id) {
-      const updateQuizSql = `UPDATE quizz SET name = ?, count = ? WHERE id = ?`;
-      const updateQuizValues = [body.name, body.count, body.id];
+      const updateQuizSql = `UPDATE quizz SET duration = ? , name = ?, count = ? WHERE id = ?`;
+      const updateQuizValues = [body.duration , body.name, body.count, body.id];
 
       connection.query(updateQuizSql, updateQuizValues, (err, results) => {
         if (err) {

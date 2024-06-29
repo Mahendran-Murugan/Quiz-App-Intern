@@ -24,9 +24,8 @@ import { setSelected } from "../feature/quizAttendSlice";
 const AnswerContext = createContext();
 export const Questions = () => {
   const [data, setData] = useState([]);
-  const { QID, setQID } = QuestContext();
+  const { QID, setQID, min , setMin } = QuestContext();
   const [right, setRight] = useState([]);
-  const [min, setMin] = useState(10);
 
   const selectedSubscribe = useSelector((state) => state.quizAttend.selected);
   const selectedDispatcher = useDispatch();
