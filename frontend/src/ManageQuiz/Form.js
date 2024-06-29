@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { useContext } from "react";
 import {
   Button,
   Checkbox,
@@ -13,7 +13,7 @@ import Choices from "./Choices";
 export default function Form() {
   const { setName, name, count, setCount, setQuestions, questions } = UseQuiz();
 
-  const handleChoiceCount = () => {};
+  const handleChoiceCount = () => { };
 
   const handleCount = () => {
     setCount((p) => p + 1);
