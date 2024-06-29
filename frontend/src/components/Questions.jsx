@@ -26,6 +26,7 @@ export const Questions = () => {
   const [data, setData] = useState([]);
   const { QID, setQID } = QuestContext();
   const [right, setRight] = useState([]);
+  const [min, setMin] = useState(10);
 
   const selectedSubscribe = useSelector((state) => state.quizAttend.selected);
   const selectedDispatcher = useDispatch();
@@ -43,7 +44,6 @@ export const Questions = () => {
   const [timer, setTimer] = useState("00:00:00");
   const Ref = useRef(null);
   const [open, setOpen] = useState(false);
-  const min = 0.2;
   const getTimeRemaining = (e) => {
     const total = Date.parse(e) - Date.parse(new Date());
     const seconds = Math.floor((total / 1000) % 60);
@@ -96,6 +96,9 @@ export const Questions = () => {
 
   useEffect(() => {
     clearTimer(getDeadTime());
+    return () => {
+      if (Ref.current) clearInterval(Ref.current);
+    };
   }, []);
 
   return (
