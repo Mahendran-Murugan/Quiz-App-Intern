@@ -45,6 +45,8 @@ export const Questions = () => {
     if (total === 0) {
       setOpen(true);
       setSubmitted(true);
+      clearInterval(Ref.current);
+      Ref.current = null;
     }
     return {
       total,
@@ -102,7 +104,8 @@ export const Questions = () => {
         isSubmitted,
         setSubmitted,
         open,
-        setOpen
+        setOpen,
+        Ref
       }}
     >
       <Stack sx={{ width: "70%" }}>
