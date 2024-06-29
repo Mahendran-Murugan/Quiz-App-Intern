@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useRef, useState } from "react";
 import {
   Button,
   Checkbox,
@@ -13,12 +13,17 @@ import DeleteIcon from "@mui/icons-material/Delete";
 
 export default function Form() {
   const { setName, name, count, setCount, setQuestions, questions } = UseQuiz();
-
+  const childRef = useRef();
   const handleRemove = (index) => {
-    console.log(index);
-    setCount((prevCount) => prevCount - 1);
-    setQuestions((prevItems) => prevItems.filter((_, i) => i !== index));
-    console.log(questions);
+    setQuestions((prevItems) => {
+      const newItems = prevItems.filter((_, i) => i !== index);
+      prevItems.choices = [];
+      setCount(newItems.length); // Update count based on the new length
+      return newItems;
+    });
+    if (childRef.current) {
+      childRef.current.handleChoiceDelete();
+    }
   };
   const handleCount = () => {
     setCount((p) => p + 1);
@@ -72,8 +77,17 @@ export default function Form() {
                   label="Question"
                   fullWidth
                   onChange={(e) => {
+                    setQuestions((p) => {
+                      const newA = [...p];
+                      newA.splice(index, 1, {
+                        ...question,
+                        question: e.target.value,
+                      });
+                      return newA;
+                    });
                     question.question = e.target.value;
                   }}
+                  value={question.question}
                   autoComplete="shipping address-line1"
                 />
               </Grid>
@@ -86,8 +100,17 @@ export default function Form() {
                   id="answer"
                   name="answer"
                   onChange={(e) => {
+                    setQuestions((p) => {
+                      const newA = [...p];
+                      newA.splice(index, 1, {
+                        ...question,
+                        answer: e.target.value,
+                      });
+                      return newA;
+                    });
                     question.answer = e.target.value;
                   }}
+                  value={question.answer}
                   required
                   label="Answer"
                   fullWidth
@@ -99,8 +122,17 @@ export default function Form() {
                   id="image"
                   name="image"
                   onChange={(e) => {
+                    setQuestions((p) => {
+                      const newA = [...p];
+                      newA.splice(index, 1, {
+                        ...question,
+                        image: e.target.value,
+                      });
+                      return newA;
+                    });
                     question.image = e.target.value;
                   }}
+                  value={question.image}
                   required
                   label="Image"
                   fullWidth
@@ -115,8 +147,16 @@ export default function Form() {
                   type="number"
                   minRows={"0"}
                   onChange={(e) => {
-                    question.points = e.target.value;
+                    setQuestions((p) => {
+                      const newA = [...p];
+                      newA.splice(index, 1, {
+                        ...question,
+                        points: e.target.value,
+                      });
+                      return newA;
+                    });
                   }}
+                  value={question.points}
                   InputProps={{ inputProps: { min: 0 } }}
                   label="Points"
                   fullWidth
