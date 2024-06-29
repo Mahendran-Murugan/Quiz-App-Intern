@@ -51,13 +51,12 @@ export default function Tabbed() {
         aria-label="scrollable auto tabs example"
       >
         <Tab label="Manage Quiz" />
-        <Tab label="Manage Questions" />
         <Tab label="Manage Users" />
       </Tabs>
       <CustomTabPanel value={value} index={0}>
         <Stack>
           <center>
-            <CreateQuiz  />
+            <CreateQuiz />
           </center>
           <br />
           <QuizManipulate />
