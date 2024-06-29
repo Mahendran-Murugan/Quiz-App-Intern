@@ -1,22 +1,31 @@
-import { Button, Grid, TextField } from "@mui/material";
-import React, { useState } from "react";
+import React, { useState, useImperativeHandle, forwardRef } from "react";
 import { UseChoiceContext } from "./Form";
+import { Grid, TextField, Button } from "@mui/material";
 
-const Choices = ({ myChoices, count }) => {
+const Choices = forwardRef(({ myChoices, count }, ref) => {
   const { question } = UseChoiceContext();
 
   const [choiceCount, setChoiceCount] = useState(count);
-  const [choiceValue, setChoiceValue] = useState(myChoices);
+  const [choiceValue, setChoiceValue] = useState(question.choices);
+
   const handleChoiceCount = () => {
-    const increement = choiceCount + 1;
+    question.choices = [...question.choices, ""];
     setChoiceValue([...choiceValue, ""]);
     setChoiceCount((p) => p + 1);
   };
 
+  const handleChoiceDelete = () => {
+    setChoiceValue(question.choices);
+  };
+
+  useImperativeHandle(ref, () => ({
+    handleChoiceDelete,
+  }));
+
   return (
     <>
-      {choiceValue.map((choice, ind) => (
-        <Grid item xs={12} sm={6}>
+      {question.choices.map((choice, ind) => (
+        <Grid item xs={12} sm={6} key={ind}>
           <TextField
             required
             id={`choice${ind + 1}`}
@@ -26,24 +35,21 @@ const Choices = ({ myChoices, count }) => {
             onChange={(e) => {
               setChoiceValue((prevItems) => {
                 const newItems = [...prevItems];
-                newItems.splice(ind, 1, e.target.value);
+                newItems[ind] = e.target.value;
                 return newItems;
               });
-              choiceValue[ind] = e.target.value;
-              question.choices[ind] = choiceValue[ind];
-              // console.log(choiceValue);
+              question.choices[ind] = e.target.value;
             }}
             value={choice}
             autoComplete="shipping address-level2"
           />
         </Grid>
       ))}
-
       <Grid item xs={12} sm={6}>
         <Button onClick={handleChoiceCount}>Add</Button>
       </Grid>
     </>
   );
-};
+});
 
 export default Choices;

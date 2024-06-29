@@ -45,8 +45,8 @@ export default function Conformation({
 
   const handleClickOpen = () => {
     AsyncFunction();
-    setCount(questCount);
     setName(ConfirmName);
+    setCount(questCount);
     setOpen(true);
   };
   async function AsyncFunction() {

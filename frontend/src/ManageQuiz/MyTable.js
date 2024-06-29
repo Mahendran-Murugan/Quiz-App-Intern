@@ -8,6 +8,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Conformation from "./Conformation";
 import axios from "axios";
+import DeleteIcon from "@mui/icons-material/Delete";
 import Typography from "@mui/material/Typography";
 import { Button, Grid, TextField } from "@mui/material";
 import Choices from "./Choices";
@@ -29,18 +30,34 @@ export default function MyTable({ rows }) {
       questions: questions,
     });
   };
+  const childRef = React.useRef();
+  const handleRemove = (index) => {
+    setQuestions((prevItems) => {
+      const newItems = prevItems.filter((_, i) => i !== index);
+      prevItems.choices = [];
+      setCount(newItems.length); // Update count based on the new length
+      return newItems;
+    });
+    if (childRef.current) {
+      childRef.current.handleChoiceDelete();
+    }
+  };
+
   const handleCount = () => {
-    setCount((p) => p + 1);
-    setQuestions((p) => [
-      ...p,
-      {
-        question: "",
-        choices: [],
-        answer: "",
-        image: "",
-        points: 0,
-      },
-    ]);
+    setQuestions((prevQuestions) => {
+      const newQuestions = [
+        ...prevQuestions,
+        {
+          question: "",
+          choices: [],
+          answer: "",
+          image: "",
+          points: 0,
+        },
+      ];
+      setCount(newQuestions.length);
+      return newQuestions;
+    });
   };
   return (
     <TableContainer component={Paper}>
@@ -100,9 +117,17 @@ export default function MyTable({ rows }) {
                           </Grid>
                           {questions.map((question, index) => (
                             <>
-                              <Grid item xs={12}>
+                              <Grid item xs={10} sm={10}>
                                 <Typography variant="h6" gutterBottom>
                                   Question {index + 1}
+                                  <Button
+                                    color="error"
+                                    onClick={(e) => {
+                                      handleRemove(index);
+                                    }}
+                                  >
+                                    <DeleteIcon />
+                                  </Button>
                                 </Typography>
                                 <TextField
                                   required
@@ -117,8 +142,10 @@ export default function MyTable({ rows }) {
                                   autoComplete="shipping address-line1"
                                 />
                               </Grid>
+
                               <ChoiceContext.Provider value={{ question }}>
                                 <Choices
+                                  ref={childRef}
                                   myChoices={question.choices}
                                   count={question.choices.length}
                                 />

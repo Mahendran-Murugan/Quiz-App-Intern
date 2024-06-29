@@ -9,12 +9,17 @@ import {
 } from "@mui/material";
 import { UseQuiz } from "./CreateQuiz";
 import Choices from "./Choices";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 export default function Form() {
   const { setName, name, count, setCount, setQuestions, questions } = UseQuiz();
 
-  const handleChoiceCount = () => {};
-
+  const handleRemove = (index) => {
+    console.log(index);
+    setCount((prevCount) => prevCount - 1);
+    setQuestions((prevItems) => prevItems.filter((_, i) => i !== index));
+    console.log(questions);
+  };
   const handleCount = () => {
     setCount((p) => p + 1);
 
@@ -22,7 +27,7 @@ export default function Form() {
       ...p,
       {
         question: "",
-        choices: [],
+        choices: [""],
         answer: "",
         image: "",
         points: 0,
@@ -51,6 +56,14 @@ export default function Form() {
               <Grid item xs={12}>
                 <Typography variant="h6" gutterBottom>
                   Question {index + 1}
+                  <Button
+                    color="error"
+                    onClick={() => {
+                      handleRemove(index);
+                    }}
+                  >
+                    <DeleteIcon />
+                  </Button>
                 </Typography>
                 <TextField
                   required
