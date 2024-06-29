@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useEffect, useRef, useState } from "react";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { SingleQuestion } from "./SingleQuestion";
 import axios from "axios";
 import { QuestContext } from "../Context/QuestionContext";
@@ -13,18 +19,24 @@ import {
   Typography,
 } from "@mui/material";
 import MyScrollDialog from "../MUI/MyScrollDialog";
+import { useDispatch, useSelector } from "react-redux";
+import { setSelected } from "../feature/quizAttendSlice";
 const AnswerContext = createContext();
 export const Questions = () => {
   const [data, setData] = useState([]);
   const { QID, setQID } = QuestContext();
   const [right, setRight] = useState([]);
 
+  const selectedSubscribe = useSelector((state) => state.quizAttend.selected);
+  const selectedDispatcher = useDispatch();
   useEffect(() => {
     axios.get("http://localhost:8000/api/user/quiz/" + QID).then((res) => {
       setData(res.data);
+      res.data.map((e) => {
+        selectedDispatcher(setSelected());
+      });
     });
   }, []);
-
   const [answed, setAnswered] = useState(0);
   const [isCorrect, setCorrect] = useState(0);
   const [isSubmitted, setSubmitted] = useState(false);
@@ -33,15 +45,10 @@ export const Questions = () => {
   const [open, setOpen] = useState(false);
   const min = 0.2;
   const getTimeRemaining = (e) => {
-    const total =
-      Date.parse(e) - Date.parse(new Date());
+    const total = Date.parse(e) - Date.parse(new Date());
     const seconds = Math.floor((total / 1000) % 60);
-    const minutes = Math.floor(
-      (total / 1000 / 60) % 60
-    );
-    const hours = Math.floor(
-      (total / 1000 / 60 / 60) % 24
-    );
+    const minutes = Math.floor((total / 1000 / 60) % 60);
+    const hours = Math.floor((total / 1000 / 60 / 60) % 24);
     if (total === 0) {
       setOpen(true);
       setSubmitted(true);
@@ -57,18 +64,15 @@ export const Questions = () => {
   };
 
   const startTimer = (e) => {
-    console.log("Start")
-    let { total, hours, minutes, seconds } =
-      getTimeRemaining(e);
+    console.log("Start");
+    let { total, hours, minutes, seconds } = getTimeRemaining(e);
     if (total >= 0) {
       setTimer(
         (hours > 9 ? hours : "0" + hours) +
-        ":" +
-        (minutes > 9
-          ? minutes
-          : "0" + minutes) +
-        ":" +
-        (seconds > 9 ? seconds : "0" + seconds)
+          ":" +
+          (minutes > 9 ? minutes : "0" + minutes) +
+          ":" +
+          (seconds > 9 ? seconds : "0" + seconds)
       );
     }
   };
@@ -85,8 +89,8 @@ export const Questions = () => {
 
   const getDeadTime = () => {
     let deadline = new Date();
-    deadline.setSeconds(deadline.getSeconds() + (min * 60));
-    console.log("DeadTime " + deadline)
+    deadline.setSeconds(deadline.getSeconds() + min * 60);
+    console.log("DeadTime " + deadline);
     return deadline;
   };
 
@@ -105,11 +109,15 @@ export const Questions = () => {
         setSubmitted,
         open,
         setOpen,
-        Ref
+        Ref,
       }}
     >
       <Stack sx={{ width: "70%" }}>
-        <Stack direction={"row"} spacing={3} sx={{ justifyContent: "space-between", m: 3 }}>
+        <Stack
+          direction={"row"}
+          spacing={3}
+          sx={{ justifyContent: "space-between", m: 3 }}
+        >
           <Typography variant="h5" color="initial">
             Questions {data.length}
           </Typography>
@@ -126,7 +134,9 @@ export const Questions = () => {
           )}
         </Stack>
         {data.map((question, index) => {
-          return <SingleQuestion key={index} index={index} question={question} />;
+          return (
+            <SingleQuestion key={index} index={index} question={question} />
+          );
         })}
 
         <Stack

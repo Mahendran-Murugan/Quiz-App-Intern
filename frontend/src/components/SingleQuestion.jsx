@@ -9,17 +9,9 @@ export const SingleQuestion = ({ question, index }) => {
   const [choices, setChoice] = useState([]);
   const [answer, setAnswer] = useState("");
   useEffect(() => {
-    setChoice([]);
-    const ch1 = question.ch1;
-    const ch2 = question.ch2;
-    const ch3 = question.ch3;
-    const ch4 = question.ch4;
+    console.log(question);
+    setChoice(Object.values(JSON.parse(question.choices)));
     setAnswer(question.answer);
-
-    if (question.ch1) setChoice((prev) => [...prev, ch1]);
-    if (question.ch2) setChoice((prev) => [...prev, ch2]);
-    if (question.ch3) setChoice((prev) => [...prev, ch3]);
-    if (question.ch4) setChoice((prev) => [...prev, ch4]);
   }, []);
   const [select, setSelect] = useState("");
   const { setAnswered, setCorrect, isSubmitted, right, setRight } = UseAnswer();
@@ -43,7 +35,10 @@ export const SingleQuestion = ({ question, index }) => {
     <Paper sx={{ m: 1, p: 2 }} elevation={3}>
       <Typography variant="h6">{`${index + 1}. ${
         question.question
-        }`}</Typography>
+      }`}</Typography>
+      {question.image != "" && question.image != "none" && (
+        <img src={"http://localhost:4000/" + question.image} alt="" />
+      )}
       <Typography variant="h6" color="initial">
         <RadioGroup
           aria-labelledby="demo-radio-buttons-group-label"

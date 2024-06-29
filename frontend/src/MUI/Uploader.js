@@ -21,7 +21,7 @@ const VisuallyHiddenInput = styled("input")({
 export default function Uploader({ index, src }) {
   const selector = useSelector((state) => state.imageFiles.data);
   const dispatch = useDispatch();
-  
+
   const [image, setImage] = React.useState(null);
 
   const handleFileChange = (event) => {
@@ -39,7 +39,7 @@ export default function Uploader({ index, src }) {
         qimage: file,
       })
     );
-    console.log(selector );
+    // console.log(selector );
     // console.log(selector);
   };
   // console.log(selector);
