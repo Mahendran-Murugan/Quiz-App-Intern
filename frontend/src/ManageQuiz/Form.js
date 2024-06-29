@@ -4,12 +4,14 @@ import {
   Checkbox,
   FormControlLabel,
   Grid,
+  IconButton,
   TextField,
   Typography,
 } from "@mui/material";
 import { UseQuiz } from "./CreateQuiz";
 import Choices from "./Choices";
 import DeleteIcon from "@mui/icons-material/Delete";
+import Uploader from "../MUI/Uploader";
 
 export default function Form() {
   const { setName, name, count, setCount, setQuestions, questions } = UseQuiz();
@@ -61,14 +63,14 @@ export default function Form() {
               <Grid item xs={12}>
                 <Typography variant="h6" gutterBottom>
                   Question {index + 1}
-                  <Button
+                  <IconButton
                     color="error"
                     onClick={() => {
                       handleRemove(index);
                     }}
                   >
                     <DeleteIcon />
-                  </Button>
+                  </IconButton>
                 </Typography>
                 <TextField
                   required

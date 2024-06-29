@@ -10,7 +10,7 @@ import Conformation from "./Conformation";
 import axios from "axios";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Typography from "@mui/material/Typography";
-import { Button, Grid, TextField } from "@mui/material";
+import { Button, Grid, IconButton, TextField } from "@mui/material";
 import Choices from "./Choices";
 import { ChoiceContext } from "./Form";
 const MyQuizTableContext = React.createContext();
@@ -120,14 +120,14 @@ export default function MyTable({ rows }) {
                               <Grid item xs={10} sm={10}>
                                 <Typography variant="h6" gutterBottom>
                                   Question {index + 1}
-                                  <Button
+                                  <IconButton
                                     color="error"
                                     onClick={(e) => {
                                       handleRemove(index);
                                     }}
                                   >
                                     <DeleteIcon />
-                                  </Button>
+                                  </IconButton>
                                 </Typography>
                                 <TextField
                                   required

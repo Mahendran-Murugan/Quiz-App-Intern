@@ -5,6 +5,36 @@ function jsonConverter(arr) {
   return Object.assign({}, arr);
 }
 
+const createImageQuiz = (res, req) => {
+  const { qid, qimage, chimage } = req.body;
+  const sql =
+    "INSERT into quizimage(qid , qimage , chimage) values = (? , ? , ? ,? )";
+  const values = [qid, qimage, JSON.stringify(Object.assign({}, chimage))];
+  connection
+    .query(sql, values)
+    .on("error", (err) => {
+      console.log(err);
+      res.end();
+    })
+    .on("result", (result) => {
+      res.end();
+    });
+};
+
+const showImageQuiz = (res, req) => {
+  const sql = "SELECT * FROM QUIZIMAGE WHERE QID = ?";
+  const values = [res.params.id];
+  connection
+    .query(sql, values)
+    .on("error", (err) => {
+      console.log(err);
+      res.end();
+    })
+    .on("result", (result) => {
+      res.end(result);
+    });
+};
+
 const createQuiz = (req, res, call) => {
   const body = req.body;
   // console.log(body);
@@ -211,8 +241,10 @@ module.exports = {
   createQuiz,
   addQuestion,
   deleteQuiz,
+  showImageQuiz,
   updateQuestion,
   showQuestionsByID,
   showQuestions,
+  createImageQuiz,
   updateQuiz,
 };

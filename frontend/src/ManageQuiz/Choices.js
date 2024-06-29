@@ -1,7 +1,7 @@
 import React, { useState, useImperativeHandle, forwardRef } from "react";
 import { UseChoiceContext } from "./Form";
-import { Grid, TextField, Button } from "@mui/material";
-
+import { Grid, TextField, Button, Fab } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
 const Choices = forwardRef(({ myChoices, count }, ref) => {
   const { question } = UseChoiceContext();
 
@@ -46,7 +46,9 @@ const Choices = forwardRef(({ myChoices, count }, ref) => {
         </Grid>
       ))}
       <Grid item xs={12} sm={6}>
-        <Button onClick={handleChoiceCount}>Add</Button>
+        <Fab size="small" color="primary" onClick={handleChoiceCount}>
+          <AddIcon />
+        </Fab>
       </Grid>
     </>
   );
