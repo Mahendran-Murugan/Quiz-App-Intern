@@ -1,5 +1,4 @@
 import * as React from "react";
-import PropTypes from "prop-types";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -61,14 +60,14 @@ function MyNavBar(props) {
           </>
         )}
 
-        {user.email == "admin@gmail.com" && (
+        {user.email === "admin@gmail.com" && (
           <ListItem disablePadding>
             <ListItemButton sx={{ textAlign: "center" }}>
               <ListItemText primary="Admin" />
             </ListItemButton>
           </ListItem>
         )}
-        {user.name != "" && (
+        {user.name !== "" && (
           <NavLink to="/quiz">
             <ListItem disablePadding>
               <ListItemButton sx={{ textAlign: "center" }}>
@@ -96,7 +95,6 @@ function MyNavBar(props) {
       </List>
     </Box>
   );
-  const navigate = useNavigate();
 
   const container =
     window !== undefined ? () => window().document.body : undefined;
@@ -123,7 +121,7 @@ function MyNavBar(props) {
             Silicon Software Services
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
-            {localStorage.getItem("name") == "" && (
+            {localStorage.getItem("name") === "" && (
               <>
                 <NavLink to="/login">
                   <Button sx={{ color: "#fff" }}>Login</Button>
@@ -133,7 +131,7 @@ function MyNavBar(props) {
                 </NavLink>
               </>
             )}
-            {localStorage.getItem("email") == "admin@gmail.com" && (
+            {localStorage.getItem("email") === "admin@gmail.com" && (
               <>
                 <NavLink to="/admin">
                   <Button sx={{ color: "#fff" }}>Admin</Button>
@@ -141,16 +139,16 @@ function MyNavBar(props) {
               </>
             )}
             <NavLink
-              to={localStorage.getItem("name") != "" ? "/quiz" : "/login"}
+              to={localStorage.getItem("name") !== "" ? "/quiz" : "/login"}
             >
               <Button sx={{ color: "#fff" }}>Quiz</Button>
             </NavLink>
             <NavLink
-              to={localStorage.getItem("name") != "" ? "/profile" : "/login"}
+              to={localStorage.getItem("name") !== "" ? "/profile" : "/login"}
             >
               <Button sx={{ color: "#fff" }}>Profile</Button>
             </NavLink>
-            {localStorage.getItem("name") != "" && (
+            {localStorage.getItem("name") !== "" && (
               <>
                 <NavLink to="/profile">
                   <Button

@@ -43,7 +43,7 @@ export const SingleQuestion = ({ question, index }) => {
     <Paper sx={{ m: 1, p: 2 }} elevation={3}>
       <Typography variant="h6">{`${index + 1}. ${
         question.question
-      }`}</Typography>
+        }`}</Typography>
       <Typography variant="h6" color="initial">
         <RadioGroup
           aria-labelledby="demo-radio-buttons-group-label"

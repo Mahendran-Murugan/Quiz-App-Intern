@@ -36,11 +36,11 @@ export const ListQuiz = () => {
             available{" "}
           </Typography>
         )) || (
-          <h1>
-            Welcome {localStorage.getItem("name")}, These are no available
-            quizes
-          </h1>
-        )}
+            <h1>
+              Welcome {localStorage.getItem("name")}, These are no available
+              quizes
+            </h1>
+          )}
       </center>
       <Box>
         {quizall.map((quiz, index) => {
