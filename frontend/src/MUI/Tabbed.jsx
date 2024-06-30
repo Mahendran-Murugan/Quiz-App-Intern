@@ -8,6 +8,7 @@ import QuizManipulate from "../ManageQuiz/QuizManipulate";
 import { Stack } from "@mui/material";
 import { Provider } from "react-redux";
 import { store } from "../app/store";
+import CreateUser from "../ManageUser/CreateUser";
 
 export default function Tabbed() {
   const [value, setValue] = React.useState(0);
@@ -69,7 +70,19 @@ export default function Tabbed() {
           </Provider>
         </Stack>
       </CustomTabPanel>
-      <CustomTabPanel value={value} index={1}></CustomTabPanel>
+      <CustomTabPanel value={value} index={1}>
+        <Stack>
+          <center>
+            <Provider store={store}>
+              <CreateUser />
+            </Provider>
+          </center>
+          <br />
+          <Provider store={store}>
+            <QuizManipulate />
+          </Provider>
+        </Stack>
+      </CustomTabPanel>
     </Box>
   );
 }
