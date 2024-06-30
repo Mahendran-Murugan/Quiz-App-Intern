@@ -62,10 +62,11 @@ export default function Conformation({
     setQuestions([]);
     result.map((ele) => {
       dispatch(addAction(ele.image));
-      
+
       setQuestions((p) => [
         ...p,
         {
+          id : ele.id , 
           question: ele.question,
           choices: Object.values(JSON.parse(ele.choices)),
           answer: ele.answer,
@@ -114,7 +115,6 @@ export default function Conformation({
             onClick={(e) => {
               if (right.toLowerCase() == "save") {
                 handleEdit(e, id);
-                handleDelete(e, id);
               }
               if (right.toLowerCase() == "delete") handleDelete(e, id);
               handleClose();

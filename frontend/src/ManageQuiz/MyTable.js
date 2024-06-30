@@ -10,7 +10,7 @@ import Conformation from "./Conformation";
 import axios from "axios";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Typography from "@mui/material/Typography";
-import { Button, Grid, IconButton, TextField } from "@mui/material";
+import { Button, Grid, IconButton, TextField, duration } from "@mui/material";
 import Choices from "./Choices";
 import { ChoiceContext } from "./Form";
 import Uploader from "../MUI/Uploader";
@@ -73,16 +73,17 @@ export default function MyTable({ rows }) {
 
       await Promise.all(uploadPromises);
 
-      handleDelete(e, id);
       // console.log(questions);
       await axios
-        .post("http://localhost:8000/api/admin/quiz/create", {
+        .put("http://localhost:8000/api/admin/quiz/update", {
+          id: id,
           name: name,
+          duration: 10,
           count: count,
           questions: questions,
         })
         .then((resu) => {
-          // console.log(resu);
+          console.log(resu.data);
         })
         .catch((err) => console.log(err));
       // console.log(questions);
@@ -110,6 +111,7 @@ export default function MyTable({ rows }) {
   const handleCount = (e) => {
     e.preventDefault();
     dispatcher(addAction(null));
+    setCount((p) => p + 1);
     setQuestions((prevQuestions) => {
       const newQuestions = [
         ...prevQuestions,
@@ -121,7 +123,6 @@ export default function MyTable({ rows }) {
           points: 0,
         },
       ];
-      setCount(newQuestions.length);
       return newQuestions;
     });
   };
