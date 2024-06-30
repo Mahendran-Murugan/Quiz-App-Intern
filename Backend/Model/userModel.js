@@ -70,6 +70,7 @@ const loginUser = (req, res) => {
 };
 
 const updateOrInsertAttempt = (req, res) => {
+  // console.log(req.body);
   const { quizid, userid } = req.body;
 
   if (!quizid || !userid) {

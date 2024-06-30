@@ -24,7 +24,7 @@ import { setSelected } from "../feature/quizAttendSlice";
 const AnswerContext = createContext();
 export const Questions = () => {
   const [data, setData] = useState([]);
-  const { QID, setQID, min , setMin } = QuestContext();
+  const { QID, setQID, min, setMin } = QuestContext();
   const [right, setRight] = useState([]);
 
   const selectedSubscribe = useSelector((state) => state.quizAttend.selected);
@@ -63,7 +63,7 @@ export const Questions = () => {
   };
 
   const startTimer = (e) => {
-    console.log("Start");
+    // console.log("Start");
     let { total, hours, minutes, seconds } = getTimeRemaining(e);
     if (total >= 0) {
       setTimer(
@@ -89,7 +89,7 @@ export const Questions = () => {
   const getDeadTime = () => {
     let deadline = new Date();
     deadline.setSeconds(deadline.getSeconds() + min * 60);
-    console.log("DeadTime " + deadline);
+    // console.log("DeadTime " + deadline);
     return deadline;
   };
 

@@ -9,7 +9,7 @@ export const SingleQuestion = ({ question, index }) => {
   const [choices, setChoice] = useState([]);
   const [answer, setAnswer] = useState("");
   useEffect(() => {
-    console.log(question);
+    // console.log(question);
     setChoice(Object.values(JSON.parse(question.choices)));
     setAnswer(question.answer);
   }, []);
