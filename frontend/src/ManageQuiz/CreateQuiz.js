@@ -15,7 +15,8 @@ const QuizContext = React.createContext();
 export default function CreateQuiz({ props }) {
   const [open, setOpen] = React.useState(false);
   const [name, setName] = React.useState("");
-  const [count, setCount] = React.useState(0);
+  const [count, setCount] = React.useState(null);
+  const [duration, setDuration] = React.useState(null);
   const [questions, setQuestions] = React.useState([]);
   const handleClickOpen = (e) => {
     e.preventDefault();
@@ -72,6 +73,7 @@ export default function CreateQuiz({ props }) {
             name: name,
             count: count,
             questions: questions,
+            duration: duration,
           }
         );
       });
@@ -89,7 +91,15 @@ export default function CreateQuiz({ props }) {
         Create
       </Button>
       <QuizContext.Provider
-        value={{ setName, setCount, count, setQuestions, questions }}
+        value={{
+          setName,
+          setCount,
+          count,
+          setQuestions,
+          duration,
+          setDuration,
+          questions,
+        }}
       >
         <Dialog
           open={open}

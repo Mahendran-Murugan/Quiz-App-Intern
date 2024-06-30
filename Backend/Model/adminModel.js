@@ -44,7 +44,7 @@ const createQuiz = (req, res, call) => {
       .query(
         `insert into quizz( name , count , duration) values ( "${
           body.name
-        }" , ${body.count} , ${body.duration || 3}) `
+        }" , ${body.count} , ${body.duration }) `
       )
       .on("error", (err) => {
         console.log(err);
