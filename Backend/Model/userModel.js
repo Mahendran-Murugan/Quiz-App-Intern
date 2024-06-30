@@ -82,7 +82,7 @@ const showAllUser = (req, res) => {
 const editUser = (req, res) => {
   const { name, email, password, id } = req.body;
   if (name == "" && password == "" && email == "") {
-    console.log("Herre");
+    
     res.status(404).end();
   }
   connection
