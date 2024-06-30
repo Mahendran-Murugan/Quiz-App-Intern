@@ -82,11 +82,12 @@ const showAllUser = (req, res) => {
 const editUser = (req, res) => {
   const { name, email, password, id } = req.body;
   if (name == "" && password == "" && email == "") {
-    
     res.status(404).end();
   }
   connection
-    .query(`UPDATE user set name = "${name}", email = "${email}", password = "${password}" where id = ${id}`)
+    .query(
+      `UPDATE user set name = "${name}", email = "${email}", password = "${password}" where id = ${id}`
+    )
     .on("error", (err) => {
       res.status(404).json({
         status: err,
@@ -100,7 +101,9 @@ const editUser = (req, res) => {
 };
 
 const deleteUser = (req, res) => {
-  const { body: { id } } = req;
+  const {
+    body: { id },
+  } = req;
   console.log(id);
   connection
     .query(`delete from user where id=${id}`)
@@ -116,6 +119,28 @@ const deleteUser = (req, res) => {
     });
 };
 
+const getUserAttempts = (req, res) => {
+  const { quizid, userid } = req.query;
+
+  if (!quizid || !userid) {
+    res.status(400).json({ error: "Invalid request parameters" });
+    return;
+  }
+
+  const getAttemptsSql = `SELECT attempt FROM quiz_attempts WHERE quizid = ? AND userid = ?`;
+  connection.query(getAttemptsSql, [quizid, userid], (err, results) => {
+    if (err) {
+      res.status(500).json({ error: "Database query failed" });
+      return;
+    }
+
+    if (results.length > 0) {
+      res.json({ attempts: results[0].attempt });
+    } else {
+      res.json({ attempts: 0 });
+    }
+  });
+};
 
 const updateOrInsertAttempt = (req, res) => {
   // console.log(req.body);
@@ -175,6 +200,7 @@ module.exports = {
   registerUser,
   loginUser,
   showAllUser,
-  editUser, 
-  deleteUser
+  editUser,
+  deleteUser,
+  getUserAttempts,
 };

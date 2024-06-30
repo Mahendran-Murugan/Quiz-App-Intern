@@ -134,6 +134,7 @@ export default function MyTable({ rows }) {
             <TableCell>S.No</TableCell>
             <TableCell>Quiz Name</TableCell>
             <TableCell align="right">Questions</TableCell>
+            <TableCell align="right">Duration</TableCell>
             <TableCell align="right">Operation</TableCell>
           </TableRow>
         </TableHead>
@@ -145,6 +146,7 @@ export default function MyTable({ rows }) {
               </TableCell>
               <TableCell component="right">{row.name}</TableCell>
               <TableCell align="right">{row.count}</TableCell>
+              <TableCell component="right">{row.duration} Minutes</TableCell>
               <TableCell align="right">
                 <MyQuizTableContext.Provider
                   value={{
