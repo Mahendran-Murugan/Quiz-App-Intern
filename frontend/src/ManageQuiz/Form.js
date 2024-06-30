@@ -7,6 +7,7 @@ import {
   IconButton,
   TextField,
   Typography,
+  duration,
 } from "@mui/material";
 import { UseQuiz } from "./CreateQuiz";
 import Choices from "./Choices";
@@ -15,7 +16,16 @@ import Uploader from "../MUI/Uploader";
 import { useSelector, useDispatch } from "react-redux";
 import { addAction, removeAction } from "../feature/imageQuizSlice";
 export default function Form() {
-  const { setName, name, count, setCount, setQuestions, questions } = UseQuiz();
+  const {
+    duration,
+    setDuration,
+    setName,
+    name,
+    count,
+    setCount,
+    setQuestions,
+    questions,
+  } = UseQuiz();
   const questionFiles = useSelector((state) => state.imageFiles.data);
   const questionFilesDispatcher = useDispatch();
   const childRef = useRef();
@@ -45,7 +55,7 @@ export default function Form() {
         choices: [""],
         answer: "",
         image: "",
-        points: 0,
+        points: null,
       },
     ]);
   };
@@ -53,7 +63,7 @@ export default function Form() {
     <React.Fragment>
       <Typography variant="h6" gutterBottom></Typography>
       <Grid container spacing={3}>
-        <Grid item xs={12} sm={12}>
+        <Grid item xs={12} sm={6}>
           <TextField
             required
             id="firstName"
@@ -62,6 +72,18 @@ export default function Form() {
             fullWidth
             onChange={(e) => setName(e.target.value)}
             autoComplete="given-name"
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            required
+            id="duration"
+            name="duration"
+            label="Duration in Minutes"
+            fullWidth
+            type="number"
+            onChange={(e) => setDuration(e.target.value)}
+            value={duration}
           />
         </Grid>
 

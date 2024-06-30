@@ -60,7 +60,7 @@ function MyNavBar(props) {
           </>
         )}
 
-        {user.email === "admin@gmail.com" && (
+        {localStorage.getItem("name") === "admin@gmail.com" && (
           <ListItem disablePadding>
             <ListItemButton sx={{ textAlign: "center" }}>
               <ListItemText primary="Admin" />

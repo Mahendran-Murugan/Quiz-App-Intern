@@ -10,10 +10,10 @@ export const AuthContext = ({ children }) => {
     password: "",
   });
 
-  const login = (name, email, password) => {
+  const login = (id, name, email, password) => {
+    localStorage.setItem("id", id);
     localStorage.setItem("name", name);
     localStorage.setItem("email", email);
-    localStorage.setItem("password", password);
     setUser({
       name: name,
       email: email,

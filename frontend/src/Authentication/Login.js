@@ -31,7 +31,7 @@ export function Login() {
     axios
       .post("http://localhost:8000/api/user/login", all)
       .then((res) => {
-        login(res.data.name, res.data.email, res.data.password);
+        login(res.data.id, res.data.name, res.data.email, res.data.password);
         navigate("/");
       })
       .catch((err) => alert(err));

@@ -6,6 +6,7 @@ const {
   showAllUser,
   editUser,
   deleteUser,
+  updateOrInsertAttempt,
 } = require("../Model/userModel");
 const routerUser = require("express").Router();
 
@@ -16,4 +17,5 @@ routerUser.post("/register", registerUser);
 routerUser.post("/login", loginUser);
 routerUser.post("/edit", editUser);
 routerUser.post("/delete", deleteUser);
+routerUser.post("/attempt/increase", updateOrInsertAttempt);
 module.exports = routerUser;

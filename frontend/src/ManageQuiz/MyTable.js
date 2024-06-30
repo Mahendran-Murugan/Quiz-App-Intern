@@ -25,7 +25,7 @@ export default function MyTable({ rows }) {
   const [name, setName] = React.useState("");
   const [count, setCount] = React.useState(0);
   const [questions, setQuestions] = React.useState([]);
-
+  const [duration, setDuration] = React.useState(null);
   const selector = useSelector((state) => state.imageFiles.data);
 
   const handleDelete = (e, id) => {
@@ -73,16 +73,17 @@ export default function MyTable({ rows }) {
 
       await Promise.all(uploadPromises);
 
-      handleDelete(e, id);
       // console.log(questions);
       await axios
-        .post("http://localhost:8000/api/admin/quiz/create", {
+        .put("http://localhost:8000/api/admin/quiz/update", {
+          id: id,
           name: name,
+          duration: duration,
           count: count,
           questions: questions,
         })
         .then((resu) => {
-          // console.log(resu);
+          // console.log(resu.data);
         })
         .catch((err) => console.log(err));
       // console.log(questions);
@@ -110,6 +111,7 @@ export default function MyTable({ rows }) {
   const handleCount = (e) => {
     e.preventDefault();
     dispatcher(addAction(null));
+    setCount((p) => p + 1);
     setQuestions((prevQuestions) => {
       const newQuestions = [
         ...prevQuestions,
@@ -121,7 +123,6 @@ export default function MyTable({ rows }) {
           points: 0,
         },
       ];
-      setCount(newQuestions.length);
       return newQuestions;
     });
   };
@@ -168,20 +169,38 @@ export default function MyTable({ rows }) {
                         <Grid container spacing={2}>
                           <Grid item xs={12}>
                             <Typography variant="h6" gutterBottom>
-                              Quiz
+                              Name
                             </Typography>
-                            <TextField
-                              required
-                              name="address1"
-                              label="Quiz"
-                              fullWidth
-                              value={name}
-                              onChange={(e) => {
-                                setName(e.target.value);
-                              }}
-                              autoComplete=""
-                            />
+                            <Grid container spacing={2} xs={12}>
+                              <Grid item xs={12} sm={6}>
+                                <TextField
+                                  required
+                                  name="address1"
+                                  label="Quiz"
+                                  fullWidth
+                                  value={name}
+                                  onChange={(e) => {
+                                    setName(e.target.value);
+                                  }}
+                                  autoComplete=""
+                                />
+                              </Grid>
+                              <Grid item xs={12} sm={6}>
+                                <TextField
+                                  required
+                                  name="duration"
+                                  label="Duration (in Mins)"
+                                  fullWidth
+                                  value={duration}
+                                  onChange={(e) => {
+                                    setDuration(e.target.value);
+                                  }}
+                                  autoComplete=""
+                                />
+                              </Grid>
+                            </Grid>
                           </Grid>
+
                           {questions.map((question, index) => (
                             <>
                               <Grid item xs={10} sm={12}>
