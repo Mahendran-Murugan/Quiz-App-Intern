@@ -31,6 +31,7 @@ export const QuizInstructions = ({ id }) => {
       });
       console.log(QID);
     }
+
     const doc = document.documentElement;
     if (doc.requestFullscreen) doc.requestFullscreen();
     else if (doc.msRequestFullscreen) doc.msRequestFullscreen();

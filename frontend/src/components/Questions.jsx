@@ -100,6 +100,37 @@ export const Questions = () => {
     };
   }, []);
 
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (
+        event.ctrlKey ||
+        event.metaKey ||
+        event.altKey ||
+        event.key === "Tab" ||
+        event.key === "Escape"
+      ) {
+        alert("Navigation is not allowed during the quiz!");
+        navigate("/");
+      }
+    };
+
+    const handleFullScreenChange = () => {
+      if (!document.fullscreenElement) {
+        navigate("/");
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    document.addEventListener("fullscreenchange", handleFullScreenChange);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("fullscreenchange", handleFullScreenChange);
+    };
+  }, [navigate]);
+
   return (
     <AnswerContext.Provider
       value={{
