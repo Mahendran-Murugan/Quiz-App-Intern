@@ -68,5 +68,52 @@ const loginUser = (req, res) => {
       res.status(200).json(result);
     });
 };
+const showAllUser = (req, res) => {
+  connection.query("SELECT * FROM user", (err, result, fields) => {
+    if (err) {
+      console.log(err);
+      res.end();
+      return;
+    }
+    res.json(result);
+  });
+};
 
-module.exports = { showAllQuiz, showSingleQuiz, registerUser, loginUser };
+const editUser = (req, res) => {
+  const { name, email, password, id } = req.body;
+  if (name == "" && password == "" && email == "") {
+    console.log("Herre");
+    res.status(404).end();
+  }
+  connection
+    .query(`UPDATE user set name = "${name}", email = "${email}", password = "${password}" where id = ${id}`)
+    .on("error", (err) => {
+      res.status(404).json({
+        status: err,
+      });
+    })
+    .on("result", (result) => {
+      res.status(200).json({
+        status: "good",
+      });
+    });
+};
+
+const deleteUser = (req, res) => {
+  const { body: { id } } = req;
+  console.log(id);
+  connection
+    .query(`delete from user where id=${id}`)
+    .on("error", (err) => {
+      res.status(404).json({
+        status: err,
+      });
+    })
+    .on("result", (result) => {
+      res.status(200).json({
+        status: "good",
+      });
+    });
+};
+
+module.exports = { showAllQuiz, showSingleQuiz, registerUser, loginUser, showAllUser, editUser, deleteUser };
