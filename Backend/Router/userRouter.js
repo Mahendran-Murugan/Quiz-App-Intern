@@ -8,6 +8,7 @@ const {
   deleteUser,
   updateOrInsertAttempt,
   getUserAttempts,
+  updateUserScore,
 } = require("../Model/userModel");
 const routerUser = require("express").Router();
 
@@ -19,5 +20,6 @@ routerUser.post("/login", loginUser);
 routerUser.post("/edit", editUser);
 routerUser.post("/delete", deleteUser);
 routerUser.post("/attempt/get", getUserAttempts);
+routerUser.put("/update/score/:id", updateUserScore);
 routerUser.post("/attempt/increase", updateOrInsertAttempt);
 module.exports = routerUser;

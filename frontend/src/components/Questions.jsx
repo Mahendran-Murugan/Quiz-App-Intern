@@ -108,6 +108,7 @@ export const Questions = () => {
         setAnswered,
         setCorrect,
         isSubmitted,
+        QID,
         setSubmitted,
         open,
         setOpen,
@@ -149,6 +150,9 @@ export const Questions = () => {
         >
           <MyScrollDialog
             props={{
+              quizid: { QID },
+              answed: { answed },
+              isCorrect: { isCorrect },
               name: "Submit",
               title: (
                 <Typography variant="h5" color="initial">

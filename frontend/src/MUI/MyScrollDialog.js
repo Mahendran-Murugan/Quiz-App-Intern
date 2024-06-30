@@ -10,6 +10,7 @@ import Draggable from "react-draggable";
 import { QuestContext } from "../Context/QuestionContext";
 import { UseAnswer } from "../components/Questions";
 import { NavLink } from "react-router-dom";
+import axios from "axios";
 
 function PaperComponent(props) {
   return (
@@ -23,10 +24,22 @@ function PaperComponent(props) {
 }
 
 export default function MyScrollDialog({ props }) {
-  const { setSubmitted, open, setOpen, Ref } = UseAnswer();
+  const { setSubmitted, isSubmitted, open, setOpen, Ref } = UseAnswer();
   const handleClickOpen = () => {
     setOpen(true);
     setSubmitted(true);
+    if (props.quizid.QID != 0) {
+      console.log(props.quizid);
+      axios.put(
+        "http://localhost:8000/api/user/update/score/" +
+          localStorage.getItem("id"),
+        {
+          attendedQuestion: props.answed.answed,
+          correctAnswer: props.isCorrect.isCorrect,
+        }
+      );
+    }
+    console.log(props.isCorrect, props.answed);
     clearInterval(Ref.current);
     Ref.current = null;
   };
@@ -37,9 +50,11 @@ export default function MyScrollDialog({ props }) {
 
   return (
     <React.Fragment>
-      <Button variant="contained" onClick={handleClickOpen}>
-        {props.name}
-      </Button>
+      {!isSubmitted && (
+        <Button variant="contained" onClick={handleClickOpen}>
+          {props.name}
+        </Button>
+      )}
       <Dialog
         open={open}
         onClose={handleClose}

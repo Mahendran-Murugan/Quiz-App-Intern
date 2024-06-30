@@ -193,11 +193,49 @@ const updateOrInsertAttempt = (req, res) => {
   });
 };
 
+const updateUserScore = (req, res) => {
+  const userId = req.params.id;
+
+  const { attendedQuestion, correctAnswer } = req.body;
+  console.log(req.params.id, req.body);
+  const getUserQuery = `SELECT attended, correct FROM user WHERE id = ?`;
+  const updateUserQuery = `
+    UPDATE user
+    SET attended = attended + ?, correct = correct + ?
+    WHERE id = ?
+  `;
+
+  connection.query(getUserQuery, [userId], (error, results) => {
+    if (error) {
+      console.error("Error fetching user data:", error);
+      return res.status(500).json({ error: "Internal Server Error" });
+    }
+
+    if (results.length === 0) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    connection.query(
+      updateUserQuery,
+      [attendedQuestion, correctAnswer, userId],
+      (updateError, updateResults) => {
+        if (updateError) {
+          console.error("Error updating user data:", updateError);
+          return res.status(500).json({ error: "Internal Server Error" });
+        }
+
+        res.json({ message: "User data updated successfully" });
+      }
+    );
+  });
+};
+
 module.exports = {
   showAllQuiz,
   updateOrInsertAttempt,
   showSingleQuiz,
   registerUser,
+  updateUserScore,
   loginUser,
   showAllUser,
   editUser,
