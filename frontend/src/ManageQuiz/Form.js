@@ -55,7 +55,7 @@ export default function Form() {
         choices: [""],
         answer: "",
         image: "",
-        points: 0,
+        points: null,
       },
     ]);
   };

@@ -69,4 +69,60 @@ const loginUser = (req, res) => {
     });
 };
 
-module.exports = { showAllQuiz, showSingleQuiz, registerUser, loginUser };
+const updateOrInsertAttempt = (req, res) => {
+  const { quizid, userid } = req.body;
+
+  if (!quizid || !userid) {
+    res.status(400).json({ error: "Invalid request body" });
+    return;
+  }
+
+  const checkRecordSql = `SELECT id, attempt FROM attempt WHERE quizid = ? AND userid = ?`;
+  connection.query(checkRecordSql, [quizid, userid], (err, results) => {
+    if (err) {
+      res.status(500).json({ error: "Database query failed" });
+      return;
+    }
+
+    if (results.length > 0) {
+      const currentAttempt = results[0].attempt;
+      const newAttempt = currentAttempt + 1;
+
+      const updateAttemptSql = `UPDATE attempt SET attempt = ? WHERE quizid = ? AND userid = ?`;
+      connection.query(
+        updateAttemptSql,
+        [newAttempt, quizid, userid],
+        (err, result) => {
+          if (err) {
+            res.status(500).json({ error: "Failed to update attempt count" });
+            return;
+          }
+          res.json({
+            message: "Attempt count updated successfully",
+            newAttempt,
+          });
+        }
+      );
+    } else {
+      const insertAttemptSql = `INSERT INTO attempt (quizid, userid, attempt) VALUES (?, ?, 1)`;
+      connection.query(insertAttemptSql, [quizid, userid], (err, result) => {
+        if (err) {
+          res.status(500).json({ error: "Failed to insert new attempt" });
+          return;
+        }
+        res.json({
+          message: "New attempt inserted successfully",
+          newAttempt: 1,
+        });
+      });
+    }
+  });
+};
+
+module.exports = {
+  showAllQuiz,
+  updateOrInsertAttempt,
+  showSingleQuiz,
+  registerUser,
+  loginUser,
+};
