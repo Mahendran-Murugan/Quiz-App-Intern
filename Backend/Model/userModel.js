@@ -120,14 +120,14 @@ const deleteUser = (req, res) => {
 };
 
 const getUserAttempts = (req, res) => {
-  const { quizid, userid } = req.query;
+  const { quizid, userid } = req.body;
 
   if (!quizid || !userid) {
     res.status(400).json({ error: "Invalid request parameters" });
     return;
   }
 
-  const getAttemptsSql = `SELECT attempt FROM quiz_attempts WHERE quizid = ? AND userid = ?`;
+  const getAttemptsSql = `SELECT attempt FROM attempt WHERE quizid = ? AND userid = ?`;
   connection.query(getAttemptsSql, [quizid, userid], (err, results) => {
     if (err) {
       res.status(500).json({ error: "Database query failed" });

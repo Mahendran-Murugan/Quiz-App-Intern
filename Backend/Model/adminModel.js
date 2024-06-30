@@ -42,9 +42,7 @@ const createQuiz = (req, res, call) => {
   if (body.name && body.count && body.questions) {
     connection
       .query(
-        `insert into quizz( name , count , duration) values ( "${
-          body.name
-        }" , ${body.count} , ${body.duration }) `
+        `insert into quizz( name , count , duration , attempt) values ( "${body.name}" , ${body.count} , ${body.duration} , ${body.attempt}) `
       )
       .on("error", (err) => {
         console.log(err);
@@ -119,8 +117,15 @@ const updateQuiz = (req, res) => {
         return;
       }
 
-      const updateQuizSql = `UPDATE quizz SET name = ?, count = ?, duration = ? WHERE id = ?`;
-      const updateQuizValues = [body.name, body.count, body.duration, body.id];
+      const updateQuizSql = `UPDATE quizz SET name = ?, count = ?, duration = ? , attempt = ? WHERE id = ?`;
+      const updateQuizValues = [
+        body.name,
+        body.count,
+        body.duration,
+        body.attempt,
+        body.id,
+      ];
+      // console.log(updateQuizValues);
       connection.query(updateQuizSql, updateQuizValues, (err, result) => {
         if (err) {
           connection.rollback(() => {
@@ -177,6 +182,7 @@ const updateQuiz = (req, res) => {
 
               if (q.id) {
                 const updateQuestionSql = `UPDATE question SET question = ?, choices = ?, answer = ?, image = ?, points = ? WHERE id = ?`;
+
                 const updateQuestionValues = [
                   q.question,
                   json,
@@ -185,6 +191,7 @@ const updateQuiz = (req, res) => {
                   q.points,
                   q.id,
                 ];
+                // console.log(updateQuestionValues);
                 connection.query(
                   updateQuestionSql,
                   updateQuestionValues,

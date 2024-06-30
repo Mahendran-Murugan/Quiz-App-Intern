@@ -23,6 +23,8 @@ export default function Form() {
     name,
     count,
     setCount,
+    attempt,
+    setAttempt,
     setQuestions,
     questions,
   } = UseQuiz();
@@ -63,7 +65,7 @@ export default function Form() {
     <React.Fragment>
       <Typography variant="h6" gutterBottom></Typography>
       <Grid container spacing={3}>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={12}>
           <TextField
             required
             id="firstName"
@@ -84,6 +86,18 @@ export default function Form() {
             type="number"
             onChange={(e) => setDuration(e.target.value)}
             value={duration}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            required
+            id="attempt"
+            name="attempt"
+            label="Attempt"
+            fullWidth
+            type="number"
+            onChange={(e) => setAttempt(e.target.value)}
+            value={attempt}
           />
         </Grid>
 

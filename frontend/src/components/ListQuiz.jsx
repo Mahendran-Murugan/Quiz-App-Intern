@@ -13,7 +13,7 @@ import { QuestContext } from "../Context/QuestionContext";
 export const ListQuiz = () => {
   const [quizall, setQuiz] = useState([]);
   const [quizCount, setQuixCount] = useState(0);
-  const { QID, setQID, min, setMin } = QuestContext();
+  const { QID, setQID, min, setMin, setAttempt } = QuestContext();
   useEffect(() => {
     axios.get("http://localhost:8000/api/user/quiz/list").then((res) => {
       setQuiz(res.data);
@@ -22,8 +22,9 @@ export const ListQuiz = () => {
     });
   }, []);
 
-  const handleClick = (index, id) => {
+  const handleClick = (index, id, attempt) => {
     setQID(id);
+    setAttempt(attempt);
     setMin(quizall[index].duration);
   };
 
@@ -34,14 +35,13 @@ export const ListQuiz = () => {
       <center>
         {(quizStatus && (
           <Typography variant="h6">
-            Welcome {localStorage.getItem("name")}, These are {quizCount} quizes
-            available{" "}
+            Welcome {localStorage.getItem("name")}, There are {quizCount}{" "}
+            {quizCount > 1 ? "quizzes" : "quiz"} available{" "}
           </Typography>
         )) || (
-          <h1>
-            Welcome {localStorage.getItem("name")}, These are no available
-            quizes
-          </h1>
+          <Typography variant="h6">
+            Welcome {localStorage.getItem("name")}, These are no available quiz
+          </Typography>
         )}
       </center>
       <Box>
@@ -53,7 +53,7 @@ export const ListQuiz = () => {
               )}
               <Link
                 to={`${quiz.id}`}
-                onClick={() => handleClick(index, quiz.id)}
+                onClick={() => handleClick(index, quiz.id, quiz.attempt)}
               >
                 <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                   <Stack direction={"row"} spacing={3} alignItems={"center"}>

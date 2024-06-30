@@ -31,8 +31,10 @@ export default function Conformation({
   right,
   button,
   ConfirmName,
+  attemptCount,
   questCount,
   id,
+  dura,
 }) {
   const {
     handleEdit,
@@ -41,6 +43,9 @@ export default function Conformation({
     setName,
     questions,
     setCount,
+    setDuration,
+    attempt,
+    setAttempt,
     setQuestions,
   } = UseQuizTableContext();
   const [open, setOpen] = React.useState(false);
@@ -49,7 +54,10 @@ export default function Conformation({
     e.preventDefault();
     AsyncFunction();
     setName(ConfirmName);
+    setDuration(dura);
     setCount(questCount);
+    setAttempt(attemptCount);
+    console.log(attemptCount);
     setOpen(true);
   };
   const selector = useSelector((state) => state.imageFiles.data);
@@ -66,7 +74,7 @@ export default function Conformation({
       setQuestions((p) => [
         ...p,
         {
-          id : ele.id , 
+          id: ele.id,
           question: ele.question,
           choices: Object.values(JSON.parse(ele.choices)),
           answer: ele.answer,

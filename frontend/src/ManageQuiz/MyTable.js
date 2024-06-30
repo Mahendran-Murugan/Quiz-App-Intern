@@ -26,6 +26,7 @@ export default function MyTable({ rows }) {
   const [count, setCount] = React.useState(0);
   const [questions, setQuestions] = React.useState([]);
   const [duration, setDuration] = React.useState(null);
+  const [attempt, setAttempt] = React.useState(null);
   const selector = useSelector((state) => state.imageFiles.data);
 
   const handleDelete = (e, id) => {
@@ -80,10 +81,11 @@ export default function MyTable({ rows }) {
           name: name,
           duration: duration,
           count: count,
+          attempt: attempt,
           questions: questions,
         })
         .then((resu) => {
-          // console.log(resu.data);
+          console.log(resu.data);
         })
         .catch((err) => console.log(err));
       // console.log(questions);
@@ -156,6 +158,9 @@ export default function MyTable({ rows }) {
                     setName,
                     count,
                     setCount,
+                    attempt,
+                    setAttempt,
+                    setDuration,
                     questions,
                     setQuestions,
                   }}
@@ -165,7 +170,9 @@ export default function MyTable({ rows }) {
                     header={"Edit"}
                     id={row.id}
                     ConfirmName={row.name}
+                    attemptCount={row.attempt}
                     questCount={row.count}
+                    dura={row.duration}
                     body={
                       <>
                         <Grid container spacing={2}>
@@ -173,33 +180,46 @@ export default function MyTable({ rows }) {
                             <Typography variant="h6" gutterBottom>
                               Name
                             </Typography>
-                            <Grid container spacing={2} xs={12}>
-                              <Grid item xs={12} sm={6}>
-                                <TextField
-                                  required
-                                  name="address1"
-                                  label="Quiz"
-                                  fullWidth
-                                  value={name}
-                                  onChange={(e) => {
-                                    setName(e.target.value);
-                                  }}
-                                  autoComplete=""
-                                />
-                              </Grid>
-                              <Grid item xs={12} sm={6}>
-                                <TextField
-                                  required
-                                  name="duration"
-                                  label="Duration (in Mins)"
-                                  fullWidth
-                                  value={duration}
-                                  onChange={(e) => {
-                                    setDuration(e.target.value);
-                                  }}
-                                  autoComplete=""
-                                />
-                              </Grid>
+                            <Grid item xs={12} sm={12}>
+                              <TextField
+                                required
+                                name="address1"
+                                label="Quiz"
+                                fullWidth
+                                value={name}
+                                onChange={(e) => {
+                                  setName(e.target.value);
+                                }}
+                                autoComplete=""
+                              />
+                            </Grid>
+                          </Grid>
+                          <Grid container spacing={2} xs={12} m={2}>
+                            <Grid item xs={12} sm={6}>
+                              <TextField
+                                required
+                                name="duration"
+                                label="Duration (in Mins)"
+                                fullWidth
+                                type="number"
+                                value={duration}
+                                onChange={(e) => {
+                                  setDuration(e.target.value);
+                                }}
+                                autoComplete=""
+                              />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                              <TextField
+                                name="attempt"
+                                label="Attempt"
+                                fullWidth
+                                type="number"
+                                value={attempt}
+                                onChange={(e) => {
+                                  setAttempt(e.target.value);
+                                }}
+                              />
                             </Grid>
                           </Grid>
 

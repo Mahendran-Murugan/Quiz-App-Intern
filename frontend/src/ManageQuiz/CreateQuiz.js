@@ -18,6 +18,7 @@ export default function CreateQuiz({ props }) {
   const [count, setCount] = React.useState(null);
   const [duration, setDuration] = React.useState(null);
   const [questions, setQuestions] = React.useState([]);
+  const [attempt, setAttempt] = React.useState(null);
   const handleClickOpen = (e) => {
     e.preventDefault();
     setQuestions([]);
@@ -72,6 +73,7 @@ export default function CreateQuiz({ props }) {
           {
             name: name,
             count: count,
+            attempt: attempt,
             questions: questions,
             duration: duration,
           }
@@ -95,6 +97,8 @@ export default function CreateQuiz({ props }) {
           setName,
           setCount,
           count,
+          attempt,
+          setAttempt,
           setQuestions,
           duration,
           setDuration,

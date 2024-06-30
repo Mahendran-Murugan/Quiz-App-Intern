@@ -18,18 +18,25 @@ export default function UserTable({ rows }) {
 
   const handleEdit = async (e, id) => {
     e.preventDefault();
-    axios.post("http://localhost:8000/api/user/edit", {
-      id: id,
-      name: name,
-      email: email,
-      password: pass
-    }).then((res) => console.log(res))
-      .catch((err) => console.log(err))
+    axios
+      .post("http://localhost:8000/api/user/edit", {
+        id: id,
+        name: name,
+        email: email,
+        password: pass,
+      })
+      .then
+      // (res) =>
+      // console.log(res)
+      ()
+      .catch((err) => console.log(err));
   };
   const handleDelete = (e, id) => {
     e.preventDefault();
-    axios.post("http://localhost:8000/api/user/delete", { id: id }).then((res) => console.log(res))
-      .catch((err) => console.log(err))
+    axios
+      .post("http://localhost:8000/api/user/delete", { id: id })
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
   };
 
   return (

@@ -10,7 +10,7 @@ export const UserManipulate = () => {
 
   useEffect(() => {
     AsyncFunction();
-  }, []);
+  });
 
   return <UserTable rows={users} />;
 };
