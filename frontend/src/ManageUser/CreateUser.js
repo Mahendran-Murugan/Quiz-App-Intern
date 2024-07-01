@@ -7,6 +7,7 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import axios from "axios";
 import Form from "../ManageQuiz/Form";
+import { USER_SERVER } from '../data'
 import { useDispatch, useSelector } from "react-redux";
 import UserForm from "./UserForm";
 
@@ -40,7 +41,7 @@ export default function CreateUser({ props }) {
       return;
     }
     axios
-      .post("http://localhost:8000/api/user/register", all)
+      .post(USER_SERVER + "/register", all)
       .then((res) => {
         console.log(res);
       })

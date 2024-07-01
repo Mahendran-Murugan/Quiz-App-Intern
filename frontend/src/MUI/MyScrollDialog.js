@@ -10,6 +10,7 @@ import Draggable from "react-draggable";
 import { QuestContext } from "../Context/QuestionContext";
 import { UseAnswer } from "../components/Questions";
 import { NavLink } from "react-router-dom";
+import { USER_SERVER } from '../data'
 import axios from "axios";
 
 function PaperComponent(props) {
@@ -31,8 +32,8 @@ export default function MyScrollDialog({ props }) {
     if (props.quizid.QID != 0) {
       console.log(props.quizid);
       axios.put(
-        "http://localhost:8000/api/user/update/score/" +
-          localStorage.getItem("id"),
+        USER_SERVER + "/update/score/" +
+        localStorage.getItem("id"),
         {
           attendedQuestion: props.answed.answed,
           correctAnswer: props.isCorrect.isCorrect,

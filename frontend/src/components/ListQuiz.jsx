@@ -9,13 +9,14 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
+import { USER_SERVER } from '../data'
 import { QuestContext } from "../Context/QuestionContext";
 export const ListQuiz = () => {
   const [quizall, setQuiz] = useState([]);
   const [quizCount, setQuixCount] = useState(0);
   const { QID, setQID, min, setMin, setAttempt } = QuestContext();
   useEffect(() => {
-    axios.get("http://localhost:8000/api/user/quiz/list").then((res) => {
+    axios.get(USER_SERVER + "/quiz/list").then((res) => {
       setQuiz(res.data);
       setQuixCount(res.data.length);
       setMin(res.data.duration);
@@ -39,10 +40,10 @@ export const ListQuiz = () => {
             {quizCount > 1 ? "quizzes" : "quiz"} available{" "}
           </Typography>
         )) || (
-          <Typography variant="h6">
-            Welcome {localStorage.getItem("name")}, These are no available quiz
-          </Typography>
-        )}
+            <Typography variant="h6">
+              Welcome {localStorage.getItem("name")}, These are no available quiz
+            </Typography>
+          )}
       </center>
       <Box>
         {quizall.map((quiz, index) => {

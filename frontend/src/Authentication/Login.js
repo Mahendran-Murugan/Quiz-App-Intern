@@ -13,6 +13,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import axios from "axios";
 import { UseAuth } from "./AuthContext";
 import { useNavigate } from "react-router-dom";
+import { USER_SERVER } from '../data'
 const defaultTheme = createTheme();
 
 export function Login() {
@@ -29,7 +30,7 @@ export function Login() {
       return;
     }
     axios
-      .post("http://localhost:8000/api/user/login", all)
+      .post(USER_SERVER + "/login", all)
       .then((res) => {
         login(res.data.id, res.data.name, res.data.email, res.data.password);
         navigate("/");

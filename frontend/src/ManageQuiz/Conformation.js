@@ -7,6 +7,7 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Paper from "@mui/material/Paper";
 import Draggable from "react-draggable";
+import { USER_SERVER } from '../data'
 import { UseQuizTableContext } from "./MyTable";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
@@ -65,7 +66,7 @@ export default function Conformation({
   async function AsyncFunction() {
     dispatch(resetAction());
     const result = (
-      await axios.get("http://localhost:8000/api/user/quiz/" + id)
+      await axios.get(USER_SERVER + "/quiz/" + id)
     ).data;
     setQuestions([]);
     result.map((ele) => {
