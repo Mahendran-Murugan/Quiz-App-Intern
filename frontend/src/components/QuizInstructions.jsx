@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { QuestContext } from "../Context/QuestionContext";
 import axios from "axios";
+import { USER_SERVER } from '../data'
 import ReadInstructions from "../MUI/ReadInstructions";
 export const QuizInstructions = ({ id }) => {
   const { QID, attempt } = QuestContext();
@@ -13,7 +14,7 @@ export const QuizInstructions = ({ id }) => {
     if (QID != 0) {
       setLimitAttempts(attempt);
       const res = axios
-        .post("http://localhost:8000/api/user/attempt/get/", {
+        .post(USER_SERVER + "/attempt/get/", {
           userid: localStorage.getItem("id"),
           quizid: QID,
         })
@@ -25,7 +26,7 @@ export const QuizInstructions = ({ id }) => {
   const navToQuestions = (e) => {
     e.preventDefault();
     if (QID != 0) {
-      axios.post("http://localhost:8000/api/user/attempt/increase/", {
+      axios.post(USER_SERVER + "/attempt/increase/", {
         quizid: QID,
         userid: localStorage.getItem("id"),
       });

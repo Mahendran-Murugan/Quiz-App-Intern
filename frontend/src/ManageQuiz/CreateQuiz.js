@@ -7,6 +7,7 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import axios from "axios";
 import Form from "./Form";
+import { ADMIN_SERVER } from '../data'
 import { Provider, useDispatch, useSelector } from "react-redux";
 import { resetAction } from "../feature/imageQuizSlice";
 
@@ -69,7 +70,7 @@ export default function CreateQuiz({ props }) {
 
       await Promise.all(uploadPromises).then((resolver) => {
         const response = axios.post(
-          "http://localhost:8000/api/admin/quiz/create",
+          ADMIN_SERVER + "/quiz/create",
           {
             name: name,
             count: count,

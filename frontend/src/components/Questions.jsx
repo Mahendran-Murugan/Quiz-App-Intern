@@ -9,6 +9,7 @@ import { SingleQuestion } from "./SingleQuestion";
 import axios from "axios";
 import { QuestContext } from "../Context/QuestionContext";
 import { NavLink, useNavigate } from "react-router-dom";
+import { USER_SERVER } from '../data'
 import {
   Box,
   Button,
@@ -30,7 +31,7 @@ export const Questions = () => {
   const selectedSubscribe = useSelector((state) => state.quizAttend.selected);
   const selectedDispatcher = useDispatch();
   useEffect(() => {
-    axios.get("http://localhost:8000/api/user/quiz/" + QID).then((res) => {
+    axios.get(USER_SERVER + "/quiz/" + QID).then((res) => {
       setData(res.data);
       res.data.map((e) => {
         selectedDispatcher(setSelected());
@@ -68,10 +69,10 @@ export const Questions = () => {
     if (total >= 0) {
       setTimer(
         (hours > 9 ? hours : "0" + hours) +
-          ":" +
-          (minutes > 9 ? minutes : "0" + minutes) +
-          ":" +
-          (seconds > 9 ? seconds : "0" + seconds)
+        ":" +
+        (minutes > 9 ? minutes : "0" + minutes) +
+        ":" +
+        (seconds > 9 ? seconds : "0" + seconds)
       );
     }
   };

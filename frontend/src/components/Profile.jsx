@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import { PieChart } from "@mui/x-charts/PieChart";
 import React, { useEffect, useState } from "react";
+import { USER_SERVER } from '../data'
 import axios from "axios";
 import LeaderBoard from "../MUI/LeaderBoard";
 
@@ -18,13 +19,13 @@ const Profile = () => {
   const [leader, setLeader] = useState(null);
   async function Async() {
     const result = await axios.get(
-      "http://localhost:8000/api/user/get/userDetails/" +
-        localStorage.getItem("id")
+      USER_SERVER + "/get/userDetails/" +
+      localStorage.getItem("id")
     );
     // console.log(result.data);
     setDetails(result.data);
     const leader = await axios
-      .get("http://localhost:8000/api/user/leadership")
+      .get(USER_SERVER + "/leadership")
       .then((res) => {
         console.log(res);
         setLeader(res.data);
