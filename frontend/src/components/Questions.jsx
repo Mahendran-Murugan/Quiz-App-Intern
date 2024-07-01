@@ -123,12 +123,18 @@ export const Questions = () => {
       }
     };
 
+    const handleVisibilityChange = () => {
+      if (document.visibilityState == 'hidden') navigate('/');
+    }
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
     document.addEventListener("keydown", handleKeyDown);
     document.addEventListener("fullscreenchange", handleFullScreenChange);
 
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
       document.removeEventListener("fullscreenchange", handleFullScreenChange);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
   }, [navigate]);
 
