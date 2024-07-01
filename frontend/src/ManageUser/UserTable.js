@@ -10,6 +10,7 @@ import axios from "axios";
 import Typography from "@mui/material/Typography";
 import { Button, Grid, TextField } from "@mui/material";
 import Conformation from "./Conformation";
+import { USER_SERVER } from '../data'
 const UserTableContext = React.createContext();
 export default function UserTable({ rows }) {
   const [name, setName] = React.useState("");
@@ -19,7 +20,7 @@ export default function UserTable({ rows }) {
   const handleEdit = async (e, id) => {
     e.preventDefault();
     axios
-      .post("http://localhost:8000/api/user/edit", {
+      .post(USER_SERVER + "/edit", {
         id: id,
         name: name,
         email: email,
@@ -34,7 +35,7 @@ export default function UserTable({ rows }) {
   const handleDelete = (e, id) => {
     e.preventDefault();
     axios
-      .post("http://localhost:8000/api/user/delete", { id: id })
+      .post(USER_SERVER + "/delete", { id: id })
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
   };

@@ -12,6 +12,7 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import axios from "axios";
 import e from "cors";
+import { USER_SERVER } from '../data'
 const defaultTheme = createTheme();
 
 export function Register() {
@@ -27,7 +28,7 @@ export function Register() {
       return;
     }
     axios
-      .post("http://localhost:8000/api/user/register", all)
+      .post(USER_SERVER + "/register", all)
       .then((res) => {
         console.log(res);
       })

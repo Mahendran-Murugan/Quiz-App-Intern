@@ -20,6 +20,7 @@ import {
   removeAction,
   resetAction,
 } from "../feature/imageQuizSlice";
+import { ADMIN_SERVER } from '../data'
 const MyQuizTableContext = React.createContext();
 export default function MyTable({ rows }) {
   const [name, setName] = React.useState("");
@@ -31,7 +32,7 @@ export default function MyTable({ rows }) {
 
   const handleDelete = (e, id) => {
     e.preventDefault();
-    axios.delete("http://localhost:8000/api/admin/quiz/delete/" + id);
+    axios.delete(ADMIN_SERVER + "/quiz/delete/" + id);
   };
   const dispatcher = useDispatch();
   const handleEdit = async (e, id) => {
@@ -76,7 +77,7 @@ export default function MyTable({ rows }) {
 
       // console.log(questions);
       await axios
-        .put("http://localhost:8000/api/admin/quiz/update", {
+        .put(ADMIN_SERVER + "/quiz/update", {
           id: id,
           name: name,
           duration: duration,
