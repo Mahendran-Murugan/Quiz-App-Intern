@@ -5,7 +5,7 @@ import Box from "@mui/material/Box";
 import PropTypes from "prop-types";
 import CreateQuiz from "../ManageQuiz/CreateQuiz";
 import QuizManipulate from "../ManageQuiz/QuizManipulate";
-import { Stack } from "@mui/material";
+import { Container, Stack } from "@mui/material";
 import { Provider } from "react-redux";
 import { store } from "../app/store";
 import CreateUser from "../ManageUser/CreateUser";
@@ -47,7 +47,10 @@ export default function Tabbed() {
   }
 
   return (
-    <Box sx={{ maxWidth: { xs: 320, sm: 720 }, bgcolor: "background.paper" }}>
+    <Container
+      
+      sx={{ maxWidth: { xs: 320, sm: 920 }, bgcolor: "background.paper" }}
+    >
       <Tabs
         value={value}
         onChange={handleChange}
@@ -84,6 +87,6 @@ export default function Tabbed() {
           </Provider>
         </Stack>
       </CustomTabPanel>
-    </Box>
+    </Container>
   );
 }

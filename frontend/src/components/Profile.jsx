@@ -4,18 +4,46 @@ import {
   CardContent,
   CardMedia,
   Container,
+  Grid,
   Stack,
   Typography,
 } from "@mui/material";
-import React from "react";
+import { PieChart } from "@mui/x-charts/PieChart";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import LeaderBoard from "../MUI/LeaderBoard";
 
 const Profile = () => {
+  const [details, setDetails] = useState(null);
+  const [leader, setLeader] = useState(null);
+  async function Async() {
+    const result = await axios.get(
+      "http://localhost:8000/api/user/get/userDetails/" +
+        localStorage.getItem("id")
+    );
+    // console.log(result.data);
+    setDetails(result.data);
+    const leader = await axios
+      .get("http://localhost:8000/api/user/leadership")
+      .then((res) => {
+        console.log(res);
+        setLeader(res.data);
+      });
+  }
+  useEffect(() => {
+    Async();
+  }, []);
   return (
-    <Container>
-      <Typography variant="h5" gutterBottom>
+    <Grid alignContent={"center"}>
+      <Typography variant="h5" align="center" m={2} gutterBottom>
         Profile
       </Typography>
-      <Stack direction={"row"} flexWrap={"wrap"} gap={3}>
+      <Stack
+        direction={"row"}
+        flexWrap={"wrap"}
+        justifyContent={"center"}
+        gap={3}
+      >
         <Card sx={{ maxWidth: 245 }}>
           <CardMedia
             component="img"
@@ -23,8 +51,13 @@ const Profile = () => {
             image="https://cdn.serc.carleton.edu/images/serc/empty_user_icon_256.v2.webp"
             alt="green iguana"
           />
+
           <CardContent>
-            <Typography sx={{ textTransform: "capitalize" }} align="center">
+            <Typography
+              sx={{ textTransform: "capitalize", fontWeight: "bold" }}
+              align="center"
+              mb={1}
+            >
               Name : {localStorage.getItem("name")}
             </Typography>
             <Typography
@@ -32,18 +65,52 @@ const Profile = () => {
               gutterBottom
               align="center"
             ></Typography>
-            <Typography variant="body1">Correct Answers:</Typography>
+
+            <Typography variant="body1">
+              Email : {localStorage.getItem("email")}
+            </Typography>
           </CardContent>
         </Card>
-        <Card sx={{ maxWidth: 245 }}>
+        <Card sx={{ maxWidth: 500 }}>
           <CardContent>
-            <Typography variant="h5"></Typography>
-            <Typography variant="body1">Attended Questions:</Typography>
-            <Typography variant="body1">Correct Answers:</Typography>
+            {details && (
+              <>
+                <PieChart
+                  series={[
+                    {
+                      data: [
+                        {
+                          id: 0,
+                          value: `${details.attended}`,
+                          label: "Attended",
+                        },
+                        {
+                          id: 1,
+                          value: `${details.correct}`,
+                          label: "Correct",
+                        },
+                      ],
+                    },
+                  ]}
+                  width={400}
+                  height={250}
+                />
+
+                <Typography align="center" mt={4} variant="h6" color="initial">
+                  Score :{" "}
+                  {((details.correct - (details.attended - details.correct)) /
+                    details.attended) *
+                    100}
+                </Typography>
+              </>
+            )}
           </CardContent>
         </Card>
       </Stack>
-    </Container>
+      <Stack m={2} p={2}>
+        <LeaderBoard data={leader} />
+      </Stack>
+    </Grid>
   );
 };
 

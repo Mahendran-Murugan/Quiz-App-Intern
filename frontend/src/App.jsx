@@ -14,8 +14,10 @@ import { Box } from "@mui/material";
 import MyNavBar from "./MUI/MyNavBar";
 import { UseAuth } from "./Authentication/AuthContext";
 import Profile from "./components/Profile";
+import { ADMIN_SERVER } from "./data";
 
 export const App = () => {
+  console.log(ADMIN_SERVER);
   return (
     <>
       <MyNavBar />
