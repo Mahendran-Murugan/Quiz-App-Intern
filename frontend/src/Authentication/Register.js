@@ -12,7 +12,7 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import axios from "axios";
 import e from "cors";
-import { USER_SERVER } from '../data'
+import { USER_SERVER } from "../data";
 const defaultTheme = createTheme();
 
 export function Register() {
@@ -20,10 +20,10 @@ export function Register() {
     const data = new FormData(event.currentTarget);
     const all = {
       name: data.get("firstName"),
-      email: data.get("email"),
+      userid: data.get("userid"),
       password: data.get("password"),
     };
-    if (all.name == "" || all.email == "" || all.password == "") {
+    if (all.name == "" || all.userid == "" || all.password == "") {
       alert("Input Field should be filled");
       return;
     }
@@ -75,10 +75,10 @@ export function Register() {
                 <TextField
                   required
                   fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
+                  id="userid"
+                  label="User ID"
+                  name="userid"
+                  autoComplete="userid"
                 />
               </Grid>
               <Grid item xs={12}>

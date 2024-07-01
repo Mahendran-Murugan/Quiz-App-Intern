@@ -1,14 +1,9 @@
 import React, { useContext, useState } from "react";
-import {
-  Grid,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Grid, TextField, Typography } from "@mui/material";
 import { UseUser } from "./CreateUser";
 
 export default function UserForm() {
-
-  const { name, setName, email, setEmail, pass, setPass } = UseUser();
+  const { name, setName, userid, setEmail, pass, setPass } = UseUser();
 
   return (
     <React.Fragment>
@@ -29,9 +24,9 @@ export default function UserForm() {
         <Grid item xs={12} sm={12}>
           <TextField
             required
-            id="Email"
-            name="Email"
-            label="E-mail Id"
+            id="userid"
+            name="userid"
+            label="User ID"
             fullWidth
             onChange={(e) => setEmail(e.target.value)}
             autoComplete="given-name"

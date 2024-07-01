@@ -10,11 +10,11 @@ import axios from "axios";
 import Typography from "@mui/material/Typography";
 import { Button, Grid, TextField } from "@mui/material";
 import Conformation from "./Conformation";
-import { USER_SERVER } from '../data'
+import { USER_SERVER } from "../data";
 const UserTableContext = React.createContext();
 export default function UserTable({ rows }) {
   const [name, setName] = React.useState("");
-  const [email, setEmail] = React.useState("");
+  const [userid, setEmail] = React.useState("");
   const [pass, setPass] = React.useState("");
 
   const handleEdit = async (e, id) => {
@@ -23,7 +23,7 @@ export default function UserTable({ rows }) {
       .post(USER_SERVER + "/edit", {
         id: id,
         name: name,
-        email: email,
+        userid: userid,
         password: pass,
       })
       .then
@@ -47,7 +47,7 @@ export default function UserTable({ rows }) {
           <TableRow>
             <TableCell>S.No</TableCell>
             <TableCell>Name</TableCell>
-            <TableCell align="right">Email</TableCell>
+            <TableCell align="right">User ID</TableCell>
             <TableCell align="right">Operation</TableCell>
           </TableRow>
         </TableHead>
@@ -58,7 +58,7 @@ export default function UserTable({ rows }) {
                 {ind + 1}
               </TableCell>
               <TableCell component="right">{row.name}</TableCell>
-              <TableCell align="right">{row.email}</TableCell>
+              <TableCell align="right">{row.userid}</TableCell>
               <TableCell align="right">
                 <UserTableContext.Provider
                   value={{
@@ -66,7 +66,7 @@ export default function UserTable({ rows }) {
                     handleDelete,
                     name,
                     setName,
-                    email,
+                    userid,
                     setEmail,
                     pass,
                     setPass,
@@ -77,7 +77,7 @@ export default function UserTable({ rows }) {
                     header={"Edit"}
                     id={row.id}
                     name={row.name}
-                    email={row.email}
+                    userid={row.userid}
                     pass={row.password}
                     body={
                       <>
@@ -102,9 +102,9 @@ export default function UserTable({ rows }) {
                             <TextField
                               required
                               name="address1"
-                              label="Email"
+                              label="User ID"
                               fullWidth
-                              value={email}
+                              value={userid}
                               onChange={(e) => {
                                 setEmail(e.target.value);
                               }}

@@ -35,14 +35,14 @@ const showSingleQuiz = (req, res) => {
 };
 
 const registerUser = (req, res) => {
-  const { name, password, email } = req.body;
+  const { name, password, userid } = req.body;
 
-  if (name == "" && password == "" && email == "") {
+  if (name == "" && password == "" && userid == "") {
     res.status(404).end();
   }
   connection
     .query(
-      `INSERT INTO user (name , password , email) VALUES ("${name}" ,"${password}" ,"${email}")`
+      `INSERT INTO user (name , password , userid) VALUES ("${name}" ,"${password}" ,"${userid}")`
     )
     .on("error", (err) => {
       res.status(404).send();
@@ -55,11 +55,12 @@ const registerUser = (req, res) => {
 };
 
 const loginUser = (req, res) => {
-  const { email, password } = req.body;
-  if (email == "" || password == "") res.status(404).json({ status: "error" });
+  const { userid, password } = req.body;
+
+  if (userid == "" || password == "") res.status(404).json({ status: "error" });
   connection
     .query(
-      `SELECT * FROM user where email = "${email}" and password = "${password}"`
+      `SELECT * FROM user where userid = "${userid}" and password = "${password}"`
     )
     .on("error", (err) => {
       res.status(404).json({ status: err });
@@ -80,13 +81,13 @@ const showAllUser = (req, res) => {
 };
 
 const editUser = (req, res) => {
-  const { name, email, password, id } = req.body;
-  if (name == "" && password == "" && email == "") {
+  const { name, userid, password, id } = req.body;
+  if (name == "" && password == "" && userid == "") {
     res.status(404).end();
   }
   connection
     .query(
-      `UPDATE user set name = "${name}", email = "${email}", password = "${password}" where id = ${id}`
+      `UPDATE user set name = "${name}", userid = "${userid}", password = "${password}" where id = ${id}`
     )
     .on("error", (err) => {
       res.status(404).json({
@@ -234,7 +235,7 @@ const getUser = (req, res) => {
   const userId = req.params.id;
 
   connection.query(
-    "SELECT name, email, attended, correct FROM user WHERE id = ?",
+    "SELECT name, userid, attended, correct FROM user WHERE id = ?",
     [userId],
     (error, results, fields) => {
       if (error) {
@@ -254,7 +255,7 @@ const getUser = (req, res) => {
 
 const leaderShip = (req, res) => {
   const sql = `
-    SELECT name, email ,attended, correct
+    SELECT name, userid ,attended, correct
     FROM user
     ORDER BY attended DESC, correct DESC
     LIMIT 10;`;

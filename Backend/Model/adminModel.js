@@ -38,23 +38,23 @@ const showImageQuiz = (res, req) => {
 const createQuiz = (req, res, call) => {
   const body = req.body;
   console.log(body);
-
   if (body.name && body.count && body.questions) {
+    const query =
+      "INSERT INTO quizz (name, count, duration, attempt) VALUES (?, ?, ?, ?)";
+    const values = [body.name, body.count, body.duration, body.attempt];
+
     connection
-      .query(
-        `insert into quizz( name , count , duration , attempt) values ( "${body.name}" , ${body.count} , ${body.duration} , ${body.attempt}) `
-      )
+      .query(query, values)
       .on("error", (err) => {
         console.log(err);
-
         res.end();
       })
       .on("result", (result) => {
         res.json({ id: result.insertId });
         body.questions.map((e) => {
           const json = JSON.stringify(Object.assign({}, e.choices));
-          const sql = `INSERT INTO question (quizid, question, choices, answer, image, points)
-          VALUES (?, ?, ?, ?, ?, ?)`;
+          const sql = `INSERT INTO question (quizid, question, choices, answer, image, points , isImage)
+          VALUES (?, ?, ?, ?, ?, ? , ?)`;
 
           const values = [
             result.insertId,
@@ -63,6 +63,7 @@ const createQuiz = (req, res, call) => {
             e.answer,
             e.image,
             e.points,
+            e.isImage,
           ];
           connection
             .query(sql, values)

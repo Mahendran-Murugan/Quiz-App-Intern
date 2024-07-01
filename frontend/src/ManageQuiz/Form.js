@@ -15,6 +15,8 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import Uploader from "../MUI/Uploader";
 import { useSelector, useDispatch } from "react-redux";
 import { addAction, removeAction } from "../feature/imageQuizSlice";
+import { TextareaAutosize } from "@mui/base/TextareaAutosize";
+
 export default function Form() {
   const {
     duration,
@@ -38,6 +40,7 @@ export default function Form() {
       const newItems = prevItems.filter((_, i) => i !== index);
       prevItems.choices = [];
       setCount(newItems.length);
+
       return newItems;
     });
     console.log(questions);
@@ -59,6 +62,7 @@ export default function Form() {
         answer: "",
         image: "",
         points: null,
+        isImage: false,
       },
     ]);
   };
@@ -68,13 +72,11 @@ export default function Form() {
       <Grid container spacing={3}>
         <Grid item xs={12} sm={12}>
           <TextField
-            required
             id="firstName"
             name="firstName"
             label="Quiz name"
             fullWidth
             onChange={(e) => setName(e.target.value)}
-            autoComplete="given-name"
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -124,6 +126,7 @@ export default function Form() {
                   id="address1"
                   name="address1"
                   label="Question"
+                  multiline
                   fullWidth
                   onChange={(e) => {
                     setQuestions((p) => {
@@ -148,6 +151,7 @@ export default function Form() {
                 <TextField
                   id="answer"
                   name="answer"
+                  multiline
                   onChange={(e) => {
                     setQuestions((p) => {
                       const newA = [...p];
@@ -166,6 +170,7 @@ export default function Form() {
                   autoComplete="Answer"
                 />
               </Grid>
+
               <Grid item xs={12} sm={6}>
                 <TextField
                   required

@@ -16,7 +16,7 @@ const userContext = React.createContext();
 export default function CreateUser({ props }) {
   const [open, setOpen] = React.useState(false);
   const [name, setName] = React.useState("");
-  const [email, setEmail] = React.useState("");
+  const [userid, setEmail] = React.useState("");
   const [pass, setPass] = React.useState("");
   const handleClickOpen = (e) => {
     e.preventDefault();
@@ -33,10 +33,10 @@ export default function CreateUser({ props }) {
   const handleCreate = async (e) => {
     const all = {
       name: name,
-      email: email,
+      userid: userid,
       password: pass,
     };
-    if (all.name == "" || all.email == "" || all.password == "") {
+    if (all.name == "" || all.userid == "" || all.password == "") {
       alert("Input Field should be filled");
       return;
     }
@@ -55,7 +55,7 @@ export default function CreateUser({ props }) {
         Create
       </Button>
       <userContext.Provider
-        value={{ name, setName, email, setEmail, pass, setPass }}
+        value={{ name, setName, userid, setEmail, pass, setPass }}
       >
         <Dialog
           open={open}

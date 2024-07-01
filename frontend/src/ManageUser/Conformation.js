@@ -28,7 +28,7 @@ export default function Conformation({
   right,
   button,
   name,
-  email,
+  userid,
   pass,
   id,
 }) {
@@ -44,7 +44,7 @@ export default function Conformation({
   const handleClickOpen = (e) => {
     e.preventDefault();
     setName(name);
-    setEmail(email);
+    setEmail(userid);
     setPass(pass);
     setOpen(true);
   };

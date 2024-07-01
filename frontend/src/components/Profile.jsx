@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { PieChart } from "@mui/x-charts/PieChart";
 import React, { useEffect, useState } from "react";
-import { USER_SERVER } from '../data'
+import { USER_SERVER } from "../data";
 import axios from "axios";
 import LeaderBoard from "../MUI/LeaderBoard";
 
@@ -19,17 +19,14 @@ const Profile = () => {
   const [leader, setLeader] = useState(null);
   async function Async() {
     const result = await axios.get(
-      USER_SERVER + "/get/userDetails/" +
-      localStorage.getItem("id")
+      USER_SERVER + "/get/userDetails/" + localStorage.getItem("id")
     );
     // console.log(result.data);
     setDetails(result.data);
-    const leader = await axios
-      .get(USER_SERVER + "/leadership")
-      .then((res) => {
-        console.log(res);
-        setLeader(res.data);
-      });
+    const leader = await axios.get(USER_SERVER + "/leadership").then((res) => {
+      console.log(res);
+      setLeader(res.data);
+    });
   }
   useEffect(() => {
     Async();
@@ -68,7 +65,7 @@ const Profile = () => {
             ></Typography>
 
             <Typography variant="body1">
-              Email : {localStorage.getItem("email")}
+              userid : {localStorage.getItem("userid")}
             </Typography>
           </CardContent>
         </Card>

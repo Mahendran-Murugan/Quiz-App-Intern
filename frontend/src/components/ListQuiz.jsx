@@ -9,7 +9,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { USER_SERVER } from '../data'
+import { USER_SERVER } from "../data";
 import { QuestContext } from "../Context/QuestionContext";
 export const ListQuiz = () => {
   const [quizall, setQuiz] = useState([]);
@@ -40,10 +40,10 @@ export const ListQuiz = () => {
             {quizCount > 1 ? "quizzes" : "quiz"} available{" "}
           </Typography>
         )) || (
-            <Typography variant="h6">
-              Welcome {localStorage.getItem("name")}, These are no available quiz
-            </Typography>
-          )}
+          <Typography variant="h6">
+            Welcome {localStorage.getItem("name")}, These are no available quiz
+          </Typography>
+        )}
       </center>
       <Box>
         {quizall.map((quiz, index) => {

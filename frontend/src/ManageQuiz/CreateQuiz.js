@@ -7,15 +7,17 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import axios from "axios";
 import Form from "./Form";
-import { ADMIN_SERVER } from '../data'
+import { ADMIN_SERVER, FILE_SERVER } from "../data";
 import { Provider, useDispatch, useSelector } from "react-redux";
 import { resetAction } from "../feature/imageQuizSlice";
+import MyDialog from "./MyDialog";
 
 const QuizContext = React.createContext();
 
 export default function CreateQuiz({ props }) {
   const [open, setOpen] = React.useState(false);
   const [name, setName] = React.useState("");
+  const [isError, setError] = React.useState(false);
   const [count, setCount] = React.useState(null);
   const [duration, setDuration] = React.useState(null);
   const [questions, setQuestions] = React.useState([]);
@@ -30,6 +32,11 @@ export default function CreateQuiz({ props }) {
 
   const handleClose = (e) => {
     e.preventDefault();
+    setName("");
+    setCount(null);
+    setDuration(null);
+    setQuestions([]);
+    setAttempt(null);
     setOpen(false);
   };
   const selector = useSelector((state) => state.imageFiles.data);
@@ -37,9 +44,43 @@ export default function CreateQuiz({ props }) {
   const dummy = ``;
   const dispatch = useDispatch();
   const handleCreate = async (e) => {
+    console.log(questions);
+
+    if (
+      !name ||
+      !count ||
+      !duration ||
+      !attempt ||
+      isNaN(duration) ||
+      isNaN(attempt) ||
+      attempt <= 0 ||
+      duration <= 0
+    ) {
+      console.log("Enter Valid Quiz");
+      console.log(isError);
+      setError(true);
+      return;
+    }
+    try {
+      questions.map((quest) => {
+        if (
+          !quest.question ||
+          quest.choices.length <= 0 ||
+          !quest.answer ||
+          !quest.points ||
+          quest.points < 0 ||
+          isNaN(quest.points)
+        ) {
+          console.log("Enter Valid Question");
+          throw "Enter valid Question and fill the empty block";
+        }
+      });
+    } catch (ex) {
+      setError(true);
+      return;
+    }
     try {
       e.preventDefault();
-      console.log(selector);
       const uploadPromises = selector.map(async (select, index) => {
         const formData = new FormData();
         // console.log(select.qimage);
@@ -47,7 +88,7 @@ export default function CreateQuiz({ props }) {
 
         // console.log(formData);
         const response = await axios.post(
-          "http://localhost:4000/api/post/image",
+          `${FILE_SERVER}/api/post/image`,
           formData,
           {
             headers: {
@@ -68,23 +109,55 @@ export default function CreateQuiz({ props }) {
         });
       });
 
-      await Promise.all(uploadPromises).then((resolver) => {
-        const response = axios.post(
-          ADMIN_SERVER + "/quiz/create",
-          {
-            name: name,
-            count: count,
-            attempt: attempt,
-            questions: questions,
-            duration: duration,
-          }
-        );
-      });
+      await Promise.all(
+        questions.map(async (quest) => {
+          if (quest.isImage) {
+            await Promise.all(
+              quest.choices.map(async (ch, j) => {
+                const newFormData = new FormData();
+                console.log(ch);
+                newFormData.append("qimage", ch); // Assuming ch is the file
 
-      setOpen(false);
+                try {
+                  const response = await axios.post(
+                    `${FILE_SERVER}/api/post/image`,
+                    newFormData,
+                    {
+                      headers: {
+                        "Content-Type": "multipart/form-data",
+                      },
+                    }
+                  );
+                  console.log(response);
+                  quest.choices[j] =
+                    response.data.file.filename !== "error"
+                      ? response.data.file.filename
+                      : "none";
+                } catch (err) {
+                  console.error("Error uploading image:", err);
+                  quest.choices[j] = "none";
+                }
+              })
+            );
+          }
+        })
+      );
+
+      console.log(questions);
+
+      await Promise.all(uploadPromises).then((resolver) => {
+        const response = axios.post(ADMIN_SERVER + "/quiz/create", {
+          name: name,
+          count: count,
+          attempt: attempt,
+          questions: questions,
+          duration: duration,
+        });
+      });
     } catch (error) {
       console.error("Error creating quiz:", error);
     }
+    handleClose(e);
     dispatch(resetAction());
   };
 
@@ -106,6 +179,13 @@ export default function CreateQuiz({ props }) {
           questions,
         }}
       >
+        {isError && (
+          <MyDialog
+            setError={setError}
+            body={"Enter Valid Quiz and Question"}
+            title={"Please fill the form"}
+          />
+        )}
         <Dialog
           open={open}
           onClose={(e) => handleClose(e)}

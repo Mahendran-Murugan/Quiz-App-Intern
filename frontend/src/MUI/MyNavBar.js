@@ -16,6 +16,7 @@ import Button from "@mui/material/Button";
 import { NavLink, useNavigate } from "react-router-dom";
 import { UseAuth } from "../Authentication/AuthContext";
 import { colors } from "@mui/material";
+import { ADMIN_MAIL } from "../data";
 
 const drawerWidth = 240;
 const navItems = ["Home", "Quiz", "Profile"];
@@ -60,7 +61,7 @@ function MyNavBar(props) {
           </>
         )}
 
-        {localStorage.getItem("name") === "admin@gmail.com" && (
+        {localStorage.getItem("name") === ADMIN_MAIL && (
           <ListItem disablePadding>
             <ListItemButton sx={{ textAlign: "center" }}>
               <ListItemText primary="Admin" />
@@ -131,7 +132,7 @@ function MyNavBar(props) {
                 </NavLink>
               </>
             )}
-            {localStorage.getItem("email") === "admin@gmail.com" && (
+            {localStorage.getItem("userid") === ADMIN_MAIL && (
               <>
                 <NavLink to="/admin">
                   <Button sx={{ color: "#fff" }}>Admin</Button>

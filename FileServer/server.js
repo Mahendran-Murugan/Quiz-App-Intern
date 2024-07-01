@@ -13,13 +13,13 @@ app.post("/api/post/image", upload.single("qimage"), (req, res) => {
     res.json({ file: req.file });
     return;
   }
-  console.log("error");
+  console.log("error ", req.file);
   res.json({ file: "error" });
 });
 
 app.get("/Images/:name", (req, res) => {
   console.log(req.params);
-  
+
   fs.readFileSync(`./Images/${req.params.name}`, (err, data) => {
     if (err) {
       console.log(err);

@@ -13,7 +13,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import axios from "axios";
 import { UseAuth } from "./AuthContext";
 import { useNavigate } from "react-router-dom";
-import { USER_SERVER } from '../data'
+import { USER_SERVER } from "../data";
 const defaultTheme = createTheme();
 
 export function Login() {
@@ -22,17 +22,17 @@ export function Login() {
   const handleSubmit = (event) => {
     const data = new FormData(event.currentTarget);
     const all = {
-      email: data.get("email"),
+      userid: data.get("userid"),
       password: data.get("password"),
     };
-    if (all.email === "" || all.password === "") {
+    if (all.userid === "" || all.password === "") {
       alert("Input Field should be filled");
       return;
     }
     axios
       .post(USER_SERVER + "/login", all)
       .then((res) => {
-        login(res.data.id, res.data.name, res.data.email, res.data.password);
+        login(res.data.id, res.data.name, res.data.userid, res.data.password);
         navigate("/");
       })
       .catch((err) => alert(err));
@@ -69,10 +69,10 @@ export function Login() {
                   required
                   fullWidth
                   autoFocus
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
+                  id="userid"
+                  label="User ID"
+                  name="userid"
+                  autoComplete="userid"
                 />
               </Grid>
               <Grid item xs={12}>

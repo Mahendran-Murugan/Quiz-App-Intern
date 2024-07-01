@@ -6,17 +6,17 @@ const MyContext = createContext();
 export const AuthContext = ({ children }) => {
   const [user, setUser] = useState({
     name: "",
-    email: "",
+    userid: "",
     password: "",
   });
 
-  const login = (id, name, email, password) => {
+  const login = (id, name, userid, password) => {
     localStorage.setItem("id", id);
     localStorage.setItem("name", name);
-    localStorage.setItem("email", email);
+    localStorage.setItem("userid", userid);
     setUser({
       name: name,
-      email: email,
+      userid: userid,
       password: password,
     });
   };
@@ -24,12 +24,13 @@ export const AuthContext = ({ children }) => {
   const logout = () => {
     setUser({
       name: "",
-      email: "",
+      userid: "",
       password: "",
     });
 
     localStorage.setItem("name", "");
-    localStorage.setItem("email", "");
+    localStorage.setItem("id", "");
+    localStorage.setItem("userid", "");
     localStorage.setItem("password", "");
     navigate("/login");
   };
