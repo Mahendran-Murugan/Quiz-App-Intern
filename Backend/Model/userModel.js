@@ -230,11 +230,50 @@ const updateUserScore = (req, res) => {
   });
 };
 
+const getUser = (req, res) => {
+  const userId = req.params.id;
+
+  connection.query(
+    "SELECT name, email, attended, correct FROM user WHERE id = ?",
+    [userId],
+    (error, results, fields) => {
+      if (error) {
+        console.error("Error fetching user details:", error);
+        res.status(500).json({ error: "Internal server error" });
+        return;
+      }
+
+      if (results.length > 0) {
+        res.json(results[0]);
+      } else {
+        res.status(404).json({ error: "User not found" });
+      }
+    }
+  );
+};
+
+const leaderShip = (req, res) => {
+  const sql = `
+    SELECT name, email ,attended, correct
+    FROM user
+    ORDER BY attended DESC, correct DESC
+    LIMIT 10;`;
+  connection.query(sql, (error, results) => {
+    if (error) {
+      console.error("Error fetching leadership board:", error);
+      res.status(500).json({ error: "Internal server error" });
+      return;
+    }
+    res.json(results);
+  });
+};
 module.exports = {
+  leaderShip,
   showAllQuiz,
   updateOrInsertAttempt,
   showSingleQuiz,
   registerUser,
+  getUser,
   updateUserScore,
   loginUser,
   showAllUser,

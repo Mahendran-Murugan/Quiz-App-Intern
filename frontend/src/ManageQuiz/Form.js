@@ -37,9 +37,10 @@ export default function Form() {
     setQuestions((prevItems) => {
       const newItems = prevItems.filter((_, i) => i !== index);
       prevItems.choices = [];
-      setCount(newItems.length); // Update count based on the new length
+      setCount(newItems.length);
       return newItems;
     });
+    console.log(questions);
     if (childRef.current) {
       childRef.current.handleChoiceDelete();
     }

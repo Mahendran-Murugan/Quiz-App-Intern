@@ -17,7 +17,6 @@ import Profile from "./components/Profile";
 import { ADMIN_SERVER } from "./data";
 
 export const App = () => {
-  console.log(ADMIN_SERVER);
   return (
     <>
       <MyNavBar />

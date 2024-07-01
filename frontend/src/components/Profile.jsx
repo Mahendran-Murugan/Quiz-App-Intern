@@ -82,12 +82,12 @@ const Profile = () => {
                         {
                           id: 0,
                           value: `${details.attended}`,
-                          label: "Attended",
+                          label: "Attended " + details.attended,
                         },
                         {
                           id: 1,
                           value: `${details.correct}`,
-                          label: "Correct",
+                          label: "Correct " + details.correct,
                         },
                       ],
                     },
