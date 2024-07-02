@@ -47,19 +47,17 @@ export default function UserTable({ rows }) {
           <TableRow>
             <TableCell>S.No</TableCell>
             <TableCell>Name</TableCell>
-            <TableCell align="right">User ID</TableCell>
-            <TableCell align="right">Operation</TableCell>
+            <TableCell align="center">User ID</TableCell>
+            <TableCell align="center">Operation</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {rows.map((row, ind) => (
             <TableRow>
-              <TableCell component="th" scope="row">
-                {ind + 1}
-              </TableCell>
-              <TableCell component="right">{row.name}</TableCell>
-              <TableCell align="right">{row.userid}</TableCell>
-              <TableCell align="right">
+              <TableCell align="center">{ind + 1}</TableCell>
+              <TableCell component="center">{row.name}</TableCell>
+              <TableCell align="center">{row.userid}</TableCell>
+              <TableCell align="center">
                 <UserTableContext.Provider
                   value={{
                     handleEdit,

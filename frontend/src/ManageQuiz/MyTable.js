@@ -20,7 +20,7 @@ import {
   removeAction,
   resetAction,
 } from "../feature/imageQuizSlice";
-import { ADMIN_SERVER } from '../data'
+import { ADMIN_SERVER } from "../data";
 const MyQuizTableContext = React.createContext();
 export default function MyTable({ rows }) {
   const [name, setName] = React.useState("");
@@ -134,23 +134,21 @@ export default function MyTable({ rows }) {
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell>S.No</TableCell>
-            <TableCell>Quiz Name</TableCell>
-            <TableCell align="right">Questions</TableCell>
-            <TableCell align="right">Duration</TableCell>
-            <TableCell align="right">Operation</TableCell>
+            <TableCell align="center">S.No</TableCell>
+            <TableCell align="center">Quiz Name</TableCell>
+            <TableCell align="center">Questions</TableCell>
+            <TableCell align="center">Duration</TableCell>
+            <TableCell align="center">Operation</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {rows.map((row, ind) => (
             <TableRow>
-              <TableCell component="th" scope="row">
-                {ind + 1}
-              </TableCell>
-              <TableCell component="right">{row.name}</TableCell>
-              <TableCell align="right">{row.count}</TableCell>
-              <TableCell component="right">{row.duration} Minutes</TableCell>
-              <TableCell align="right">
+              <TableCell align="center">{ind + 1}</TableCell>
+              <TableCell align="center">{row.name}</TableCell>
+              <TableCell align="center">{row.count}</TableCell>
+              <TableCell align="center">{row.duration} Minutes</TableCell>
+              <TableCell align="center">
                 <MyQuizTableContext.Provider
                   value={{
                     handleEdit,
