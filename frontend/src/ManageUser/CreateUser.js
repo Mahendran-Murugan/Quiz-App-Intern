@@ -11,6 +11,8 @@ import { USER_SERVER } from "../data";
 import { useDispatch, useSelector } from "react-redux";
 import UserForm from "./UserForm";
 import MyDialog from "../ManageQuiz/MyDialog";
+import { Stack } from "@mui/material";
+import { UploadeXL } from "./UploadeXL";
 
 const userContext = React.createContext();
 
@@ -76,11 +78,21 @@ export default function CreateUser({ props }) {
   };
 
   return (
+    
     <React.Fragment>
-      {isError && <MyDialog title={title} body={body} setError={setError} />}
-      <Button variant="contained" onClick={(e) => handleClickOpen(e)}>
-        Create
-      </Button>
+    {isError && <MyDialog title={title} body={body} setError={setError} />}
+      
+      <Stack
+        direction="row"
+        spacing={2}
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Button variant="contained" onClick={(e) => handleClickOpen(e)}>
+          Create
+        </Button>
+        <UploadeXL />
+      </Stack>
       <userContext.Provider
         value={{
           name,
