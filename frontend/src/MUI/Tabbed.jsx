@@ -48,8 +48,15 @@ export default function Tabbed() {
 
   return (
     <Container
-      
-      sx={{ maxWidth: { xs: 320, sm: 920 }, bgcolor: "background.paper" }}
+      sx={{
+        maxWidth: { xs: 320, sm: 920 },
+        display: "flex",
+        alignItems: "center",
+        gap: "30px",
+        width: "100%",
+        flexDirection: "column",
+        bgcolor: "background.paper",
+      }}
     >
       <Tabs
         value={value}
