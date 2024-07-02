@@ -59,7 +59,7 @@ export default function Form() {
       {
         question: "",
         choices: [""],
-        answer: "",
+        answer: 0,
         image: "",
         points: null,
         isImage: false,

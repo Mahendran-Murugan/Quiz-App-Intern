@@ -5,6 +5,7 @@ import React, {
   createContext,
   useContext,
 } from "react";
+import RemoveIcon from "@mui/icons-material/Remove";
 import { UseChoiceContext } from "./Form";
 import {
   Grid,
@@ -44,6 +45,14 @@ const Choices = forwardRef(({ myChoices, count }, ref) => {
     handleChoiceDelete,
   }));
 
+  const handleRemoveChoice = () => {
+    setChoiceCount((p) => p - 1);
+    const newA = choiceValue.slice(0, -1);
+    setChoiceValue(newA);
+    question.choices = newA;
+    setSelected(0);
+  };
+
   return (
     <>
       <Container
@@ -59,13 +68,16 @@ const Choices = forwardRef(({ myChoices, count }, ref) => {
           label="Image Choice"
           checked={isImage}
           onClick={(e) => {
+            if (!isImage) {
+              question.answer = 0;
+            } else question.answer = "";
             setIsImage(!isImage);
             question.isImage = !isImage;
           }}
         />
       </Container>
       {!isImage &&
-        question.choices.map((choice, ind) => (
+        choiceValue.map((choice, ind) => (
           <Grid item xs={12} sm={6} key={ind}>
             <TextField
               multiline
@@ -89,22 +101,32 @@ const Choices = forwardRef(({ myChoices, count }, ref) => {
         ))}
       {!isImage && (
         <Grid
+          display={"flex"}
           justifyContent={"center"}
+          gap={4}
           alignContent={"center"}
           item
           xs={12}
           sm={6}
         >
-          <center>
+          <Fab
+            size="small"
+            centerRipple
+            color="primary"
+            onClick={handleChoiceCount}
+          >
+            <AddIcon />
+          </Fab>
+          {choiceValue.length > 1 && (
             <Fab
               size="small"
               centerRipple
-              color="primary"
-              onClick={handleChoiceCount}
+              color="error"
+              onClick={handleRemoveChoice}
             >
-              <AddIcon />
+              <RemoveIcon />
             </Fab>
-          </center>
+          )}
         </Grid>
       )}
       {isImage && (
@@ -130,7 +152,15 @@ const Choices = forwardRef(({ myChoices, count }, ref) => {
               ))}
             </RadioGroup>
           </Grid>
-          <Grid alignContent={"center"} item xs={6} sx={6}>
+          <Grid
+            display={"flex"}
+            justifyContent={"center"}
+            alignItems={"flex-end"}
+            gap={3}
+            item
+            xs={6}
+            sx={6}
+          >
             <Fab
               size="small"
               centerRipple
@@ -139,6 +169,16 @@ const Choices = forwardRef(({ myChoices, count }, ref) => {
             >
               <AddIcon />
             </Fab>
+            {choiceValue.length > 1 && (
+              <Fab
+                size="small"
+                centerRipple
+                color="error"
+                onClick={handleRemoveChoice}
+              >
+                <RemoveIcon />
+              </Fab>
+            )}
           </Grid>
         </>
       )}

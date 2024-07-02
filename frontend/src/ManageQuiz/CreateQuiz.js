@@ -43,7 +43,7 @@ export default function CreateQuiz({ props }) {
 
   const dispatch = useDispatch();
   const handleCreate = async (e) => {
-    console.log(questions);
+    console.log("before :",questions);
 
     if (
       !name ||
