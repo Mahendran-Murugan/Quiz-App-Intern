@@ -2,12 +2,24 @@ const express = require("express");
 const upload = require("./imageStorage");
 const cors = require("cors");
 const fs = require("fs");
+const uploadExcel = require("./excelStorage");
 const app = express();
 const PORT = 4000;
 app.use(cors({ origin: "*" }));
 app.use(express.json());
 app.use(express.static("Images"));
+app.use(express.static("Excel"));
 app.post("/api/post/image", upload.single("qimage"), (req, res) => {
+  console.log(req.file);
+  if (req.file) {
+    res.json({ file: req.file });
+    return;
+  }
+  console.log("error ", req.file);
+  res.json({ file: "error" });
+});
+
+app.post("/api/post/excel", uploadExcel.single("excel"), (req, res) => {
   console.log(req.file);
   if (req.file) {
     res.json({ file: req.file });
