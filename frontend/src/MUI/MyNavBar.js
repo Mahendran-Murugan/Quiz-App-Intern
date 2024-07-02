@@ -38,11 +38,11 @@ function MyNavBar(props) {
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
       <Typography variant="h6" sx={{ my: 2 }}>
-        Silicon Software Services
+        Silicon Software Service
       </Typography>
       <Divider />
       <List>
-        {user.name == "" && (
+        {localStorage.getItem("name") == "" && (
           <>
             <NavLink to="/login">
               <ListItem disablePadding>
@@ -61,14 +61,14 @@ function MyNavBar(props) {
           </>
         )}
 
-        {localStorage.getItem("name") === ADMIN_MAIL && (
+        {localStorage.getItem("userid") === ADMIN_MAIL && (
           <ListItem disablePadding>
             <ListItemButton sx={{ textAlign: "center" }}>
               <ListItemText primary="Admin" />
             </ListItemButton>
           </ListItem>
         )}
-        {user.name !== "" && (
+        {localStorage.getItem("name") !== "" && (
           <NavLink to="/quiz">
             <ListItem disablePadding>
               <ListItemButton sx={{ textAlign: "center" }}>

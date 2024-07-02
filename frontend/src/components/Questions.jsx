@@ -9,7 +9,7 @@ import { SingleQuestion } from "./SingleQuestion";
 import axios from "axios";
 import { QuestContext } from "../Context/QuestionContext";
 import { NavLink, useNavigate } from "react-router-dom";
-import { USER_SERVER } from '../data'
+import { USER_SERVER } from "../data";
 import {
   Box,
   Button,
@@ -18,6 +18,7 @@ import {
   Pagination,
   Stack,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
 import MyScrollDialog from "../MUI/MyScrollDialog";
 import { useDispatch, useSelector } from "react-redux";
@@ -69,10 +70,10 @@ export const Questions = () => {
     if (total >= 0) {
       setTimer(
         (hours > 9 ? hours : "0" + hours) +
-        ":" +
-        (minutes > 9 ? minutes : "0" + minutes) +
-        ":" +
-        (seconds > 9 ? seconds : "0" + seconds)
+          ":" +
+          (minutes > 9 ? minutes : "0" + minutes) +
+          ":" +
+          (seconds > 9 ? seconds : "0" + seconds)
       );
     }
   };
@@ -102,7 +103,7 @@ export const Questions = () => {
   }, []);
 
   const navigate = useNavigate();
-
+  const isMobile = useMediaQuery("(max-width:600px)");
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (
@@ -124,17 +125,17 @@ export const Questions = () => {
     };
 
     const handleVisibilityChange = () => {
-      if (document.visibilityState == 'hidden') navigate('/');
-    }
+      if (document.visibilityState == "hidden") navigate("/");
+    };
 
-    document.addEventListener('visibilitychange', handleVisibilityChange);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
     document.addEventListener("keydown", handleKeyDown);
     document.addEventListener("fullscreenchange", handleFullScreenChange);
 
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
       document.removeEventListener("fullscreenchange", handleFullScreenChange);
-      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
   }, [navigate]);
 
@@ -153,27 +154,28 @@ export const Questions = () => {
         Ref,
       }}
     >
-      <Stack sx={{ width: "70%" }}>
+      <Stack sx={{ width: "100%" }}>
         <Stack
           direction={"row"}
-          spacing={3}
-          sx={{ justifyContent: "space-between", m: 3 }}
+          flexWrap={isMobile && "wrap"}
+          sx={{ justifyContent: "space-evenly", m: 2 }}
         >
-          <Typography variant="h5" color="initial">
+          <Typography variant={isMobile ? "h6" : "h5"} color="initial">
             Questions {data.length}
           </Typography>
-          <Typography variant="h5" color="initial">
+          <Typography variant={isMobile ? "h6" : "h5"} color="initial">
             Answered {answed}
           </Typography>
-          <Typography variant="h5" color="initial">
+          <Typography variant={isMobile ? "h6" : "h5"} color="initial">
             {timer}
           </Typography>
           {isSubmitted && (
-            <Typography variant="h5" color="initial">
+            <Typography variant={isMobile ? "h6" : "h5"} color="initial">
               Correct {isCorrect}
             </Typography>
           )}
         </Stack>
+
         {data.map((question, index) => {
           return (
             <SingleQuestion key={index} index={index} question={question} />

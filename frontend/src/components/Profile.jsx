@@ -87,6 +87,17 @@ const Profile = () => {
             {details && (
               <>
                 <PieChart
+                  sx={{
+                    display: {
+                      md: "block",
+                      sm: "none",
+                      xs: "none",
+                    },
+                    height: {
+                      sm: 100,
+                      xs: 100,
+                    },
+                  }}
                   series={[
                     {
                       data: [
@@ -106,9 +117,25 @@ const Profile = () => {
                   width={450}
                   height={200}
                 />
-
+                <Box
+                  align="center"
+                  sx={{
+                    display: {
+                      md: "none",
+                      sm: "block",
+                    },
+                  }}
+                >
+                  <Typography variant="h6" color="initial">
+                    Attended : {details.attended}
+                  </Typography>
+                  <Typography variant="h6" color="initial">
+                    Correct : {details.correct}
+                  </Typography>
+                </Box>
                 <Typography align="center" mt={4} variant="h6" color="initial">
-                  Score : {(details.correct / details.attended) * 100}
+                  Score :{" "}
+                  {((details.correct / details.attended) * 100).toFixed(2)}
                 </Typography>
               </>
             )}
@@ -116,7 +143,19 @@ const Profile = () => {
         </Card>
       </Stack>
       {details && details.role != "School Student" && (
-        <Stack m={2} p={2}>
+        <Stack
+          m={2}
+          p={2}
+          sx={{
+            minWidth: {
+              xl: 1000,
+              lg: 800,
+              md: 600,
+              sm: 300,
+              xs: 250,
+            },
+          }}
+        >
           <LeaderBoard data={leader} />
         </Stack>
       )}

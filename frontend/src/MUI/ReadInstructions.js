@@ -7,6 +7,7 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
+  useMediaQuery,
 } from "@mui/material";
 import WarningIcon from "@mui/icons-material/Warning";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
@@ -15,10 +16,12 @@ import BlockIcon from "@mui/icons-material/Block";
 import BrowserUpdatedIcon from "@mui/icons-material/BrowserUpdated";
 
 const ReadInstructions = () => {
+  const isMobile = useMediaQuery("(max-width:600px)"); // Adjust breakpoint as needed
+
   return (
     <Container maxWidth="md">
-      <Paper elevation={3} style={{ padding: "2em", marginTop: "2em" }}>
-        <Typography variant="h4" gutterBottom>
+      <Paper elevation={3} sx={{ padding: "2em", marginTop: "2em" }}>
+        <Typography variant={isMobile ? "h5" : "h4"} gutterBottom>
           Quiz Instructions
         </Typography>
 
@@ -30,13 +33,25 @@ const ReadInstructions = () => {
             <ListItemIcon>
               <CheckCircleIcon />
             </ListItemIcon>
-            <ListItemText primary="The quiz consists of Multiple Choice Questions (MCQs) and Yes/No questions." />
+            <ListItemText
+              primary={
+                isMobile
+                  ? "The quiz consists of MCQs and Yes/No questions."
+                  : "The quiz consists of Multiple Choice Questions (MCQs) and Yes/No questions."
+              }
+            />
           </ListItem>
           <ListItem>
             <ListItemIcon>
               <CheckCircleIcon />
             </ListItemIcon>
-            <ListItemText primary="Each quiz has a specific duration. Make sure to complete all questions within the given time." />
+            <ListItemText
+              primary={
+                isMobile
+                  ? "Each quiz has a specific duration. Complete all questions within the given time."
+                  : "Each quiz has a specific duration. Make sure to complete all questions within the given time."
+              }
+            />
           </ListItem>
         </List>
 
@@ -48,13 +63,19 @@ const ReadInstructions = () => {
             <ListItemIcon>
               <CheckCircleIcon />
             </ListItemIcon>
-            <ListItemText primary="Your attempts are tracked and recorded. Each time you start the quiz, it counts as one attempt." />
+            <ListItemText
+              primary={
+                isMobile
+                  ? "Attempts are tracked and recorded. Each quiz start counts as one attempt."
+                  : "Your attempts are tracked and recorded. Each time you start the quiz, it counts as one attempt."
+              }
+            />
           </ListItem>
           <ListItem>
             <ListItemIcon>
               <WarningIcon color="error" />
             </ListItemIcon>
-            <ListItemText primary="Attempting to leave the full screen, switching browser tabs, or pressing restricted keys will reduce your attempt count." />
+            <ListItemText primary="Attempting to leave full screen, switch tabs, or press restricted keys reduces attempts." />
           </ListItem>
         </List>
 
@@ -66,13 +87,13 @@ const ReadInstructions = () => {
             <ListItemIcon>
               <FullscreenIcon />
             </ListItemIcon>
-            <ListItemText primary="The quiz must be taken in full screen mode. Exiting the full screen mode before completing the quiz will result in an automatic attempt reduction." />
+            <ListItemText primary="Take the quiz in full screen. Exiting early reduces attempts." />
           </ListItem>
           <ListItem>
             <ListItemIcon>
               <FullscreenIcon />
             </ListItemIcon>
-            <ListItemText primary="Do not switch to another tab or window during the quiz." />
+            <ListItemText primary="Do not switch to other tabs or windows during the quiz." />
           </ListItem>
         </List>
 
@@ -84,7 +105,7 @@ const ReadInstructions = () => {
             <ListItemIcon>
               <BlockIcon />
             </ListItemIcon>
-            <ListItemText primary="Avoid pressing Ctrl, Alt, Tab, or any other key combinations that could interfere with the quiz. Using these keys will trigger a warning and may result in an attempt reduction." />
+            <ListItemText primary="Avoid Ctrl, Alt, Tab, or other keys that may disrupt the quiz. Using them triggers warnings and reduces attempts." />
           </ListItem>
         </List>
 
@@ -96,13 +117,13 @@ const ReadInstructions = () => {
             <ListItemIcon>
               <CheckCircleIcon />
             </ListItemIcon>
-            <ListItemText primary="Once you start the quiz, you must complete it in a single session. Do not close your browser or navigate away from the quiz page." />
+            <ListItemText primary="Complete the quiz in one session. Do not close the browser or leave the quiz page." />
           </ListItem>
           <ListItem>
             <ListItemIcon>
               <BrowserUpdatedIcon />
             </ListItemIcon>
-            <ListItemText primary="Do not open any other browser tabs or windows while taking the quiz." />
+            <ListItemText primary="Do not open other tabs or windows while taking the quiz." />
           </ListItem>
         </List>
 
@@ -114,13 +135,13 @@ const ReadInstructions = () => {
             <ListItemIcon>
               <CheckCircleIcon />
             </ListItemIcon>
-            <ListItemText primary="Ensure you have a stable internet connection throughout the quiz to avoid disconnections and loss of progress." />
+            <ListItemText primary="Keep a stable internet connection to prevent disconnections and lost progress." />
           </ListItem>
           <ListItem>
             <ListItemIcon>
               <CheckCircleIcon />
             </ListItemIcon>
-            <ListItemText primary="Use a compatible and up-to-date browser for the best experience." />
+            <ListItemText primary="Use a compatible, updated browser for optimal performance." />
           </ListItem>
         </List>
 
@@ -132,24 +153,22 @@ const ReadInstructions = () => {
             <ListItemIcon>
               <WarningIcon color="error" />
             </ListItemIcon>
-            <ListItemText primary="Any attempt to violate the rules will result in a warning. Continued violations will lead to a reduction in attempts." />
+            <ListItemText primary="Violating rules results in warnings. Repeated violations reduce attempts." />
           </ListItem>
           <ListItem>
             <ListItemIcon>
               <CheckCircleIcon />
             </ListItemIcon>
-            <ListItemText primary="Maintain the integrity of the quiz by not seeking external help or resources." />
+            <ListItemText primary="Maintain quiz integrity. Do not use external help or resources." />
           </ListItem>
         </List>
 
         <Typography variant="body1" gutterBottom>
-          Be cautious and attentive during the quiz. Follow the instructions
-          strictly to avoid penalties. Good luck and do your best!
+          Be attentive. Follow instructions to avoid penalties. Best of luck!
         </Typography>
 
         <Typography variant="body2" color="textSecondary">
-          By starting the quiz, you agree to adhere to all the instructions
-          mentioned above.
+          By starting the quiz, you agree to follow all instructions.
         </Typography>
       </Paper>
     </Container>
