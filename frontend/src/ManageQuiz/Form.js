@@ -119,6 +119,7 @@ export default function Form() {
                     <DeleteIcon />
                   </IconButton>
                 </Typography>
+
                 <Uploader index={index} />
 
                 <TextField
@@ -146,30 +147,33 @@ export default function Form() {
               <ChoiceContext.Provider value={{ question }}>
                 <Choices myChoices={[""]} count={1} />
               </ChoiceContext.Provider>
-
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  id="answer"
-                  name="answer"
-                  multiline
-                  onChange={(e) => {
-                    setQuestions((p) => {
-                      const newA = [...p];
-                      newA.splice(index, 1, {
-                        ...question,
-                        answer: e.target.value,
-                      });
-                      return newA;
-                    });
-                    question.answer = e.target.value;
-                  }}
-                  value={question.answer}
-                  required
-                  label="Answer"
-                  fullWidth
-                  autoComplete="Answer"
-                />
-              </Grid>
+              {!question.isImage && (
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    id="answer"
+                    name="answer"
+                    multiline
+                    onChange={(e) => {
+                      if (!question.isImage) {
+                        setQuestions((p) => {
+                          const newA = [...p];
+                          newA.splice(index, 1, {
+                            ...question,
+                            answer: e.target.value,
+                          });
+                          return newA;
+                        });
+                        question.answer = e.target.value;
+                      }
+                    }}
+                    value={question.answer}
+                    required
+                    label="Answer"
+                    fullWidth
+                    autoComplete="Answer"
+                  />
+                </Grid>
+              )}
 
               <Grid item xs={12} sm={6}>
                 <TextField

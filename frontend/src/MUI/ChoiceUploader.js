@@ -5,7 +5,7 @@ import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import AddIcon from "@mui/icons-material/Add";
 import { useDispatch, useSelector } from "react-redux";
 import { insertAction } from "../feature/imageQuizSlice";
-import { Stack } from "@mui/material";
+import { FormControlLabel, Radio, Stack } from "@mui/material";
 import { UseChoiceContext } from "../ManageQuiz/Form";
 import { UseChoiceImage } from "../ManageQuiz/Choices";
 const VisuallyHiddenInput = styled("input")({
@@ -21,7 +21,8 @@ const VisuallyHiddenInput = styled("input")({
 });
 
 export default function ChoiceUploader({ index, src }) {
-  const { choiceValue, setChoiceValue, question } = UseChoiceImage();
+  const { choiceValue, setChoiceValue, question, selected, setSelected } =
+    UseChoiceImage();
   const [image, setImage] = React.useState(null);
 
   const handleFileChange = (event) => {
@@ -49,9 +50,21 @@ export default function ChoiceUploader({ index, src }) {
           style={{ maxWidth: "100%", maxHeight: "300px" }}
         />
       )}
+
       {image && (
-        <img src={image} style={{ maxWidth: "100%", maxHeight: "300px" }} />
+        <FormControlLabel
+          value={index}
+          control={<Radio />}
+          onChange={() => {
+            setSelected(index);
+            question.answer = index;
+          }}
+          label={
+            <img src={image} style={{ maxWidth: "100%", maxHeight: "300px" }} />
+          }
+        />
       )}
+
       <Button
         onChange={(e) => handleFileChange(e)}
         component="label"

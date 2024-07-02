@@ -41,7 +41,6 @@ export default function CreateQuiz({ props }) {
   };
   const selector = useSelector((state) => state.imageFiles.data);
 
-  const dummy = ``;
   const dispatch = useDispatch();
   const handleCreate = async (e) => {
     console.log(questions);
@@ -83,7 +82,8 @@ export default function CreateQuiz({ props }) {
       e.preventDefault();
       const uploadPromises = selector.map(async (select, index) => {
         const formData = new FormData();
-        // console.log(select.qimage);
+        console.log(select.qimage);
+        console.log(select);
         formData.append("qimage", select.qimage);
 
         // console.log(formData);
@@ -98,6 +98,7 @@ export default function CreateQuiz({ props }) {
         );
         const file =
           response.data.file != "error" ? response.data.file.filename : "none";
+        console.log(file);
         setQuestions((prevQuestions) => {
           const newQuestions = [...prevQuestions];
           newQuestions[index] = {
@@ -139,6 +140,7 @@ export default function CreateQuiz({ props }) {
                 }
               })
             );
+            quest.answer = quest.choices[quest.answer];
           }
         })
       );

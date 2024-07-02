@@ -16,17 +16,21 @@ import {
   Box,
   Container,
   Typography,
+  RadioGroup,
+  Radio,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import ChoiceUploader from "../MUI/ChoiceUploader";
 
 const Choices = forwardRef(({ myChoices, count }, ref) => {
   const { question } = UseChoiceContext();
+  const [selected, setSelected] = useState(0);
   const [isImage, setIsImage] = useState(question.isImage);
   const [choiceCount, setChoiceCount] = useState(count);
   const [choiceValue, setChoiceValue] = useState(question.choices);
 
   const handleChoiceCount = () => {
+    console.log(selected);
     question.choices = [...question.choices, ""];
     setChoiceValue([...choiceValue, ""]);
     setChoiceCount((p) => p + 1);
@@ -105,15 +109,27 @@ const Choices = forwardRef(({ myChoices, count }, ref) => {
       )}
       {isImage && (
         <>
-          {choiceValue.map((ch, id) => (
-            <Grid item xs={6} sx={6}>
-              <ChoiceUploadContext.Provider
-                value={{ choiceValue, setChoiceValue , question }}
-              >
-                <ChoiceUploader index={id} />
-              </ChoiceUploadContext.Provider>
-            </Grid>
-          ))}
+          <Grid item xs={6} sx={6}>
+            <RadioGroup
+              aria-labelledby="demo-radio-buttons-group-label"
+              defaultValue={selected}
+              name="radio-buttons-group"
+            >
+              {choiceValue.map((ch, id) => (
+                <ChoiceUploadContext.Provider
+                  value={{
+                    choiceValue,
+                    setSelected,
+                    selected,
+                    setChoiceValue,
+                    question,
+                  }}
+                >
+                  <ChoiceUploader index={id} />
+                </ChoiceUploadContext.Provider>
+              ))}
+            </RadioGroup>
+          </Grid>
           <Grid alignContent={"center"} item xs={6} sx={6}>
             <Fab
               size="small"
