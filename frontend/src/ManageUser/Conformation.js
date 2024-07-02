@@ -30,7 +30,10 @@ export default function Conformation({
   name,
   userid,
   pass,
+  r,
+  g,
   id,
+  verified,
 }) {
   const {
     handleEdit,
@@ -38,6 +41,13 @@ export default function Conformation({
     setName,
     setEmail,
     setPass,
+    role,
+    isVerify,
+    setVerify,
+    setRole,
+
+    gender,
+    setGender,
   } = UseUserTableContext();
   const [open, setOpen] = React.useState(false);
 
@@ -46,6 +56,10 @@ export default function Conformation({
     setName(name);
     setEmail(userid);
     setPass(pass);
+    setRole(r);
+    setGender(g);
+    setVerify(verified);
+    console.log(r, g);
     setOpen(true);
   };
 

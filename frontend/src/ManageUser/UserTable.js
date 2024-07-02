@@ -8,29 +8,65 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import axios from "axios";
 import Typography from "@mui/material/Typography";
-import { Button, Grid, TextField } from "@mui/material";
+import {
+  Button,
+  FormControl,
+  Grid,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+} from "@mui/material";
 import Conformation from "./Conformation";
 import { USER_SERVER } from "../data";
+import MyDialog from "../ManageQuiz/MyDialog";
 const UserTableContext = React.createContext();
 export default function UserTable({ rows }) {
   const [name, setName] = React.useState("");
   const [userid, setEmail] = React.useState("");
   const [pass, setPass] = React.useState("");
+  const [role, setRole] = React.useState("");
+  const [gender, setGender] = React.useState("");
+  const [title, setTitle] = React.useState("");
+  const [body, setBody] = React.useState("");
+  const [isError, setError] = React.useState(false);
+  const [isVerify, setVerify] = React.useState(false);
+  const [sortby, setSortBy] = React.useState("All");
 
   const handleEdit = async (e, id) => {
     e.preventDefault();
+    if (
+      name == "" ||
+      userid == "" ||
+      pass == "" ||
+      role == "" ||
+      gender == ""
+    ) {
+      setBody("Please Fill the details correctly");
+      setTitle("Fill the form");
+      setError(true);
+      return;
+    }
     axios
       .post(USER_SERVER + "/edit", {
         id: id,
         name: name,
         userid: userid,
         password: pass,
+        role: role,
+        gender: gender,
+        verified: isVerify,
       })
-      .then
-      // (res) =>
-      // console.log(res)
-      ()
-      .catch((err) => console.log(err));
+      .then((res) => {
+        setTitle("Detail Updated Successfully");
+        setBody("User : " + name + " Updated");
+        setError(true);
+      })
+      .catch((err) => {
+        setBody(err.message);
+        setTitle("Error");
+        console.log(err);
+      });
   };
   const handleDelete = (e, id) => {
     e.preventDefault();
@@ -42,103 +78,201 @@ export default function UserTable({ rows }) {
 
   return (
     <TableContainer component={Paper}>
+      {isError && <MyDialog title={title} body={body} setError={setError} />}
+      <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+        <InputLabel id="demo-simple-select-standard-label">Sort By</InputLabel>
+        <Select
+          labelId="demo-simple-select-standard-label"
+          id="demo-simple-select-standard"
+          value={sortby}
+          onChange={(e) => {
+            setSortBy(e.target.value);
+          }}
+          label="Sort By"
+        >
+          {["All", "School Student", "College Student", "Representative"].map(
+            (e) => (
+              <MenuItem value={e}>{e}</MenuItem>
+            )
+          )}
+        </Select>
+      </FormControl>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
             <TableCell>S.No</TableCell>
             <TableCell>Name</TableCell>
             <TableCell align="center">User ID</TableCell>
+            <TableCell align="center">Role</TableCell>
+            <TableCell align="center">Verified</TableCell>
             <TableCell align="center">Operation</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row, ind) => (
-            <TableRow>
-              <TableCell align="center">{ind + 1}</TableCell>
-              <TableCell component="center">{row.name}</TableCell>
-              <TableCell align="center">{row.userid}</TableCell>
-              <TableCell align="center">
-                <UserTableContext.Provider
-                  value={{
-                    handleEdit,
-                    handleDelete,
-                    name,
-                    setName,
-                    userid,
-                    setEmail,
-                    pass,
-                    setPass,
-                  }}
-                >
-                  <Conformation
-                    button="Edit"
-                    header={"Edit"}
-                    id={row.id}
-                    name={row.name}
-                    userid={row.userid}
-                    pass={row.password}
-                    body={
-                      <>
-                        <Grid container spacing={2}>
-                          <Grid item xs={12}>
-                            <Typography variant="h6" gutterBottom>
-                              User
-                            </Typography>
-                            <TextField
-                              name="address1"
-                              label="Name"
-                              fullWidth
-                              value={name}
-                              onChange={(e) => {
-                                setName(e.target.value);
-                              }}
-                              te=""
-                            />
+          {rows
+            .filter((e) => (sortby != "All" ? e.role === sortby : true))
+            .map((row, ind) => (
+              <TableRow>
+                <TableCell align="center">{ind + 1}</TableCell>
+                <TableCell component="center">{row.name}</TableCell>
+                <TableCell align="center">{row.userid}</TableCell>
+                <TableCell component="center">{row.role}</TableCell>
+                <TableCell align="center">
+                  {row.verified ? "True" : "False"}
+                </TableCell>
+                <TableCell align="center">
+                  <UserTableContext.Provider
+                    value={{
+                      handleEdit,
+                      handleDelete,
+                      name,
+                      role,
+                      isVerify,
+                      setVerify,
+                      setRole,
+                      gender,
+                      setGender,
+                      setName,
+                      userid,
+                      setEmail,
+                      pass,
+                      setPass,
+                    }}
+                  >
+                    <Conformation
+                      button="Edit"
+                      verified={row.verified}
+                      header={"Edit"}
+                      id={row.id}
+                      name={row.name}
+                      userid={row.userid}
+                      r={row.role}
+                      g={row.gender}
+                      pass={row.password}
+                      body={
+                        <>
+                          <Grid container spacing={2}>
+                            <Grid item xs={12}>
+                              <Typography variant="h6" gutterBottom>
+                                User
+                              </Typography>
+                              <TextField
+                                name="address1"
+                                label="Name"
+                                fullWidth
+                                value={name}
+                                onChange={(e) => {
+                                  setName(e.target.value);
+                                }}
+                              />
+                            </Grid>
+                            <Grid item xs={12}>
+                              <TextField
+                                name="address1"
+                                label="User ID"
+                                fullWidth
+                                value={userid}
+                                onChange={(e) => {
+                                  setEmail(e.target.value);
+                                }}
+                                te=""
+                              />
+                            </Grid>
+                            <Grid item xs={12}>
+                              <TextField
+                                name="address1"
+                                label="Password"
+                                fullWidth
+                                value={pass}
+                                onChange={(e) => {
+                                  setPass(e.target.value);
+                                }}
+                                te=""
+                              />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                              <FormControl sx={{ m: 1, width: "90%" }}>
+                                <InputLabel id="demo-simple-select-autowidth-label">
+                                  Select gender
+                                </InputLabel>
+                                <Select
+                                  labelId="demo-simple-select-autowidth-label"
+                                  id="demo-simple-select-autowidth"
+                                  value={gender}
+                                  onChange={(e) => setGender(e.target.value)}
+                                  autoWidth
+                                  label="Select Gender"
+                                >
+                                  {["Male", "Female"].map((e) => (
+                                    <MenuItem value={e}>{e}</MenuItem>
+                                  ))}
+                                </Select>
+                              </FormControl>
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                              <FormControl sx={{ m: 1, width: "90%" }}>
+                                <InputLabel id="demo-simple-select-autowidth-label">
+                                  Select Role
+                                </InputLabel>
+                                <Select
+                                  labelId="demo-simple-select-autowidth-label"
+                                  id="demo-simple-select-autowidth"
+                                  value={role}
+                                  onChange={(e) => setRole(e.target.value)}
+                                  autoWidth
+                                  label="Select Role"
+                                >
+                                  {[
+                                    "School Student",
+                                    "College Student",
+                                    "Representative",
+                                  ].map((e) => (
+                                    <MenuItem value={e}>{e}</MenuItem>
+                                  ))}
+                                </Select>
+                              </FormControl>
+                            </Grid>
+                            <Grid item xs={12} sm={12}>
+                              <FormControl sx={{ m: 1, width: "90%" }}>
+                                <InputLabel id="demo-simple-select-autowidth-label">
+                                  Verified
+                                </InputLabel>
+                                <Select
+                                  labelId="demo-simple-select-autowidth-label"
+                                  id="demo-simple-select-autowidth"
+                                  value={isVerify}
+                                  onChange={(e) => setVerify(e.target.value)}
+                                  autoWidth
+                                  label="Select Verified"
+                                >
+                                  {[1, 0].map((e) => (
+                                    <MenuItem value={e}>
+                                      {e ? "True" : "False"}
+                                    </MenuItem>
+                                  ))}
+                                </Select>
+                              </FormControl>
+                            </Grid>
                           </Grid>
-                          <Grid item xs={12}>
-                            <TextField
-                              name="address1"
-                              label="User ID"
-                              fullWidth
-                              value={userid}
-                              onChange={(e) => {
-                                setEmail(e.target.value);
-                              }}
-                              te=""
-                            />
-                          </Grid>
-                          <Grid item xs={12}>
-                            <TextField
-                              name="address1"
-                              label="Password"
-                              fullWidth
-                              value={pass}
-                              onChange={(e) => {
-                                setPass(e.target.value);
-                              }}
-                              te=""
-                            />
-                          </Grid>
-                        </Grid>
-                      </>
-                    }
-                    left="Cancel"
-                    right="Save"
-                    color="primary"
-                  />
-                  <Conformation
-                    id={row.id}
-                    header={"Delete"}
-                    body={"Do you want to delete ?"}
-                    button="Delete"
-                    left="Cancel"
-                    right="Delete"
-                    color="error"
-                  />
-                </UserTableContext.Provider>
-              </TableCell>
-            </TableRow>
-          ))}
+                        </>
+                      }
+                      left="Cancel"
+                      right="Save"
+                      color="primary"
+                    />
+                    <Conformation
+                      id={row.id}
+                      header={"Delete"}
+                      body={"Do you want to delete ?"}
+                      button="Delete"
+                      left="Cancel"
+                      right="Delete"
+                      color="error"
+                    />
+                  </UserTableContext.Provider>
+                </TableCell>
+              </TableRow>
+            ))}
         </TableBody>
       </Table>
     </TableContainer>

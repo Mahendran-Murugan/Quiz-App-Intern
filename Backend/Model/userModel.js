@@ -63,8 +63,8 @@ const registerUser = (req, res) => {
       password,
       userid,
       role,
-      phone_number === "none"  ? 0 : phone_number,
-      parents_number === "none" ? 0 : parents_number ,
+      phone_number === "none" ? 0 : phone_number,
+      parents_number === "none" ? 0 : parents_number,
       address,
       father_name,
       mother_name,
@@ -110,13 +110,13 @@ const showAllUser = (req, res) => {
 };
 
 const editUser = (req, res) => {
-  const { name, userid, password, id } = req.body;
+  const { name, userid, password, id, role, gender, verified } = req.body;
   if (name == "" && password == "" && userid == "") {
     res.status(404).end();
   }
   connection
     .query(
-      `UPDATE user set name = "${name}", userid = "${userid}", password = "${password}" where id = ${id}`
+      `UPDATE user set name = "${name}", userid = "${userid}", password = "${password}" , role = "${role}" , gender = "${gender}" , verified = ${verified}  where id = ${id}`
     )
     .on("error", (err) => {
       res.status(404).json({

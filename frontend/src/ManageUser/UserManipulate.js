@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import UserTable from "./UserTable";
-import { USER_SERVER } from '../data';
+import { USER_SERVER } from "../data";
 export const UserManipulate = () => {
   const [users, setUsers] = useState([]);
   const AsyncFunction = async function () {

@@ -35,12 +35,14 @@ const defaultTheme = createTheme();
 export function Register() {
   const student_data = useSelector((state) => state.register.student_data);
   const [isError, setError] = React.useState(false);
+  const [title, setTitle] = React.useState("");
   const [body, setBody] = React.useState("");
   const rep_data = useSelector((state) => state.register.rep_data);
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(student_data);
     if (student_data.role === "") {
+      setTitle("Please fill the Form");
       setBody("Select the Role");
       setError(true);
       return;
@@ -58,6 +60,7 @@ export function Register() {
         ];
         for (let stud in student_data) {
           if (data.includes(stud) && student_data[stud] === "") {
+            setTitle("Please fill the Form");
             setBody("Fill the " + stud + " field");
             setError(true);
             return;
@@ -97,6 +100,7 @@ export function Register() {
         standard: student_data.standard,
       })
       .then((res) => {
+        
         console.log(res);
       })
       .catch((err) => {
@@ -111,13 +115,7 @@ export function Register() {
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
-        {isError && (
-          <MyDialog
-            setError={setError}
-            title={"Please Fill the form"}
-            body={body}
-          />
-        )}
+        {isError && <MyDialog setError={setError} title={title} body={body} />}
         <Box
           sx={{
             marginTop: 8,
