@@ -7,7 +7,7 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Paper from "@mui/material/Paper";
 import Draggable from "react-draggable";
-import { USER_SERVER } from '../data'
+import { USER_SERVER } from "../data";
 import { UseQuizTableContext } from "./MyTable";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
@@ -65,9 +65,7 @@ export default function Conformation({
   const dispatch = useDispatch();
   async function AsyncFunction() {
     dispatch(resetAction());
-    const result = (
-      await axios.get(USER_SERVER + "/quiz/" + id)
-    ).data;
+    const result = (await axios.get(USER_SERVER + "/quiz/" + id)).data;
     setQuestions([]);
     result.map((ele) => {
       dispatch(addAction(ele.image));
@@ -81,6 +79,7 @@ export default function Conformation({
           answer: ele.answer,
           image: ele.image,
           points: ele.points,
+          isImage: ele.isImage,
         },
       ]);
     });
@@ -88,6 +87,11 @@ export default function Conformation({
 
   const handleClose = () => {
     dispatch(resetAction());
+    setName("");
+    setDuration(null);
+    setCount(null);
+    setAttempt(null);
+    setQuestions([]);
     setOpen(false);
   };
 

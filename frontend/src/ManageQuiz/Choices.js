@@ -23,10 +23,11 @@ import {
 import AddIcon from "@mui/icons-material/Add";
 import ChoiceUploader from "../MUI/ChoiceUploader";
 
-const Choices = forwardRef(({ myChoices, count }, ref) => {
+const Choices = forwardRef(({ src, myChoices, count, isimage }, ref) => {
   const { question } = UseChoiceContext();
   const [selected, setSelected] = useState(0);
   const [isImage, setIsImage] = useState(question.isImage);
+
   const [choiceCount, setChoiceCount] = useState(count);
   const [choiceValue, setChoiceValue] = useState(question.choices);
 
@@ -147,7 +148,7 @@ const Choices = forwardRef(({ myChoices, count }, ref) => {
                     question,
                   }}
                 >
-                  <ChoiceUploader index={id} />
+                  <ChoiceUploader src={ch} index={id} />
                 </ChoiceUploadContext.Provider>
               ))}
             </RadioGroup>

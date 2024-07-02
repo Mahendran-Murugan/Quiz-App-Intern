@@ -145,7 +145,7 @@ export default function Form() {
                 />
               </Grid>
               <ChoiceContext.Provider value={{ question }}>
-                <Choices myChoices={[""]} count={1} />
+                <Choices src={null} myChoices={[""]} count={1} />
               </ChoiceContext.Provider>
               {!question.isImage && (
                 <Grid item xs={12} sm={6}>

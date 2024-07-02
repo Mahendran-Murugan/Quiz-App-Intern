@@ -8,6 +8,7 @@ import { insertAction } from "../feature/imageQuizSlice";
 import { FormControlLabel, Radio, Stack } from "@mui/material";
 import { UseChoiceContext } from "../ManageQuiz/Form";
 import { UseChoiceImage } from "../ManageQuiz/Choices";
+import { FILE_SERVER } from "../data";
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
   clipPath: "inset(50%)",
@@ -44,14 +45,7 @@ export default function ChoiceUploader({ index, src }) {
 
   return (
     <Stack spacing={0} m={2}>
-      {src && src != "none" && (
-        <img
-          src={"http://localhost:4000/" + src}
-          style={{ maxWidth: "100%", maxHeight: "300px" }}
-        />
-      )}
-
-      {image && (
+      {
         <FormControlLabel
           value={index}
           control={<Radio />}
@@ -60,10 +54,22 @@ export default function ChoiceUploader({ index, src }) {
             question.answer = index;
           }}
           label={
-            <img src={image} style={{ maxWidth: "100%", maxHeight: "300px" }} />
+            <>
+              {src && src != "none" && !(src instanceof File) ? (
+                <img
+                  src={`${FILE_SERVER}/${src}`}
+                  style={{ maxWidth: "100%", maxHeight: "300px" }}
+                />
+              ) : (
+                <img
+                  src={image}
+                  style={{ maxWidth: "100%", maxHeight: "300px" }}
+                />
+              )}
+            </>
           }
         />
-      )}
+      }
 
       <Button
         onChange={(e) => handleFileChange(e)}

@@ -20,7 +20,8 @@ import {
   removeAction,
   resetAction,
 } from "../feature/imageQuizSlice";
-import { ADMIN_SERVER } from "../data";
+import { ADMIN_SERVER, FILE_SERVER } from "../data";
+import MyDialog from "./MyDialog";
 const MyQuizTableContext = React.createContext();
 export default function MyTable({ rows }) {
   const [name, setName] = React.useState("");
@@ -28,6 +29,7 @@ export default function MyTable({ rows }) {
   const [questions, setQuestions] = React.useState([]);
   const [duration, setDuration] = React.useState(null);
   const [attempt, setAttempt] = React.useState(null);
+  const [isError, setError] = React.useState(false);
   const selector = useSelector((state) => state.imageFiles.data);
 
   const handleDelete = (e, id) => {
@@ -37,9 +39,42 @@ export default function MyTable({ rows }) {
   const dispatcher = useDispatch();
   const handleEdit = async (e, id) => {
     e.preventDefault();
+    console.log(questions);
+    if (
+      !name ||
+      !count ||
+      !duration ||
+      !attempt ||
+      isNaN(duration) ||
+      isNaN(attempt) ||
+      attempt <= 0 ||
+      duration <= 0
+    ) {
+      console.log("Enter Valid Quiz");
+      console.log(isError);
+      setError(true);
+      return;
+    }
+    try {
+      questions.map((quest) => {
+        if (
+          !quest.question ||
+          quest.choices.length <= 0 ||
+          !quest.answer ||
+          !quest.points ||
+          quest.points < 0 ||
+          isNaN(quest.points)
+        ) {
+          console.log("Enter Valid Question");
+          throw "Enter valid Question and fill the empty block";
+        }
+      });
+    } catch (ex) {
+      setError(true);
+      return;
+    }
     try {
       // console.log(selector);
-
       const isFile = (input) => input instanceof File;
       const uploadPromises = selector.map(async (select, index) => {
         var file = "";
@@ -49,7 +84,7 @@ export default function MyTable({ rows }) {
           formData.append("qimage", select.qimage);
 
           const response = await axios.post(
-            "http://localhost:4000/api/post/image",
+            `${FILE_SERVER}/api/post/image`,
             formData,
             {
               headers: {
@@ -73,9 +108,49 @@ export default function MyTable({ rows }) {
         questions[index].image = file;
       });
 
+      await Promise.all(
+        questions.map(async (quest) => {
+          if (quest.isImage) {
+            await Promise.all(
+              quest.choices.map(async (ch, j) => {
+                if (ch instanceof File) {
+                  const newFormData = new FormData();
+
+                  console.log(ch);
+                  newFormData.append("qimage", ch); // Assuming ch is the file
+
+                  try {
+                    const response = await axios.post(
+                      `${FILE_SERVER}/api/post/image`,
+                      newFormData,
+                      {
+                        headers: {
+                          "Content-Type": "multipart/form-data",
+                        },
+                      }
+                    );
+                    console.log(response);
+                    quest.choices[j] =
+                      response.data.file.filename !== "error"
+                        ? response.data.file.filename
+                        : "none";
+                  } catch (err) {
+                    console.error("Error uploading image:", err);
+                    quest.choices[j] = "none";
+                  }
+                }
+              })
+            );
+            if (!isNaN(quest.answer) && quest.choices.length > quest.answer) {
+              quest.answer = quest.choices[quest.answer];
+            }
+          }
+        })
+      );
+      console.log(questions);
+
       await Promise.all(uploadPromises);
 
-      // console.log(questions);
       await axios
         .put(ADMIN_SERVER + "/quiz/update", {
           id: id,
@@ -120,7 +195,7 @@ export default function MyTable({ rows }) {
         ...prevQuestions,
         {
           question: "",
-          choices: [],
+          choices: [""],
           answer: "",
           image: "",
           points: 0,
@@ -164,6 +239,13 @@ export default function MyTable({ rows }) {
                     setQuestions,
                   }}
                 >
+                  {isError && (
+                    <MyDialog
+                      setError={setError}
+                      body={"Enter Valid Quiz and Question"}
+                      title={"Please fill the form"}
+                    />
+                  )}
                   <Conformation
                     button="Edit"
                     header={"Edit"}
@@ -264,21 +346,24 @@ export default function MyTable({ rows }) {
                                   count={question.choices.length}
                                 />
                               </ChoiceContext.Provider>
-                              <Grid item xs={12} sm={6}>
-                                <TextField
-                                  id="answer"
-                                  name="answer"
-                                  value={question.answer}
-                                  onChange={(e) => {
-                                    question.answer = e.target.value;
-                                  }}
-                                  required
-                                  label="Answer"
-                                  fullWidth
-                                  autoComplete="Answer"
-                                />
-                              </Grid>
-
+                              {question.isImage && (
+                                <Grid item xs={12} sm={6}>
+                                  <TextField
+                                    id="answer"
+                                    name="answer"
+                                    value={question.answer}
+                                    onChange={(e) => {
+                                      if (!question.isImage) {
+                                        question.answer = e.target.value;
+                                      }
+                                    }}
+                                    required
+                                    label="Answer"
+                                    fullWidth
+                                    autoComplete="Answer"
+                                  />
+                                </Grid>
+                              )}
                               <Grid item xs={12} sm={6}>
                                 <TextField
                                   required
