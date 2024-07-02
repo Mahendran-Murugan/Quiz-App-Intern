@@ -60,7 +60,8 @@ export default function MyTable({ rows }) {
         if (
           !quest.question ||
           quest.choices.length <= 0 ||
-          !quest.answer ||
+          quest.answer === null ||
+          quest.answer === undefined ||
           !quest.points ||
           quest.points < 0 ||
           isNaN(quest.points)

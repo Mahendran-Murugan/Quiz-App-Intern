@@ -182,7 +182,7 @@ const updateQuiz = (req, res) => {
               const json = JSON.stringify(Object.assign({}, q.choices));
 
               if (q.id) {
-                const updateQuestionSql = `UPDATE question SET question = ?, choices = ?, answer = ?, image = ?, points = ? WHERE id = ?`;
+                const updateQuestionSql = `UPDATE question SET question = ?, choices = ?, answer = ?, image = ?, points = ? , isImage = ? WHERE id = ?`;
 
                 const updateQuestionValues = [
                   q.question,
@@ -190,6 +190,7 @@ const updateQuiz = (req, res) => {
                   q.answer,
                   q.image,
                   q.points,
+                  q.isImage,
                   q.id,
                 ];
                 // console.log(updateQuestionValues);
@@ -212,7 +213,7 @@ const updateQuiz = (req, res) => {
                   }
                 );
               } else {
-                const insertQuestionSql = `INSERT INTO question (quizid, question, choices, answer, image, points) VALUES (?, ?, ?, ?, ?, ?)`;
+                const insertQuestionSql = `INSERT INTO question (quizid, question, choices, answer, image, points , isImage) VALUES (?, ?, ?, ?, ?, ? , ?)`;
                 const insertQuestionValues = [
                   body.id,
                   q.question,
@@ -220,6 +221,7 @@ const updateQuiz = (req, res) => {
                   q.answer,
                   q.image || "none",
                   q.points,
+                  q.isImage,
                 ];
                 console.log(insertQuestionValues);
                 connection.query(
