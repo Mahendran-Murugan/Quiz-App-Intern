@@ -10,6 +10,8 @@ import Form from "../ManageQuiz/Form";
 import { USER_SERVER } from '../data'
 import { useDispatch, useSelector } from "react-redux";
 import UserForm from "./UserForm";
+import { Stack } from "@mui/material";
+import { UploadeXL } from "./UploadeXL";
 
 const userContext = React.createContext();
 
@@ -51,9 +53,17 @@ export default function CreateUser({ props }) {
 
   return (
     <React.Fragment>
-      <Button variant="contained" onClick={(e) => handleClickOpen(e)}>
-        Create
-      </Button>
+      <Stack
+        direction="row"
+        spacing={2}
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Button variant="contained" onClick={(e) => handleClickOpen(e)}>
+          Create
+        </Button>
+        <UploadeXL />
+      </Stack>
       <userContext.Provider
         value={{ name, setName, userid, setEmail, pass, setPass }}
       >
