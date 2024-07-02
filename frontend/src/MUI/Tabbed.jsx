@@ -36,8 +36,8 @@ export default function Tabbed() {
 
   CustomTabPanel.propTypes = {
     children: PropTypes.node,
-    index: PropTypes.number.isRequired,
-    value: PropTypes.number.isRequired,
+    index: PropTypes.number.is,
+    value: PropTypes.number.is,
   };
   function a11yProps(index) {
     return {

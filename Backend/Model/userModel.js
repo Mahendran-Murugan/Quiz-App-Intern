@@ -35,16 +35,45 @@ const showSingleQuiz = (req, res) => {
 };
 
 const registerUser = (req, res) => {
-  const { name, password, userid } = req.body;
+  const {
+    name,
+    password,
+    userid,
+    role,
+    phone_number,
+    parents_number,
+    address,
+    father_name,
+    mother_name,
+    standard,
+    institute_name,
+    gender,
+  } = req.body;
+  console.log(req.body);
+  const sql = `
+    INSERT INTO user 
+      (name, password, userid, role, phone_number, parents_number, address, father_name, mother_name, standard, institute_name, gender, attended, correct, verified) 
+    VALUES 
+      (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, 0, 0)
+  `;
 
-  if (name == "" && password == "" && userid == "") {
-    res.status(404).end();
-  }
   connection
-    .query(
-      `INSERT INTO user (name , password , userid) VALUES ("${name}" ,"${password}" ,"${userid}")`
-    )
+    .query(sql, [
+      name,
+      password,
+      userid,
+      role,
+      phone_number === "none"  ? 0 : phone_number,
+      parents_number === "none" ? 0 : parents_number ,
+      address,
+      father_name,
+      mother_name,
+      standard,
+      institute_name,
+      gender,
+    ])
     .on("error", (err) => {
+      console.log(err);
       res.status(404).send();
     })
     .on("result", (result) => {
@@ -235,7 +264,7 @@ const getUser = (req, res) => {
   const userId = req.params.id;
 
   connection.query(
-    "SELECT name, userid, attended, correct FROM user WHERE id = ?",
+    "SELECT name, userid, attended, correct , role FROM user WHERE id = ?",
     [userId],
     (error, results, fields) => {
       if (error) {

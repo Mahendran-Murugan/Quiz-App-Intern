@@ -81,7 +81,6 @@ export default function Form() {
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
-            required
             id="duration"
             name="duration"
             label="Duration in Minutes"
@@ -93,7 +92,6 @@ export default function Form() {
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
-            required
             id="attempt"
             name="attempt"
             label="Attempt"
@@ -123,7 +121,6 @@ export default function Form() {
                 <Uploader index={index} />
 
                 <TextField
-                  required
                   id="address1"
                   name="address1"
                   label="Question"
@@ -141,7 +138,6 @@ export default function Form() {
                     question.question = e.target.value;
                   }}
                   value={question.question}
-                  autoComplete="shipping address-line1"
                 />
               </Grid>
               <ChoiceContext.Provider value={{ question }}>
@@ -167,17 +163,14 @@ export default function Form() {
                       }
                     }}
                     value={question.answer}
-                    required
                     label="Answer"
                     fullWidth
-                    autoComplete="Answer"
                   />
                 </Grid>
               )}
 
               <Grid item xs={12} sm={6}>
                 <TextField
-                  required
                   id="points"
                   name="points"
                   type="number"
@@ -196,7 +189,6 @@ export default function Form() {
                   InputProps={{ inputProps: { min: 0 } }}
                   label="Points"
                   fullWidth
-                  autoComplete="points"
                 />
               </Grid>
             </>

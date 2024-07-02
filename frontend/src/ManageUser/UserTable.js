@@ -85,7 +85,6 @@ export default function UserTable({ rows }) {
                               User
                             </Typography>
                             <TextField
-                              required
                               name="address1"
                               label="Name"
                               fullWidth
@@ -93,12 +92,11 @@ export default function UserTable({ rows }) {
                               onChange={(e) => {
                                 setName(e.target.value);
                               }}
-                              autoComplete=""
+                              te=""
                             />
                           </Grid>
                           <Grid item xs={12}>
                             <TextField
-                              required
                               name="address1"
                               label="User ID"
                               fullWidth
@@ -106,12 +104,11 @@ export default function UserTable({ rows }) {
                               onChange={(e) => {
                                 setEmail(e.target.value);
                               }}
-                              autoComplete=""
+                              te=""
                             />
                           </Grid>
                           <Grid item xs={12}>
                             <TextField
-                              required
                               name="address1"
                               label="Password"
                               fullWidth
@@ -119,7 +116,7 @@ export default function UserTable({ rows }) {
                               onChange={(e) => {
                                 setPass(e.target.value);
                               }}
-                              autoComplete=""
+                              te=""
                             />
                           </Grid>
                         </Grid>

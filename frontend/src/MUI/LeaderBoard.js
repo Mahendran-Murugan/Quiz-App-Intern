@@ -52,7 +52,8 @@ export default function LeaderBoard({ data }) {
             <StyledTableCell align="center">S.No</StyledTableCell>
             <StyledTableCell align="center">Name</StyledTableCell>
             <StyledTableCell align="center">User ID</StyledTableCell>
-            <StyledTableCell align="center">Score</StyledTableCell>
+            <StyledTableCell align="center">Attended</StyledTableCell>
+            <StyledTableCell align="center">Correct</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -62,9 +63,8 @@ export default function LeaderBoard({ data }) {
                 <StyledTableCell align="center">{index + 1}</StyledTableCell>
                 <StyledTableCell align="center">{row.name}</StyledTableCell>
                 <StyledTableCell align="center">{row.userid}</StyledTableCell>
-                <StyledTableCell align="center">
-                  {(row.correct - (row.attended - row.attended)) * 100}
-                </StyledTableCell>
+                <StyledTableCell align="center">{row.attended}</StyledTableCell>
+                <StyledTableCell align="center">{row.correct}</StyledTableCell>
               </StyledTableRow>
             ))}
         </TableBody>

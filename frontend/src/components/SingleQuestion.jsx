@@ -1,11 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { SingleChoice } from "./SingleChoice";
-import { Alert, Box, Paper, RadioGroup, Typography } from "@mui/material";
+import {
+  Alert,
+  Box,
+  Grid,
+  Paper,
+  RadioGroup,
+  Stack,
+  Typography,
+} from "@mui/material";
 import { UseAnswer } from "./Questions";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
+import { FILE_SERVER } from "../data";
 
 export const SingleQuestion = ({ question, index }) => {
+  
   const [choices, setChoice] = useState([]);
   const [answer, setAnswer] = useState("");
   useEffect(() => {
@@ -30,14 +40,15 @@ export const SingleQuestion = ({ question, index }) => {
       setRight(newNumbers);
     }
   };
-
   return (
     <Paper sx={{ m: 1, p: 2 }} elevation={3}>
       <Typography variant="h6">{`${index + 1}. ${
         question.question
       }`}</Typography>
       {question.image != "" && question.image != "none" && (
-        <img src={"http://localhost:4000/" + question.image} alt="" />
+        <center>
+          <img src={FILE_SERVER + "/" + question.image} alt="" width={650} />
+        </center>
       )}
       <Typography variant="h6" color="initial">
         <RadioGroup
@@ -46,9 +57,12 @@ export const SingleQuestion = ({ question, index }) => {
           onChange={(e) => handleSelect(e)}
           value={select}
         >
-          {choices.map((choice, index) => (
-            <SingleChoice choice={choice} />
-          ))}
+          <Stack gap={question.isImage ? 5 : 0} m={2}>
+            {choices.map((choice, index) => (
+              <SingleChoice question={question} choice={choice} />
+            ))}
+          </Stack>
+
           {isSubmitted ? (
             select === answer ? (
               <Alert icon={<CheckIcon fontSize="inherit" />} severity="success">
@@ -56,7 +70,11 @@ export const SingleQuestion = ({ question, index }) => {
               </Alert>
             ) : select !== "" ? (
               <Alert icon={<CloseIcon fontSize="inherit" />} severity="error">
-                Wrong Answer. {answer} is Correct Answer
+                Wrong Answer.{" "}
+                {!question.isImage
+                  ? answer
+                  : "Image " + (choices.indexOf(answer) + 1)}{" "}
+                is Correct Answer
               </Alert>
             ) : (
               ""

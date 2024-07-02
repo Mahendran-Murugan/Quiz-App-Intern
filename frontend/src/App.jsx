@@ -15,30 +15,34 @@ import MyNavBar from "./MUI/MyNavBar";
 import { UseAuth } from "./Authentication/AuthContext";
 import Profile from "./components/Profile";
 import { ADMIN_SERVER } from "./data";
+import { Provider } from "react-redux";
+import { store } from "./app/store";
 
 export const App = () => {
   return (
     <>
       <MyNavBar />
-      <Box sx={{ m: 3 }}>
-        <QuestionContext>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/admin" element={<Admin />} />
-            <Route path="/student" element={<Student />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/quiz" element={<Quiz />}>
-              <Route index element={<ListQuiz />} />
-              <Route path=":quiz_id">
-                <Route index element={<QuizInstructions />} />
-                <Route path="questions" element={<Questions />} />
+      <Provider store={store}>
+        <Box sx={{ m: 3 }}>
+          <QuestionContext>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/admin" element={<Admin />} />
+              <Route path="/student" element={<Student />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/quiz" element={<Quiz />}>
+                <Route index element={<ListQuiz />} />
+                <Route path=":quiz_id">
+                  <Route index element={<QuizInstructions />} />
+                  <Route path="questions" element={<Questions />} />
+                </Route>
               </Route>
-            </Route>
-          </Routes>
-        </QuestionContext>
-      </Box>
+            </Routes>
+          </QuestionContext>
+        </Box>
+      </Provider>
     </>
   );
 };

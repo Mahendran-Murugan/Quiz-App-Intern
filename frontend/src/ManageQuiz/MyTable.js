@@ -264,7 +264,6 @@ export default function MyTable({ rows }) {
                             </Typography>
                             <Grid item xs={12} sm={12}>
                               <TextField
-                                required
                                 name="address1"
                                 label="Quiz"
                                 fullWidth
@@ -272,14 +271,13 @@ export default function MyTable({ rows }) {
                                 onChange={(e) => {
                                   setName(e.target.value);
                                 }}
-                                autoComplete=""
+                                te=""
                               />
                             </Grid>
                           </Grid>
                           <Grid container spacing={2} xs={12} m={2}>
                             <Grid item xs={12} sm={6}>
                               <TextField
-                                required
                                 name="duration"
                                 label="Duration (in Mins)"
                                 fullWidth
@@ -288,7 +286,6 @@ export default function MyTable({ rows }) {
                                 onChange={(e) => {
                                   setDuration(e.target.value);
                                 }}
-                                autoComplete=""
                               />
                             </Grid>
                             <Grid item xs={12} sm={6}>
@@ -327,7 +324,6 @@ export default function MyTable({ rows }) {
                                 )}
 
                                 <TextField
-                                  required
                                   id="address1"
                                   name="address1"
                                   label="Question"
@@ -336,7 +332,6 @@ export default function MyTable({ rows }) {
                                   onChange={(e) => {
                                     question.question = e.target.value;
                                   }}
-                                  autoComplete="shipping address-line1"
                                 />
                               </Grid>
 
@@ -358,16 +353,14 @@ export default function MyTable({ rows }) {
                                         question.answer = e.target.value;
                                       }
                                     }}
-                                    required
                                     label="Answer"
                                     fullWidth
-                                    autoComplete="Answer"
+                                    te="Answer"
                                   />
                                 </Grid>
                               )}
                               <Grid item xs={12} sm={6}>
                                 <TextField
-                                  required
                                   id="points"
                                   value={question.points}
                                   name="points"
@@ -379,7 +372,6 @@ export default function MyTable({ rows }) {
                                   InputProps={{ inputProps: { min: 0 } }}
                                   label="Points"
                                   fullWidth
-                                  autoComplete="points"
                                 />
                               </Grid>
                             </>

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 const MyContext = createContext();
 
 export const AuthContext = ({ children }) => {
+  const [isLogin, setLogin] = useState(false);
   const [user, setUser] = useState({
     name: "",
     userid: "",
@@ -19,6 +20,7 @@ export const AuthContext = ({ children }) => {
       userid: userid,
       password: password,
     });
+    setLogin(true);
   };
   const navigate = useNavigate();
   const logout = () => {
@@ -27,7 +29,7 @@ export const AuthContext = ({ children }) => {
       userid: "",
       password: "",
     });
-
+    setLogin(false);
     localStorage.setItem("name", "");
     localStorage.setItem("id", "");
     localStorage.setItem("userid", "");
@@ -35,7 +37,7 @@ export const AuthContext = ({ children }) => {
     navigate("/login");
   };
   return (
-    <MyContext.Provider value={{ user, setUser, login, logout }}>
+    <MyContext.Provider value={{ user, isLogin, setUser, login, logout }}>
       {children}
     </MyContext.Provider>
   );

@@ -82,7 +82,6 @@ const Choices = forwardRef(({ src, myChoices, count, isimage }, ref) => {
           <Grid item xs={12} sm={6} key={ind}>
             <TextField
               multiline
-              required
               id={`choice${ind + 1}`}
               name="Choice"
               label={`Choice ${ind + 1}`}
@@ -96,7 +95,6 @@ const Choices = forwardRef(({ src, myChoices, count, isimage }, ref) => {
                 question.choices[ind] = e.target.value;
               }}
               value={choice}
-              autoComplete="shipping address-level2"
             />
           </Grid>
         ))}

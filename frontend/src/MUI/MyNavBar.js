@@ -23,7 +23,7 @@ const navItems = ["Home", "Quiz", "Profile"];
 const navLink = ["/", "/quiz", "/profile"];
 
 function MyNavBar(props) {
-  const { user, logout } = UseAuth();
+  const { user, logout, isLogin } = UseAuth();
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -147,7 +147,9 @@ function MyNavBar(props) {
             <NavLink
               to={localStorage.getItem("name") !== "" ? "/profile" : "/login"}
             >
-              <Button sx={{ color: "#fff" }}>Profile</Button>
+              {localStorage.getItem("name") && (
+                <Button sx={{ color: "#fff" }}>Profile</Button>
+              )}
             </NavLink>
             {localStorage.getItem("name") !== "" && (
               <>

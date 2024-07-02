@@ -11,37 +11,33 @@ export default function UserForm() {
       <Grid container spacing={3}>
         <Grid item xs={12} sm={12}>
           <TextField
-            required
             id="Name"
             name="Name"
             label="User Name"
             fullWidth
             onChange={(e) => setName(e.target.value)}
-            autoComplete="given-name"
+            te="given-name"
           />
         </Grid>
 
         <Grid item xs={12} sm={12}>
           <TextField
-            required
             id="userid"
             name="userid"
             label="User ID"
             fullWidth
             onChange={(e) => setEmail(e.target.value)}
-            autoComplete="given-name"
+            te="given-name"
           />
         </Grid>
 
         <Grid item xs={12} sm={12}>
           <TextField
-            required
             id="Password"
             name="Password"
             label="Password"
             fullWidth
             onChange={(e) => setPass(e.target.value)}
-            autoComplete="given-name"
           />
         </Grid>
       </Grid>

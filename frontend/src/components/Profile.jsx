@@ -13,6 +13,7 @@ import React, { useEffect, useState } from "react";
 import { USER_SERVER } from "../data";
 import axios from "axios";
 import LeaderBoard from "../MUI/LeaderBoard";
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
   const [details, setDetails] = useState(null);
@@ -24,12 +25,17 @@ const Profile = () => {
     // console.log(result.data);
     setDetails(result.data);
     const leader = await axios.get(USER_SERVER + "/leadership").then((res) => {
-      console.log(res);
       setLeader(res.data);
     });
   }
+  const navigate = useNavigate();
   useEffect(() => {
-    Async();
+    if (localStorage.getItem("name") != "") {
+      Async();
+      console.log(details);
+    } else {
+      navigate("/");
+    }
   }, []);
   return (
     <Grid alignContent={"center"}>
@@ -69,7 +75,14 @@ const Profile = () => {
             </Typography>
           </CardContent>
         </Card>
-        <Card sx={{ maxWidth: 500 }}>
+        <Card
+          sx={{
+            maxWidth: {
+              md: 500,
+              xs: 250,
+            },
+          }}
+        >
           <CardContent>
             {details && (
               <>
@@ -90,24 +103,23 @@ const Profile = () => {
                       ],
                     },
                   ]}
-                  width={400}
-                  height={250}
+                  width={450}
+                  height={200}
                 />
 
                 <Typography align="center" mt={4} variant="h6" color="initial">
-                  Score :{" "}
-                  {((details.correct - (details.attended - details.correct)) /
-                    details.attended) *
-                    100}
+                  Score : {(details.correct / details.attended) * 100}
                 </Typography>
               </>
             )}
           </CardContent>
         </Card>
       </Stack>
-      <Stack m={2} p={2}>
-        <LeaderBoard data={leader} />
-      </Stack>
+      {details && details.role != "School Student" && (
+        <Stack m={2} p={2}>
+          <LeaderBoard data={leader} />
+        </Stack>
+      )}
     </Grid>
   );
 };
