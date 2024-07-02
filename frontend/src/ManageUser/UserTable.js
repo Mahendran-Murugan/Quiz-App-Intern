@@ -79,7 +79,11 @@ export default function UserTable({ rows }) {
   return (
     <TableContainer component={Paper}>
       {isError && <MyDialog title={title} body={body} setError={setError} />}
-      <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+      <FormControl
+        variant="standard"
+        sx={{ m: 3, minWidth: 180 }}
+        align="center"
+      >
         <InputLabel id="demo-simple-select-standard-label">Sort By</InputLabel>
         <Select
           labelId="demo-simple-select-standard-label"
