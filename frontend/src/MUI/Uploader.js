@@ -6,6 +6,7 @@ import AddIcon from "@mui/icons-material/Add";
 import { useDispatch, useSelector } from "react-redux";
 import { insertAction } from "../feature/imageQuizSlice";
 import { Stack } from "@mui/material";
+import { FILE_SERVER } from "../data";
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
   clipPath: "inset(50%)",
@@ -48,7 +49,7 @@ export default function Uploader({ index, src }) {
     <Stack spacing={0} m={2}>
       {src && src != "none" && (
         <img
-          src={"http://localhost:4000/" + src}
+          src={FILE_SERVER + "/" + src}
           style={{ maxWidth: "100%", maxHeight: "300px" }}
         />
       )}

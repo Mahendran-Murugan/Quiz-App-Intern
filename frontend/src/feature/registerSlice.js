@@ -84,8 +84,33 @@ export const registerSlice = createSlice({
     },
     editProp: (state, action) => {
       const payload = action.payload;
-      state.student_data[payload] = "none";
-      state.rep_data[payload] = "none";
+      state.student_data[payload] = 0;
+      state.rep_data[payload] = 0;
+    },
+    resetAll: (state, action) => {
+      state.student_data = {
+        name: "",
+        userid: "",
+        password: "",
+        gender: "",
+        role: "",
+        user_phone: "",
+        address: "",
+        father_name: "",
+        mother_name: "",
+        parents_number: "",
+        institute_name: "",
+        standard: "",
+      };
+      state.rep_data = {
+        name: "",
+        userid: "",
+        password: "",
+        gender: "",
+        role: "",
+        user_phone: "",
+        institute_name: "",
+      };
     },
   },
 });
@@ -106,5 +131,6 @@ export const {
   editRole,
   editStandard,
   editUser,
+  resetAll,
 } = registerSlice.actions;
 export default registerSlice.reducer;

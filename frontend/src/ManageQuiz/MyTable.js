@@ -180,6 +180,7 @@ export default function MyTable({ rows }) {
       const newItems = prevItems.filter((_, i) => i !== index);
       prevItems.choices = [];
       setCount(newItems.length); // Update count based on the new length
+      console.log(newItems);
       return newItems;
     });
     if (childRef.current) {
@@ -342,7 +343,7 @@ export default function MyTable({ rows }) {
                                   count={question.choices.length}
                                 />
                               </ChoiceContext.Provider>
-                              {question.isImage && (
+                              {!question.isImage && (
                                 <Grid item xs={12} sm={6}>
                                   <TextField
                                     id="answer"

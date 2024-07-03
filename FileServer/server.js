@@ -5,6 +5,7 @@ const cors = require("cors");
 const fs = require("fs");
 const uploadExcel = require("./excelStorage");
 const { default: axios } = require("axios");
+const { BACKEND_SERVER } = require("./data");
 const app = express();
 const PORT = 4000;
 app.use(cors({ origin: "*" }));
@@ -24,22 +25,25 @@ app.post("/api/post/image", upload.single("qimage"), (req, res) => {
 app.post("/api/post/excel", uploadExcel.single("excel"), (req, res) => {
   const { file } = req;
   const { filename, destination } = file;
-  console.log(filename, destination)
+  console.log(filename, destination);
   if (file) {
     const workbook = xlsx.readFile(`${destination}/${filename}`);
     const worksheet = workbook.Sheets[workbook.SheetNames[0]];
-    const range = xlsx.utils.decode_range(worksheet["!ref"])
+    const range = xlsx.utils.decode_range(worksheet["!ref"]);
     for (let row = range.s.r + 1; row <= range.e.r; row++) {
       let data = [];
       for (let col = range.s.c; col <= range.e.c; col++) {
         let cell = worksheet[xlsx.utils.encode_cell({ r: row, c: col })];
         data.push(cell.v);
       }
-      axios.post("http://localhost:8000/api/user/register", {
-        name: data[0],
-        password: data[2],
-        userid: data[1],
-      }).then((res) => console.log(res.data)).catch((err) => console.log(err))
+      axios
+        .post(BACKEND_SERVER + "/api/user/register", {
+          name: data[0],
+          password: data[2],
+          userid: data[1],
+        })
+        .then((res) => console.log(res.data))
+        .catch((err) => console.log(err));
       console.log(data);
     }
     res.json({ file: file });

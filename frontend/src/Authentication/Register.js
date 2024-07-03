@@ -28,12 +28,15 @@ import {
   editStandard,
   editStudent,
   editUser,
+  resetAll,
 } from "../feature/registerSlice";
 import MyDialog from "../ManageQuiz/MyDialog";
+import { useNavigate } from "react-router-dom";
 const defaultTheme = createTheme();
 
 export function Register() {
   const student_data = useSelector((state) => state.register.student_data);
+  const navigate = useNavigate();
   const [isError, setError] = React.useState(false);
   const [title, setTitle] = React.useState("");
   const [body, setBody] = React.useState("");
@@ -100,11 +103,19 @@ export function Register() {
         standard: student_data.standard,
       })
       .then((res) => {
-        
+        setError(true);
+        setTitle("Registration Successfully");
+        setBody(student_data.userid + " user is Registerd");
+        dispatcher(resetAll());
+        navigate("/login");
+
         console.log(res);
       })
       .catch((err) => {
-        alert(err);
+        setError(true);
+        setTitle("Error");
+        dispatcher(resetAll());
+        setBody(err.message);
         console.log(err);
       });
   };

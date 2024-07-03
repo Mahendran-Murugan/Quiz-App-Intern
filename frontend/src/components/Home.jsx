@@ -1,5 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { Quiz } from "./Quiz";
+import { useNavigate } from "react-router-dom";
 
 export const Home = () => {
-  return <div className="flex justify-center items-center">Home</div>;
+  const navigate = useNavigate();
+  useEffect(() => {
+    navigate("/quiz");
+  });
+  return <></>;
 };
