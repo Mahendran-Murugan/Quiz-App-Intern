@@ -13,6 +13,13 @@ const routerUser = require("./Router/userRouter");
 app.use(cors({ origin: "*" }));
 connection.connect((err) => {
   if (err) {
+    console.log({
+      host: process.env.DATABASE_HOSTNAME ,
+      database: process.env.DATABASE_NAME,
+      user: process.env.DATABASE_USERNAME ,
+      password: process.env.DATABASE_PASSWORD ,
+      
+    });
     console.log("DATABASE IS NOT CONNECTED");
     console.log(err);
     return;
@@ -22,7 +29,7 @@ connection.connect((err) => {
   app.use("/api/admin", router);
   app.use("/api/user", routerUser);
 
-  app.listen(process.env.SERVER_PORT || 3000, () => {
+  app.listen(process.env.SERVER_PORT , () => {
     console.log("Server is running in ", process.env.SERVER_PORT || 4000);
   });
 });

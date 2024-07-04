@@ -1,0 +1,73 @@
+version: "3.9"
+
+services:
+  frontend:
+    container_name: frontend
+    build: ./frontend
+    networks:
+      - auth-networks
+    ports:
+      - "3000:3000"
+
+  fileserver:
+    container_name: file_server
+    build: ./FileServer
+    networks:
+      - auth-networks
+    ports:
+      - "4000:4000"
+
+  mysql_server:
+    image: mysql:5.7
+    container_name: database
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=quiz
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./mysql-init:/docker-entrypoint-initdb.d
+    networks:
+      - auth-networks
+
+  backend:
+    container_name: backend
+    restart: unless-stopped
+    build: ./Backend
+    networks:
+      - auth-networks
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_HOSTNAME: mysql_server
+      DATABASE_USERNAME: user
+      DATABASE_PASSWORD: password
+      DATABASE_NAME: quiz
+      SERVER_PORT: 8000
+    depends_on:
+      - mysql_server
+
+  phpmyadmin:
+    image: phpmyadmin
+    container_name: phpmyadmin
+    depends_on:
+      - mysql_server
+    networks:
+      - auth-networks
+    ports:
+      - "30000:80"
+    environment:
+      PMA_HOST: mysql_server
+      PMA_PORT: 3306
+    volumes:
+      - /sessions  
+
+volumes:
+  mysql-data:
+
+networks:
+  auth-networks:
+    driver: bridge

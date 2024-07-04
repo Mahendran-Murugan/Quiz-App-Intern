@@ -46,7 +46,7 @@ export const ListQuiz = () => {
         )}
       </Box>
       <Box sx={{ mt: 2 }}>
-        {quizall.map((quiz, index) => (
+        { quizall && quizall.map((quiz, index) => (
           <Paper key={quiz.id} sx={{ mb: 2, p: 2 }}>
             {localStorage.getItem("name") === "" && <Navigate to="/login" />}
             <Link

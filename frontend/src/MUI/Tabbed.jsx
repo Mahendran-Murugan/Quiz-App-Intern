@@ -36,8 +36,8 @@ export default function Tabbed() {
 
   CustomTabPanel.propTypes = {
     children: PropTypes.node,
-    index: PropTypes.number.is,
-    value: PropTypes.number.is,
+    index: PropTypes.number.isRequired,
+    value: PropTypes.number.isRequired,
   };
   function a11yProps(index) {
     return {
@@ -68,7 +68,7 @@ export default function Tabbed() {
         <Tab label="Manage Quiz" />
         <Tab label="Manage Users" />
       </Tabs>
-      <CustomTabPanel value={value} index={0}>
+      <CustomTabPanel  value={value} index={0}>
         <Stack>
           <center>
             <Provider store={store}>
