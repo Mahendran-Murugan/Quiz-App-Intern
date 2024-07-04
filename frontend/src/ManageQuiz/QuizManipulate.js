@@ -16,7 +16,7 @@ const QuizManipulate = () => {
 
   useEffect(() => {
     AsyncFunction();
-  });
+  } , []);
   return <MyTable rows={quiz} />;
 };
 

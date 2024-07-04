@@ -329,6 +329,7 @@ export default function MyTable({ rows }) {
                                   name="address1"
                                   label="Question"
                                   fullWidth
+                                  multiline
                                   value={question.question}
                                   onChange={(e) => {
                                     question.question = e.target.value;
@@ -356,7 +357,6 @@ export default function MyTable({ rows }) {
                                     }}
                                     label="Answer"
                                     fullWidth
-                                    te="Answer"
                                   />
                                 </Grid>
                               )}

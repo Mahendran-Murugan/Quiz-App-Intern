@@ -6,6 +6,6 @@ export const Home = () => {
   const navigate = useNavigate();
   useEffect(() => {
     navigate("/quiz");
-  });
+  },  []);
   return <></>;
 };

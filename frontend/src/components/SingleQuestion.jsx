@@ -24,7 +24,7 @@ export const SingleQuestion = ({ question, index }) => {
   useEffect(() => {
     setChoice(Object.values(JSON.parse(question.choices)));
     setAnswer(question.answer);
-  }, [question]);
+  }, []);
 
   const isMobile = useMediaQuery("(max-width:600px)");
   const handleSelect = (e) => {
@@ -39,9 +39,9 @@ export const SingleQuestion = ({ question, index }) => {
 
   return (
     <Paper sx={{ m: 1, p: 2 }} elevation={3}>
-      <Typography variant={isMobile ? "body1" : "h6"}>{`${index + 1}. ${
+      <pre className={ !isMobile ? "text-base" : "text-sm"}>{`${index + 1}. ${
         question.question
-      }`}</Typography>
+      }`}</pre>
       {question.image !== "" && question.image !== "none" && (
         <Box sx={{ textAlign: "center", mb: 2 }}>
           <img
