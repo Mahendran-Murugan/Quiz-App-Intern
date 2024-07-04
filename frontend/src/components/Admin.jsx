@@ -7,7 +7,6 @@ import CreateQuiz from "../ManageQuiz/CreateQuiz";
 export const Admin = () => {
   return (
     <Container>
-      {localStorage.getItem("name") == "" && <Navigate to="/login"></Navigate>}
       <Tabbed />
     </Container>
   );

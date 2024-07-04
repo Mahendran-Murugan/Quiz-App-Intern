@@ -44,7 +44,7 @@ export default function MySelection({ collection, placeholder, text }) {
           autoWidth
           label={placeholder}
         >
-          {collection.map((e) => (
+          {collection && collection.map((e) => (
             <MenuItem value={e}>{e}</MenuItem>
           ))}
         </Select>

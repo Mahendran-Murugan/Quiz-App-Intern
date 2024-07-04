@@ -136,7 +136,7 @@ const Choices = forwardRef(({ src, myChoices, count, isimage }, ref) => {
               defaultValue={selected}
               name="radio-buttons-group"
             >
-              {choiceValue.map((ch, id) => (
+              {choiceValue && choiceValue.map((ch, id) => (
                 <ChoiceUploadContext.Provider
                   value={{
                     choiceValue,

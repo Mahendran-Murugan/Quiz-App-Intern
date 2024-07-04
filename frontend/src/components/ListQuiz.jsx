@@ -48,7 +48,7 @@ export const ListQuiz = () => {
       <Box sx={{ mt: 2 }}>
         { quizall && quizall.map((quiz, index) => (
           <Paper key={quiz.id} sx={{ mb: 2, p: 2 }}>
-            {localStorage.getItem("name") === "" && <Navigate to="/login" />}
+            {!localStorage.getItem("name") && <Navigate to="/login" />}
             <Link
               to={`${quiz.id}`}
               onClick={() => handleClick(index, quiz.id, quiz.attempt, quiz.duration)}

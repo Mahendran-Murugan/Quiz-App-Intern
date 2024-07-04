@@ -176,7 +176,7 @@ export const Questions = () => {
           )}
         </Stack>
 
-        {data.map((question, index) => {
+        {data && data.map((question, index) => {
           return (
             <SingleQuestion key={index} index={index} question={question} />
           );

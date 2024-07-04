@@ -1,7 +1,7 @@
 const { json } = require("body-parser");
 const connection = require("../db");
 const showAllQuiz = (req, res) => {
-  connection.query("SELECT * FROM QUIZZ", (err, result, fields) => {
+  connection.query("SELECT * FROM quizz", (err, result, fields) => {
     if (err) {
       console.log(err);
       res.end();
@@ -19,7 +19,7 @@ const showSingleQuiz = (req, res) => {
       return;
     }
     connection.query(
-      `SELECT * FROM QUESTION WHERE QUIZID = ${id}`,
+      `SELECT * FROM question WHERE QUIZID = ${id}`,
       (err, result, field) => {
         if (err) {
           console.log(err);

@@ -219,7 +219,7 @@ export default function MyTable({ rows }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row, ind) => (
+          {rows && rows.map((row, ind) => (
             <TableRow>
               <TableCell align="center">{ind + 1}</TableCell>
               <TableCell align="center">{row.name}</TableCell>

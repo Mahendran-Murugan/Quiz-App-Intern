@@ -67,7 +67,8 @@ export default function Conformation({
     dispatch(resetAction());
     const result = (await axios.get(USER_SERVER + "/quiz/" + id)).data;
     setQuestions([]);
-    result.map((ele) => {
+    
+    result && result.map((ele) => {
       dispatch(addAction(ele.image));
 
       setQuestions((p) => [

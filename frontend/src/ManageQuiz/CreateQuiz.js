@@ -61,7 +61,7 @@ export default function CreateQuiz({ props }) {
       return;
     }
     try {
-      questions.map((quest) => {
+  questions.map((quest) => {
         if (
           !quest.question ||
           quest.choices.length <= 0 ||

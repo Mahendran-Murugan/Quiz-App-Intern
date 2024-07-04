@@ -42,7 +42,7 @@ function MyNavBar(props) {
       </Typography>
       <Divider />
       <List>
-        {localStorage.getItem("name") == "" && (
+        {!localStorage.getItem("name") && (
           <>
             <NavLink to="/login">
               <ListItem disablePadding>
@@ -68,7 +68,7 @@ function MyNavBar(props) {
             </ListItemButton>
           </ListItem>
         )}
-        {localStorage.getItem("name") !== "" && (
+        {localStorage.getItem("name")  && (
           <NavLink to="/quiz">
             <ListItem disablePadding>
               <ListItemButton sx={{ textAlign: "center" }}>
@@ -122,7 +122,7 @@ function MyNavBar(props) {
             Silicon Software Services
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
-            {localStorage.getItem("name") === "" && (
+            {!localStorage.getItem("name")  && (
               <>
                 <NavLink to="/login">
                   <Button sx={{ color: "#fff" }}>Login</Button>
@@ -140,18 +140,18 @@ function MyNavBar(props) {
               </>
             )}
             <NavLink
-              to={localStorage.getItem("name") !== "" ? "/quiz" : "/login"}
+              to={localStorage.getItem("name")  ? "/quiz" : "/login"}
             >
               <Button sx={{ color: "#fff" }}>Quiz</Button>
             </NavLink>
             <NavLink
-              to={localStorage.getItem("name") !== "" ? "/profile" : "/login"}
+              to={localStorage.getItem("name") ? "/profile" : "/login"}
             >
               {localStorage.getItem("name") && (
                 <Button sx={{ color: "#fff" }}>Profile</Button>
               )}
             </NavLink>
-            {localStorage.getItem("name") !== "" && (
+            {localStorage.getItem("name") && (
               <>
                 <NavLink to="/profile">
                   <Button

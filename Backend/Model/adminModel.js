@@ -22,7 +22,7 @@ const createImageQuiz = (res, req) => {
 };
 
 const showImageQuiz = (res, req) => {
-  const sql = "SELECT * FROM QUIZIMAGE WHERE QID = ?";
+  const sql = "SELECT * FROM quizimage WHERE qid = ?";
   const values = [res.params.id];
   connection
     .query(sql, values)
@@ -288,7 +288,7 @@ const showQuestionsByID = (req, res) => {
     return;
   }
   connection
-    .query(`SELECT * FROM QUESTION where ID = ${id}`)
+    .query(`SELECT * FROM question where id = ${id}`)
     .on("error", (err) => {
       res.status(404).json({ status: err });
     })
@@ -297,7 +297,7 @@ const showQuestionsByID = (req, res) => {
     });
 };
 const showQuestions = (req, res) => {
-  connection.query(`SELECT * FROM QUESTION `, (err, result) => {
+  connection.query(`SELECT * FROM question `, (err, result) => {
     if (err) {
       console.log(err);
       return;
@@ -320,7 +320,7 @@ const addQuestion = (req, res) => {
     body.quizid,
   ];
   connection.query(
-    `INSERT INTO QUESTION(question , answer , image , points , choices, quizid) values ( ? , ? , ? , ? , ? , ? ) `,
+    `INSERT INTO question(question , answer , image , points , choices, quizid) values ( ? , ? , ? , ? , ? , ? ) `,
     values,
     (err, result) => {
       if (err) {

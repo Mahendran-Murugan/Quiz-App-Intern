@@ -45,3 +45,9 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id`, `name`, `userid`, `password`, `attended`, `correct`, `role`, `phone_number`, `parents_number`, `address`, `father_name`, `mother_name`, `gender`, `institute_name`, `standard`, `verified`) VALUES
 (1, 'daniel', 'admin@gmail.com', '1234567', 18, 8, 'admin', 0, 0, '0', '0', '0', 'Male', '0', '', 0);
+
+
+ALTER TABLE `attempt` CHANGE `id` `id` INT(11) NOT NULL AUTO_INCREMENT, add PRIMARY KEY (`id`); 
+ALTER TABLE `question` CHANGE `id` `id` INT(11) NOT NULL AUTO_INCREMENT, add PRIMARY KEY (`id`);
+ALTER TABLE `quizz` CHANGE `id` `id` INT(11) NOT NULL AUTO_INCREMENT, add PRIMARY KEY (`id`); 
+ALTER TABLE `user` CHANGE `id` `id` INT(11) NOT NULL AUTO_INCREMENT, add PRIMARY KEY (`id`); 

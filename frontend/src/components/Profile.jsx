@@ -30,7 +30,7 @@ const Profile = () => {
   }
   const navigate = useNavigate();
   useEffect(() => {
-    if (localStorage.getItem("name") != "") {
+    if (localStorage.getItem("name") ) {
       Async();
       console.log(details);
     } else {

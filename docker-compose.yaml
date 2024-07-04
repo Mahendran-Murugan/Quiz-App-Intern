@@ -29,24 +29,24 @@ services:
       - "3306:3306"
     volumes:
       - mysql-data:/var/lib/mysql
-      - ./mysql-init:/docker-entrypoint-initdb.d
+      - ./init:/docker-entrypoint-initdb.d
     networks:
       - auth-networks
 
   backend:
     container_name: backend
-    restart: unless-stopped
+    restart: always
     build: ./Backend
     networks:
       - auth-networks
     ports:
-      - "8000:8000"
+      - "7000:7000"
     environment:
       DATABASE_HOSTNAME: mysql_server
       DATABASE_USERNAME: user
       DATABASE_PASSWORD: password
       DATABASE_NAME: quiz
-      SERVER_PORT: 8000
+      SERVER_PORT: 7000
     depends_on:
       - mysql_server
 
