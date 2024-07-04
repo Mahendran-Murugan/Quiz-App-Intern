@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { QuestContext } from "../Context/QuestionContext";
 import axios from "axios";
-import { USER_SERVER } from '../data'
+import { USER_SERVER } from "../data";
 import ReadInstructions from "../MUI/ReadInstructions";
 export const QuizInstructions = ({ id }) => {
   const { QID, attempt } = QuestContext();
@@ -19,6 +19,7 @@ export const QuizInstructions = ({ id }) => {
           quizid: QID,
         })
         .then((res) => {
+          console.log(res.data.attempts);
           setCurrentAttempt(res.data.attempts);
         });
     }

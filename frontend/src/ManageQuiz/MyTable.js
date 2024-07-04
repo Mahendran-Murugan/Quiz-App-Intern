@@ -10,7 +10,13 @@ import Conformation from "./Conformation";
 import axios from "axios";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Typography from "@mui/material/Typography";
-import { Button, Grid, IconButton, TextField } from "@mui/material";
+import {
+  Button,
+  Grid,
+  IconButton,
+  TextField,
+  useMediaQuery,
+} from "@mui/material";
 import Choices from "./Choices";
 import { ChoiceContext } from "./Form";
 import Uploader from "../MUI/Uploader";
@@ -213,7 +219,7 @@ export default function MyTable({ rows }) {
   };
   return (
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+      <Table aria-label="simple table">
         <TableHead>
           <TableRow>
             <TableCell align="center">S.No</TableCell>

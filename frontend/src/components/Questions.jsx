@@ -29,17 +29,15 @@ export const Questions = () => {
   const { QID, setQID, min, setMin } = QuestContext();
   const [right, setRight] = useState([]);
 
-  const selectedSubscribe = useSelector((state) => state.quizAttend.selected);
+  const selectedSubscribe = useSelector((state) => state.quizAttend.data);
   const selectedDispatcher = useDispatch();
   useEffect(() => {
     axios.get(USER_SERVER + "/quiz/" + QID).then((res) => {
       setData(res.data);
-      res.data.map((e) => {
-        selectedDispatcher(setSelected());
-      });
     });
   }, []);
   const [answed, setAnswered] = useState(0);
+
   const [isCorrect, setCorrect] = useState(0);
   const [isSubmitted, setSubmitted] = useState(false);
   const [timer, setTimer] = useState("00:00:00");
@@ -164,23 +162,19 @@ export const Questions = () => {
             Questions {data.length}
           </Typography>
           <Typography variant={isMobile ? "h6" : "h5"} color="initial">
-            Answered {answed}
+            Answered {selectedSubscribe.length}
           </Typography>
           <Typography variant={isMobile ? "h6" : "h5"} color="initial">
             {timer}
           </Typography>
-          {isSubmitted && (
-            <Typography variant={isMobile ? "h6" : "h5"} color="initial">
-              Correct {isCorrect}
-            </Typography>
-          )}
         </Stack>
 
-        {data && data.map((question, index) => {
-          return (
-            <SingleQuestion key={index} index={index} question={question} />
-          );
-        })}
+        {data &&
+          data.map((question, index) => {
+            return (
+              <SingleQuestion key={index} index={index} question={question} />
+            );
+          })}
 
         <Stack
           direction={"row"}
@@ -199,22 +193,7 @@ export const Questions = () => {
                   Score
                 </Typography>
               ),
-              text: (
-                <>
-                  <Typography variant="body1" color="initial">
-                    Questions : {data.length}
-                  </Typography>
-                  <Typography variant="body1" color="initial">
-                    Answered : {answed}
-                  </Typography>
-                  <Typography variant="body1" color="green">
-                    Correct : {isCorrect}
-                  </Typography>
-                  <Typography variant="body1" color="red">
-                    Wrong : {answed - isCorrect}
-                  </Typography>
-                </>
-              ),
+              question: data.length,
             }}
           />
           {isSubmitted && (

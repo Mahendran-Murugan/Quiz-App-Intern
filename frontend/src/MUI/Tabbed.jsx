@@ -49,7 +49,7 @@ export default function Tabbed() {
   return (
     <Container
       sx={{
-        maxWidth: { xs: 320, sm: 920 },
+        maxWidth: { xs: 360, sm: 620 },
         display: "flex",
         alignItems: "center",
         gap: "30px",
@@ -68,7 +68,7 @@ export default function Tabbed() {
         <Tab label="Manage Quiz" />
         <Tab label="Manage Users" />
       </Tabs>
-      <CustomTabPanel  value={value} index={0}>
+      <CustomTabPanel value={value} index={0}>
         <Stack>
           <center>
             <Provider store={store}>

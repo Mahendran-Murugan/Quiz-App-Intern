@@ -1,36 +1,56 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  selected: [],
-  answer: [],
+  data: [],
 };
 
 export const quizAttendSlice = createSlice({
   name: "quizAttendSlicer",
   initialState,
   reducers: {
-    setSelected: (state) => {
-      const array = [...state.answer, ""];
-      state.answer = array;
-    },
     changeSelected: (state, action) => {
-      const { index, value } = action.payload;
-      const newArray = [...state.selected];
-      newArray.splice(index, 1, value);
-      state.selected = newArray;
+      const { questionId, choice, isSingleAnswer, answer } = action.payload;
+      console.log(questionId, choice, isSingleAnswer, answer);
+
+      const questionIndex = state.data.findIndex(
+        (item) => item.questionId === questionId
+      );
+
+      if (isSingleAnswer) {
+        if (questionIndex !== -1) {
+          state.data[questionIndex].selected = [choice];
+          state.data = [...state.data];
+        } else {
+          const newA = [...state.data];
+          newA.push({ questionId, selected: [choice], answer: answer });
+          state.data = [...newA];
+        }
+        console.log(state.data);
+      } else {
+        if (questionIndex !== -1) {
+          const selectedChoices = state.data[questionIndex].selected;
+          const choiceIndex = selectedChoices.indexOf(choice);
+          if (choiceIndex !== -1) {
+            selectedChoices.splice(choiceIndex, 1);
+          } else {
+            selectedChoices.push(choice);
+          }
+          state.data[questionIndex].selected = selectedChoices;
+          state.data = [...state.data];
+        } else {
+          const newA = [...state.data];
+          newA.push({ questionId, selected: [choice], answer: answer });
+          state.data = [...newA];
+        }
+      }
     },
-    addAnswer: (state, action) => {
-      const newArray = [...state.answer, action.payload];
-      state.answer = newArray;
-    },
+    addAnswer: (state, action) => {},
     resetAll: (state) => {
-      state.selected = [];
-      state.answer = [];
+      state.data = [];
     },
   },
 });
 
-export const { setSelected, changeSelected, resetAll, addAnswer } =
-  quizAttendSlice.actions;
+export const { changeSelected, resetAll, addAnswer } = quizAttendSlice.actions;
 
 export default quizAttendSlice.reducer;

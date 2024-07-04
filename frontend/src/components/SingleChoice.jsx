@@ -7,35 +7,23 @@ import {
 } from "@mui/material";
 import React from "react";
 import { FILE_SERVER } from "../data";
-
 export const SingleChoice = ({ question, choice, index }) => {
+  
   return (
-    <FormControlLabel
-      sx={{ mt: 1, ml: 2 }}
-      value={choice}
-      label={
+    <>
+      {question.isImage ? (
         <>
-          {question.isImage ? (
-            <>
-              {choice != "none" || choice ? (
-                <img
-                  src={`${FILE_SERVER}/${choice}`}
-                  width={400}
-                  
-                  alt="No Image"
-                />
-              ) : (
-                <img src="https://cdn4.iconfinder.com/data/icons/solid-part-6/128/image_icon-512.png" />
-              )}
-            </>
+          {choice != "none" || choice ? (
+            <img src={`${FILE_SERVER}/${choice}`} width={400} alt="No Image" />
           ) : (
-            <Typography variant="body1" color="initial">
-              {choice}
-            </Typography>
+            <img src="https://cdn4.iconfinder.com/data/icons/solid-part-6/128/image_icon-512.png" />
           )}
         </>
-      }
-      control={<Radio />}
-    />
+      ) : (
+        <Typography variant="body1" color="initial">
+          {choice}
+        </Typography>
+      )}
+    </>
   );
 };

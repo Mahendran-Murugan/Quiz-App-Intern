@@ -74,11 +74,12 @@ const Choices = forwardRef(
           return newA;
         } else {
           const newA = [...prevSelected, index];
+
           question.answer = newA;
           console.log(newA);
           return newA;
         }
-        console.log(answer);
+        
       });
     };
     return (
