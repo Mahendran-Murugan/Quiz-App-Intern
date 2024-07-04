@@ -43,7 +43,7 @@ export default function CreateQuiz({ props }) {
 
   const dispatch = useDispatch();
   const handleCreate = async (e) => {
-    console.log("before :",questions);
+    console.log("before :", questions);
 
     if (
       !name ||
@@ -61,13 +61,14 @@ export default function CreateQuiz({ props }) {
       return;
     }
     try {
-  questions.map((quest) => {
+      questions.map((quest) => {
         if (
           !quest.question ||
           quest.choices.length <= 0 ||
           !quest.answer ||
           !quest.points ||
           quest.points < 0 ||
+          quest.answer.length <= 0 ||
           isNaN(quest.points)
         ) {
           console.log("Enter Valid Question");

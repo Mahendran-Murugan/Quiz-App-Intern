@@ -53,6 +53,8 @@ const createQuiz = (req, res, call) => {
         res.json({ id: result.insertId });
         body.questions.map((e) => {
           const json = JSON.stringify(Object.assign({}, e.choices));
+          const answer = JSON.stringify(Object.assign({}, e.answer));
+
           const sql = `INSERT INTO question (quizid, question, choices, answer, image, points , isImage)
           VALUES (?, ?, ?, ?, ?, ? , ?)`;
 
@@ -60,7 +62,7 @@ const createQuiz = (req, res, call) => {
             result.insertId,
             e.question,
             json,
-            e.answer,
+            answer,
             e.image,
             e.points,
             e.isImage,
@@ -68,11 +70,11 @@ const createQuiz = (req, res, call) => {
           connection
             .query(sql, values)
             .on("error", (err2) => {
-              // console.log(err2);
+              console.log(err2);
               res.end();
             })
             .on("result", (result2) => {
-              // console.log(result2);
+              console.log(result2);
               res.end(result.insertId);
               return;
             });
@@ -109,6 +111,7 @@ const deleteQuiz = (req, res) => {
 
 const updateQuiz = (req, res) => {
   const body = req.body;
+  console.log(body);
 
   if (body.id && body.name && body.count && body.questions) {
     // Start a transaction
@@ -180,14 +183,14 @@ const updateQuiz = (req, res) => {
             let processedQuestions = 0;
             body.questions.forEach((q) => {
               const json = JSON.stringify(Object.assign({}, q.choices));
-
+              const answer = JSON.stringify(Object.assign({}, q.answer));
               if (q.id) {
                 const updateQuestionSql = `UPDATE question SET question = ?, choices = ?, answer = ?, image = ?, points = ? , isImage = ? WHERE id = ?`;
 
                 const updateQuestionValues = [
                   q.question,
                   json,
-                  q.answer,
+                  answer,
                   q.image,
                   q.points,
                   q.isImage,
@@ -218,7 +221,7 @@ const updateQuiz = (req, res) => {
                   body.id,
                   q.question,
                   json,
-                  q.answer,
+                  answer,
                   q.image || "none",
                   q.points,
                   q.isImage,
@@ -233,6 +236,7 @@ const updateQuiz = (req, res) => {
                         res
                           .status(500)
                           .json({ error: "Failed to insert new question" });
+                        console.log(err);
                       });
                       return;
                     }

@@ -59,7 +59,7 @@ export default function Form() {
       {
         question: "",
         choices: [""],
-        answer: 0,
+        answer: [],
         image: "",
         points: null,
         isImage: false,
@@ -141,33 +141,13 @@ export default function Form() {
                 />
               </Grid>
               <ChoiceContext.Provider value={{ question }}>
-                <Choices src={null} myChoices={[""]} count={1} />
+                <Choices
+                  src={null}
+                  myAnswer={question.answer}
+                  myChoices={[""]}
+                  count={1}
+                />
               </ChoiceContext.Provider>
-              {!question.isImage && (
-                <Grid item xs={12} sm={6}>
-                  <TextField
-                    id="answer"
-                    name="answer"
-                    multiline
-                    onChange={(e) => {
-                      if (!question.isImage) {
-                        setQuestions((p) => {
-                          const newA = [...p];
-                          newA.splice(index, 1, {
-                            ...question,
-                            answer: e.target.value,
-                          });
-                          return newA;
-                        });
-                        question.answer = e.target.value;
-                      }
-                    }}
-                    value={question.answer}
-                    label="Answer"
-                    fullWidth
-                  />
-                </Grid>
-              )}
 
               <Grid item xs={12} sm={6}>
                 <TextField

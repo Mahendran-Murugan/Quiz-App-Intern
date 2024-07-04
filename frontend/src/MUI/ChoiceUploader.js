@@ -5,7 +5,7 @@ import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import AddIcon from "@mui/icons-material/Add";
 import { useDispatch, useSelector } from "react-redux";
 import { insertAction } from "../feature/imageQuizSlice";
-import { FormControlLabel, Radio, Stack } from "@mui/material";
+import { Checkbox, FormControlLabel, Radio, Stack } from "@mui/material";
 import { UseChoiceContext } from "../ManageQuiz/Form";
 import { UseChoiceImage } from "../ManageQuiz/Choices";
 import { FILE_SERVER } from "../data";
@@ -46,29 +46,16 @@ export default function ChoiceUploader({ index, src }) {
   return (
     <Stack spacing={0} m={2}>
       {
-        <FormControlLabel
-          value={index}
-          control={<Radio />}
-          onChange={() => {
-            setSelected(index);
-            question.answer = index;
-          }}
-          label={
-            <>
-              {src && src != "none" && !(src instanceof File) ? (
-                <img
-                  src={`${FILE_SERVER}/${src}`}
-                  style={{ maxWidth: "100%", maxHeight: "300px" }}
-                />
-              ) : (
-                <img
-                  src={image}
-                  style={{ maxWidth: "100%", maxHeight: "300px" }}
-                />
-              )}
-            </>
-          }
-        />
+        <>
+          {src && src != "none" && !(src instanceof File) ? (
+            <img
+              src={`${FILE_SERVER}/${src}`}
+              style={{ maxWidth: "100%", maxHeight: "300px" }}
+            />
+          ) : (
+            <img src={image} style={{ maxWidth: "100%", maxHeight: "300px" }} />
+          )}
+        </>
       }
 
       <Button

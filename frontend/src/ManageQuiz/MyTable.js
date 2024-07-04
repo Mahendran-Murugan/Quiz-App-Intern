@@ -55,6 +55,7 @@ export default function MyTable({ rows }) {
       setError(true);
       return;
     }
+
     try {
       questions.map((quest) => {
         if (
@@ -63,6 +64,7 @@ export default function MyTable({ rows }) {
           quest.answer === null ||
           quest.answer === undefined ||
           !quest.points ||
+          quest.answer.length <= 0 ||
           quest.points < 0 ||
           isNaN(quest.points)
         ) {
@@ -142,9 +144,12 @@ export default function MyTable({ rows }) {
                 }
               })
             );
-            if (!isNaN(quest.answer) && quest.choices.length > quest.answer) {
-              quest.answer = quest.choices[quest.answer];
+            if (quest.answer) {
+              quest.answer.map((element, ind) => {
+                quest.answer[ind] = quest.choices[element];
+              });
             }
+            console.log(quest.answer);
           }
         })
       );
@@ -187,7 +192,6 @@ export default function MyTable({ rows }) {
       childRef.current.handleChoiceDelete();
     }
   };
-
   const handleCount = (e) => {
     e.preventDefault();
     dispatcher(addAction(null));
@@ -196,11 +200,12 @@ export default function MyTable({ rows }) {
       const newQuestions = [
         ...prevQuestions,
         {
-          question: "",
+          question: null,
           choices: [""],
-          answer: "",
+          answer: [""],
           image: "",
-          points: 0,
+          isImage: 0,
+          points: null,
         },
       ];
       return newQuestions;
@@ -219,189 +224,176 @@ export default function MyTable({ rows }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows && rows.map((row, ind) => (
-            <TableRow>
-              <TableCell align="center">{ind + 1}</TableCell>
-              <TableCell align="center">{row.name}</TableCell>
-              <TableCell align="center">{row.count}</TableCell>
-              <TableCell align="center">{row.duration} Minutes</TableCell>
-              <TableCell align="center">
-                <MyQuizTableContext.Provider
-                  value={{
-                    handleEdit,
-                    handleDelete,
-                    name,
-                    setName,
-                    count,
-                    setCount,
-                    attempt,
-                    setAttempt,
-                    setDuration,
-                    questions,
-                    setQuestions,
-                  }}
-                >
-                  {isError && (
-                    <MyDialog
-                      setError={setError}
-                      body={"Enter Valid Quiz and Question"}
-                      title={"Please fill the form"}
-                    />
-                  )}
-                  <Conformation
-                    button="Edit"
-                    header={"Edit"}
-                    id={row.id}
-                    ConfirmName={row.name}
-                    attemptCount={row.attempt}
-                    questCount={row.count}
-                    dura={row.duration}
-                    body={
-                      <>
-                        <Grid container spacing={2}>
-                          <Grid item xs={12}>
-                            <Typography variant="h6" gutterBottom>
-                              Name
-                            </Typography>
-                            <Grid item xs={12} sm={12}>
-                              <TextField
-                                name="address1"
-                                label="Quiz"
-                                fullWidth
-                                value={name}
-                                onChange={(e) => {
-                                  setName(e.target.value);
-                                }}
-                                te=""
-                              />
-                            </Grid>
-                          </Grid>
-                          <Grid container spacing={2} xs={12} m={2}>
-                            <Grid item xs={12} sm={6}>
-                              <TextField
-                                name="duration"
-                                label="Duration (in Mins)"
-                                fullWidth
-                                type="number"
-                                value={duration}
-                                onChange={(e) => {
-                                  setDuration(e.target.value);
-                                }}
-                              />
-                            </Grid>
-                            <Grid item xs={12} sm={6}>
-                              <TextField
-                                name="attempt"
-                                label="Attempt"
-                                fullWidth
-                                type="number"
-                                value={attempt}
-                                onChange={(e) => {
-                                  setAttempt(e.target.value);
-                                }}
-                              />
-                            </Grid>
-                          </Grid>
-
-                          {questions.map((question, index) => (
-                            <>
-                              <Grid item xs={10} sm={12}>
-                                <Typography variant="h6" gutterBottom>
-                                  Question {index + 1}
-                                  <IconButton
-                                    color="error"
-                                    onClick={(e) => {
-                                      handleRemove(e, index);
-                                    }}
-                                  >
-                                    <DeleteIcon />
-                                  </IconButton>
-                                </Typography>
-                                {selector[index] && (
-                                  <Uploader
-                                    index={index}
-                                    src={selector[index].qimage}
-                                  />
-                                )}
-
+          {rows &&
+            rows.map((row, ind) => (
+              <TableRow>
+                <TableCell align="center">{ind + 1}</TableCell>
+                <TableCell align="center">{row.name}</TableCell>
+                <TableCell align="center">{row.count}</TableCell>
+                <TableCell align="center">{row.duration} Minutes</TableCell>
+                <TableCell align="center">
+                  <MyQuizTableContext.Provider
+                    value={{
+                      handleEdit,
+                      handleDelete,
+                      name,
+                      setName,
+                      count,
+                      setCount,
+                      attempt,
+                      setAttempt,
+                      setDuration,
+                      questions,
+                      setQuestions,
+                    }}
+                  >
+                    {isError && (
+                      <MyDialog
+                        setError={setError}
+                        body={"Enter Valid Quiz and Question"}
+                        title={"Please fill the form"}
+                      />
+                    )}
+                    <Conformation
+                      button="Edit"
+                      header={"Edit"}
+                      id={row.id}
+                      ConfirmName={row.name}
+                      attemptCount={row.attempt}
+                      questCount={row.count}
+                      dura={row.duration}
+                      body={
+                        <>
+                          <Grid container spacing={2}>
+                            <Grid item xs={12}>
+                              <Typography variant="h6" gutterBottom>
+                                Name
+                              </Typography>
+                              <Grid item xs={12} sm={12}>
                                 <TextField
-                                  id="address1"
                                   name="address1"
-                                  label="Question"
+                                  label="Quiz"
                                   fullWidth
-                                  multiline
-                                  value={question.question}
+                                  value={name}
                                   onChange={(e) => {
-                                    question.question = e.target.value;
+                                    setName(e.target.value);
+                                  }}
+                                  te=""
+                                />
+                              </Grid>
+                            </Grid>
+                            <Grid container spacing={2} xs={12} m={2}>
+                              <Grid item xs={12} sm={6}>
+                                <TextField
+                                  name="duration"
+                                  label="Duration (in Mins)"
+                                  fullWidth
+                                  type="number"
+                                  value={duration}
+                                  onChange={(e) => {
+                                    setDuration(e.target.value);
                                   }}
                                 />
                               </Grid>
-
-                              <ChoiceContext.Provider value={{ question }}>
-                                <Choices
-                                  ref={childRef}
-                                  myChoices={question.choices}
-                                  count={question.choices.length}
+                              <Grid item xs={12} sm={6}>
+                                <TextField
+                                  name="attempt"
+                                  label="Attempt"
+                                  fullWidth
+                                  type="number"
+                                  value={attempt}
+                                  onChange={(e) => {
+                                    setAttempt(e.target.value);
+                                  }}
                                 />
-                              </ChoiceContext.Provider>
-                              {!question.isImage && (
+                              </Grid>
+                            </Grid>
+
+                            {questions.map((question, index) => (
+                              <>
+                                <Grid item xs={10} sm={12}>
+                                  <Typography variant="h6" gutterBottom>
+                                    Question {index + 1}
+                                    <IconButton
+                                      color="error"
+                                      onClick={(e) => {
+                                        handleRemove(e, index);
+                                      }}
+                                    >
+                                      <DeleteIcon />
+                                    </IconButton>
+                                  </Typography>
+                                  {selector[index] && (
+                                    <Uploader
+                                      index={index}
+                                      src={selector[index].qimage}
+                                    />
+                                  )}
+
+                                  <TextField
+                                    id="address1"
+                                    name="address1"
+                                    label="Question"
+                                    fullWidth
+                                    multiline
+                                    value={question.question}
+                                    onChange={(e) => {
+                                      question.question = e.target.value;
+                                    }}
+                                  />
+                                </Grid>
+
+                                <ChoiceContext.Provider value={{ question }}>
+                                  <Choices
+                                    myAnswer={question.answer}
+                                    ref={childRef}
+                                    myChoices={question.choices}
+                                    count={question.choices.length}
+                                  />
+                                </ChoiceContext.Provider>
+
                                 <Grid item xs={12} sm={6}>
                                   <TextField
-                                    id="answer"
-                                    name="answer"
-                                    value={question.answer}
+                                    id="points"
+                                    value={question.points}
+                                    name="points"
+                                    type="number"
+                                    minRows={"0"}
                                     onChange={(e) => {
-                                      if (!question.isImage) {
-                                        question.answer = e.target.value;
-                                      }
+                                      question.points = e.target.value;
                                     }}
-                                    label="Answer"
+                                    InputProps={{ inputProps: { min: 0 } }}
+                                    label="Points"
                                     fullWidth
                                   />
                                 </Grid>
-                              )}
-                              <Grid item xs={12} sm={6}>
-                                <TextField
-                                  id="points"
-                                  value={question.points}
-                                  name="points"
-                                  type="number"
-                                  minRows={"0"}
-                                  onChange={(e) => {
-                                    question.points = e.target.value;
-                                  }}
-                                  InputProps={{ inputProps: { min: 0 } }}
-                                  label="Points"
-                                  fullWidth
-                                />
-                              </Grid>
-                            </>
-                          ))}
-                        </Grid>
-                        <Grid item xs={12} sm={8}>
-                          <Button onClick={(e) => handleCount(e)}>
-                            Add Question
-                          </Button>
-                        </Grid>
-                      </>
-                    }
-                    left="Cancel"
-                    right="Save"
-                    color="primary"
-                  />
-                  <Conformation
-                    id={row.id}
-                    header={"Delete"}
-                    body={"Do you want to delete ?"}
-                    button="Delete"
-                    left="Cancel"
-                    right="Delete"
-                    color="error"
-                  />
-                </MyQuizTableContext.Provider>
-              </TableCell>
-            </TableRow>
-          ))}
+                              </>
+                            ))}
+                          </Grid>
+                          <Grid item xs={12} sm={8}>
+                            <Button onClick={(e) => handleCount(e)}>
+                              Add Question
+                            </Button>
+                          </Grid>
+                        </>
+                      }
+                      left="Cancel"
+                      right="Save"
+                      color="primary"
+                    />
+                    <Conformation
+                      id={row.id}
+                      header={"Delete"}
+                      body={"Do you want to delete ?"}
+                      button="Delete"
+                      left="Cancel"
+                      right="Delete"
+                      color="error"
+                    />
+                  </MyQuizTableContext.Provider>
+                </TableCell>
+              </TableRow>
+            ))}
         </TableBody>
       </Table>
     </TableContainer>

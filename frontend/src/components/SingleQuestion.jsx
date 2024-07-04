@@ -17,13 +17,13 @@ import { FILE_SERVER } from "../data";
 
 export const SingleQuestion = ({ question, index }) => {
   const [choices, setChoice] = useState([]);
-  const [answer, setAnswer] = useState("");
+  const [answer, setAnswer] = useState([]);
   const [select, setSelect] = useState("");
   const { setAnswered, setCorrect, isSubmitted, right, setRight } = UseAnswer();
 
   useEffect(() => {
     setChoice(Object.values(JSON.parse(question.choices)));
-    setAnswer(question.answer);
+    setAnswer(Object.values(JSON.parse(question.answer)));
   }, []);
 
   const isMobile = useMediaQuery("(max-width:600px)");
@@ -39,7 +39,7 @@ export const SingleQuestion = ({ question, index }) => {
 
   return (
     <Paper sx={{ m: 1, p: 2 }} elevation={3}>
-      <pre className={ !isMobile ? "text-base" : "text-sm"}>{`${index + 1}. ${
+      <pre className={!isMobile ? "text-base" : "text-sm"}>{`${index + 1}. ${
         question.question
       }`}</pre>
       {question.image !== "" && question.image !== "none" && (

@@ -67,23 +67,32 @@ export default function Conformation({
     dispatch(resetAction());
     const result = (await axios.get(USER_SERVER + "/quiz/" + id)).data;
     setQuestions([]);
-    
-    result && result.map((ele) => {
-      dispatch(addAction(ele.image));
 
-      setQuestions((p) => [
-        ...p,
-        {
-          id: ele.id,
-          question: ele.question,
-          choices: Object.values(JSON.parse(ele.choices)),
-          answer: ele.answer,
-          image: ele.image,
-          points: ele.points,
-          isImage: ele.isImage,
-        },
-      ]);
-    });
+    result &&
+      result.map((ele, i) => {
+        dispatch(addAction(ele.image));
+        const ch = Object.values(JSON.parse(ele.choices));
+        const an = Object.values(JSON.parse(ele.answer));
+
+        if (ele.isImage) {
+          an.map((elem, ind) => {
+            an[ind] = ch.indexOf(elem);
+          });
+        }
+        console.log(an);
+        setQuestions((p) => [
+          ...p,
+          {
+            id: ele.id,
+            question: ele.question,
+            choices: ch,
+            answer: an,
+            image: ele.image,
+            points: ele.points,
+            isImage: ele.isImage,
+          },
+        ]);
+      });
   }
 
   const handleClose = () => {
