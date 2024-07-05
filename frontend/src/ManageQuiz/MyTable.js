@@ -374,15 +374,22 @@ export default function MyTable({ rows }) {
 
                                 <Grid item xs={12} sm={6}>
                                   <TextField
-                                    id="points"
-                                    name="points"
+                                    id="point1"
+                                    name="point1"
                                     type="number"
+                                    value={question.points}
                                     onChange={(e) => {
-                                      const value = e.target.value;
-                                      question.points = e.target.value;
-                                      console.log(question.points);
+                                      setQuestions((prevQuestion) => {
+                                        const newA = [...questions];
+                                        const changeA = {
+                                          ...question,
+                                          points: e.target.value,
+                                        };
+                                        newA.splice(index, 1, changeA);
+                                        console.log(newA);
+                                        return newA;
+                                      });
                                     }}
-                                    value={question.points.toString()}
                                     InputProps={{ inputProps: { min: 0 } }}
                                     label="Points"
                                     fullWidth
