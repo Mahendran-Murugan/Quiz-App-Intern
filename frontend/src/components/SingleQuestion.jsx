@@ -122,7 +122,19 @@ export const SingleQuestion = ({ question, index }) => {
         question.question
       }`}</pre>
       {question.image !== "" && question.image !== "none" && (
-        <Box sx={{ textAlign: "center", mb: 2 }}>
+        <Box
+          sx={{
+            textAlign: "center",
+            mb: 2,
+            width: {
+              md: "60%",
+              lg: "60%",
+              xl: "60%",
+              sm: "80%",
+              xs: "100%",
+            },
+          }}
+        >
           <img
             src={FILE_SERVER + "/" + question.image}
             alt=""
