@@ -9,7 +9,8 @@ export const quizAttendSlice = createSlice({
   initialState,
   reducers: {
     changeSelected: (state, action) => {
-      const { questionId, choice, isSingleAnswer, answer } = action.payload;
+      const { questionId, choice, isSingleAnswer, answer, points } =
+        action.payload;
       console.log(questionId, choice, isSingleAnswer, answer);
 
       const questionIndex = state.data.findIndex(
@@ -22,7 +23,12 @@ export const quizAttendSlice = createSlice({
           state.data = [...state.data];
         } else {
           const newA = [...state.data];
-          newA.push({ questionId, selected: [choice], answer: answer });
+          newA.push({
+            questionId,
+            selected: [choice],
+            answer: answer,
+            points: points,
+          });
           state.data = [...newA];
         }
         console.log(state.data);
@@ -39,7 +45,12 @@ export const quizAttendSlice = createSlice({
           state.data = [...state.data];
         } else {
           const newA = [...state.data];
-          newA.push({ questionId, selected: [choice], answer: answer });
+          newA.push({
+            questionId,
+            selected: [choice],
+            answer: answer,
+            points: points,
+          });
           state.data = [...newA];
         }
       }

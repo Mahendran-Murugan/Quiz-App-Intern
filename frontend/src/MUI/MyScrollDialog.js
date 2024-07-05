@@ -47,13 +47,18 @@ export default function MyScrollDialog({ props }) {
   const handleClickOpen = () => {
     setOpen(true);
     setAttended(selector.length);
+    console.log(selector);
+    let p = 0;
     if (selector) {
       selector.map((ele) => {
         if (arraysEqualSet(ele.selected, ele.answer)) {
           setCorrect((p) => p + 1);
+          console.log(ele.points);
+          p += ele.points;
         }
       });
     }
+    console.log(p);
     dispatcher(resetAll());
     setSubmitted(true);
     if (props.quizid.QID != 0) {
@@ -61,6 +66,7 @@ export default function MyScrollDialog({ props }) {
       axios.put(USER_SERVER + "/update/score/" + localStorage.getItem("id"), {
         attendedQuestion: props.answed.answed,
         correctAnswer: props.isCorrect.isCorrect,
+        points : p
       });
     }
     console.log(props.isCorrect, props.answed);

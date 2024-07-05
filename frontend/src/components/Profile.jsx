@@ -88,6 +88,9 @@ const Profile = () => {
               <Typography align="center">
                 Correct : {details && details.correct}
               </Typography>
+              <Typography align="center">
+                Score : {details && details.score}
+              </Typography>
             </Box>
           </CardContent>
         </Card>
@@ -143,8 +146,7 @@ const Profile = () => {
                 />
 
                 <Typography align="center" mt={4} variant="h6" color="initial">
-                  Score :{" "}
-                  {((details.correct / details.attended) * 100).toFixed(2)}
+                  Score : {details.score}
                 </Typography>
               </>
             )}

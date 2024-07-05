@@ -22,7 +22,7 @@ import {
 } from "@mui/material";
 import MyScrollDialog from "../MUI/MyScrollDialog";
 import { useDispatch, useSelector } from "react-redux";
-import { setSelected } from "../feature/quizAttendSlice";
+import { resetAll, setSelected } from "../feature/quizAttendSlice";
 const AnswerContext = createContext();
 export const Questions = () => {
   const [data, setData] = useState([]);
@@ -31,10 +31,12 @@ export const Questions = () => {
 
   const selectedSubscribe = useSelector((state) => state.quizAttend.data);
   const selectedDispatcher = useDispatch();
+  const dispatch = useDispatch();
   useEffect(() => {
     axios.get(USER_SERVER + "/quiz/" + QID).then((res) => {
       setData(res.data);
     });
+    dispatch(resetAll());
   }, []);
   const [answed, setAnswered] = useState(0);
 
@@ -99,7 +101,6 @@ export const Questions = () => {
       if (Ref.current) clearInterval(Ref.current);
     };
   }, []);
-
   const navigate = useNavigate();
   const isMobile = useMediaQuery("(max-width:600px)");
   useEffect(() => {

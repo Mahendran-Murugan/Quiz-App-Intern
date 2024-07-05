@@ -44,17 +44,16 @@ export const SingleQuestion = ({ question, index }) => {
   const isMobile = useMediaQuery("(max-width:600px)");
 
   const handleSelect = (choice) => {
-    if(!isSubmitted)
-    {
-
+    if (!isSubmitted) {
       if (isSingleAnswer) {
         choiceDispatch(
-        changeSelected({
-          questionId: question.id,
-          choice: choice,
-          isSingleAnswer: false,
-          answer: answer,
-        })
+          changeSelected({
+            questionId: question.id,
+            choice: choice,
+            isSingleAnswer: true,
+            answer: answer,
+            points: question.points,
+          })
         );
         console.log(choice);
         setSelect(choice);
@@ -65,17 +64,18 @@ export const SingleQuestion = ({ question, index }) => {
             choice: choice,
             isSingleAnswer: false,
             answer: answer,
+            points: question.points,
           })
-          );
-          setSelect((prev) => {
-            if (prev.includes(choice)) {
-              return prev.filter((_, i) => _ !== choice);
-            } else {
-              return [...prev, choice];
-            }
-          });
-        }
+        );
+        setSelect((prev) => {
+          if (prev.includes(choice)) {
+            return prev.filter((_, i) => _ !== choice);
+          } else {
+            return [...prev, choice];
+          }
+        });
       }
+    }
   };
 
   const renderChoices = () => {

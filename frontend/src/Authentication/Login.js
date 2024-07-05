@@ -19,6 +19,11 @@ const defaultTheme = createTheme();
 export function Login() {
   const { login } = UseAuth();
   const navigate = useNavigate();
+  React.useEffect(() => {
+    if (localStorage.getItem("name")) {
+      navigate("/quiz");
+    }
+  });
   const handleSubmit = (event) => {
     const data = new FormData(event.currentTarget);
     const all = {
@@ -29,6 +34,7 @@ export function Login() {
       alert("Input Field should be filled");
       return;
     }
+
     axios
       .post(USER_SERVER + "/login", all)
       .then((res) => {

@@ -37,6 +37,11 @@ const defaultTheme = createTheme();
 export function Register() {
   const student_data = useSelector((state) => state.register.student_data);
   const navigate = useNavigate();
+  React.useEffect(() => {
+    if (localStorage.getItem("name")) {
+      navigate("/quiz");
+    }
+  });
   const [isError, setError] = React.useState(false);
   const [title, setTitle] = React.useState("");
   const [body, setBody] = React.useState("");

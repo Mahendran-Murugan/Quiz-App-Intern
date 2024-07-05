@@ -226,12 +226,12 @@ const updateOrInsertAttempt = (req, res) => {
 const updateUserScore = (req, res) => {
   const userId = req.params.id;
 
-  const { attendedQuestion, correctAnswer } = req.body;
+  const { attendedQuestion, correctAnswer, points } = req.body;
   console.log(req.params.id, req.body);
-  const getUserQuery = `SELECT attended, correct FROM user WHERE id = ?`;
+  const getUserQuery = `SELECT attended, correct , score FROM user WHERE id = ?`;
   const updateUserQuery = `
     UPDATE user
-    SET attended = attended + ?, correct = correct + ?
+    SET attended = attended + ?, correct = correct + ? , score = score + ?
     WHERE id = ?
   `;
 
@@ -247,7 +247,7 @@ const updateUserScore = (req, res) => {
 
     connection.query(
       updateUserQuery,
-      [attendedQuestion, correctAnswer, userId],
+      [attendedQuestion, correctAnswer, points, userId],
       (updateError, updateResults) => {
         if (updateError) {
           console.error("Error updating user data:", updateError);
@@ -264,7 +264,7 @@ const getUser = (req, res) => {
   const userId = req.params.id;
 
   connection.query(
-    "SELECT name, userid, attended, correct , role FROM user WHERE id = ?",
+    "SELECT name, userid, attended, correct , role , score FROM user WHERE id = ?",
     [userId],
     (error, results, fields) => {
       if (error) {
@@ -284,9 +284,9 @@ const getUser = (req, res) => {
 
 const leaderShip = (req, res) => {
   const sql = `
-    SELECT name, userid ,attended, correct
+    SELECT name, userid ,attended, correct , score
     FROM user
-    ORDER BY attended DESC, correct DESC
+    ORDER BY score DESC
     LIMIT 10;`;
   connection.query(sql, (error, results) => {
     if (error) {

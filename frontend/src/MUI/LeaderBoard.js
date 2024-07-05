@@ -30,11 +30,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 export default function LeaderBoard({ data }) {
   return (
-    <TableContainer
-      component={Paper}
-      align="center"
-      
-    >
+    <TableContainer component={Paper} align="center">
       <Table aria-label="customized table">
         <TableHead>
           <TableRow>
@@ -43,6 +39,7 @@ export default function LeaderBoard({ data }) {
             <StyledTableCell align="center">User ID</StyledTableCell>
             <StyledTableCell align="center">Attended</StyledTableCell>
             <StyledTableCell align="center">Correct</StyledTableCell>
+            <StyledTableCell align="center">Score</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -54,6 +51,7 @@ export default function LeaderBoard({ data }) {
                 <StyledTableCell align="center">{row.userid}</StyledTableCell>
                 <StyledTableCell align="center">{row.attended}</StyledTableCell>
                 <StyledTableCell align="center">{row.correct}</StyledTableCell>
+                <StyledTableCell align="center">{row.score}</StyledTableCell>
               </StyledTableRow>
             ))}
         </TableBody>

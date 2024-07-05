@@ -8,6 +8,9 @@ import DialogTitle from "@mui/material/DialogTitle";
 import Paper from "@mui/material/Paper";
 import Draggable from "react-draggable";
 import { UseUserTableContext } from "./UserTable";
+import { useMediaQuery } from "@mui/material";
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 
 function PaperComponent(props) {
   return (
@@ -67,14 +70,18 @@ export default function Conformation({
     setOpen(false);
   };
 
+  const isMobile = useMediaQuery("(max-width:600px)");
+
   return (
     <React.Fragment>
       <Button
-        variant="outlined"
+        variant={isMobile ? "" : "outlined"}
         color={color}
         onClick={(e) => handleClickOpen(e)}
       >
-        {button}
+        {isMobile && button === "Edit" && <EditIcon color="primary" />}
+        {isMobile && button === "Delete" && <DeleteIcon color="error" />}
+        {!isMobile && button}
       </Button>
       <Dialog
         open={open}

@@ -12,7 +12,10 @@ import { UseQuizTableContext } from "./MyTable";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { addAction, resetAction } from "../feature/imageQuizSlice";
-
+import { useMediaQuery } from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { Stack } from "@mui/system";
 function PaperComponent(props) {
   return (
     <Draggable
@@ -104,15 +107,18 @@ export default function Conformation({
     setQuestions([]);
     setOpen(false);
   };
-
+  const isMobile = useMediaQuery("(max-width:600px)");
   return (
     <React.Fragment>
       <Button
-        variant="outlined"
+        variant={isMobile ? "" : "outlined"}
         color={color}
         onClick={(e) => handleClickOpen(e)}
       >
-        {button}
+        {isMobile && button === "Edit" && <EditIcon color="primary" />}
+        {isMobile && button === "Delete" && <DeleteIcon color="error" />}
+
+        {!isMobile && button}
       </Button>
       <Dialog
         open={open}

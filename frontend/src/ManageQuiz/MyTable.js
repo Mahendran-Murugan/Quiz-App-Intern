@@ -26,6 +26,7 @@ import {
   removeAction,
   resetAction,
 } from "../feature/imageQuizSlice";
+
 import { ADMIN_SERVER, FILE_SERVER } from "../data";
 import MyDialog from "./MyDialog";
 const MyQuizTableContext = React.createContext();
