@@ -77,6 +77,15 @@ function MyNavBar(props) {
             </ListItem>
           </NavLink>
         )}
+        {localStorage.getItem("superuser") === "true" && (
+          <NavLink to="/records">
+            <ListItem disablePadding>
+              <ListItemButton sx={{ textAlign: "center" }}>
+                <ListItemText primary="Records" />
+              </ListItemButton>
+            </ListItem>
+          </NavLink>
+        )}
         <NavLink to="/profile">
           <ListItem disablePadding>
             <ListItemButton sx={{ textAlign: "center" }}>

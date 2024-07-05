@@ -48,12 +48,14 @@ export default function MyScrollDialog({ props }) {
     setOpen(true);
     setAttended(selector.length);
     // console.log(selector);
-    let p = 0;
+    let p = 0,
+      c = 0;
     if (selector) {
       selector.map((ele) => {
         if (arraysEqualSet(ele.selected, ele.answer)) {
           setCorrect((p) => p + 1);
           // console.log(ele.points);
+          c++;
           p += ele.points;
         }
       });
@@ -64,8 +66,8 @@ export default function MyScrollDialog({ props }) {
     if (props.quizid.QID != 0) {
       // console.log(props.quizid);
       axios.put(USER_SERVER + "/update/score/" + localStorage.getItem("id"), {
-        attendedQuestion: props.answed.answed,
-        correctAnswer: props.isCorrect.isCorrect,
+        attendedQuestion: selector.length,
+        correctAnswer: c,
         points: p,
       });
     }

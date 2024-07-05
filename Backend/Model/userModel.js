@@ -233,7 +233,6 @@ const getUserAttempts = (req, res) => {
 };
 
 const updateOrInsertAttempt = (req, res) => {
-
   const { quizid, userid } = req.body;
 
   if (!quizid || !userid) {
@@ -344,8 +343,9 @@ const getUser = (req, res) => {
 
 const leaderShip = (req, res) => {
   const sql = `
-    SELECT name, userid ,attended, correct , score
-    FROM user
+    SELECT name, userid ,attended, correct , score , institute_name
+    FROM user 
+    where score > 0
     ORDER BY score DESC
     LIMIT 10;`;
   connection.query(sql, (error, results) => {
@@ -376,7 +376,6 @@ const leaderShipByInstitute = (req, res) => {
   });
 };
 
-
 const fileData = async (req, res) => {
   const { institute_name } = req.params;
   const sql = `
@@ -388,18 +387,18 @@ const fileData = async (req, res) => {
   try {
     const [rows] = await connection.promise().query(sql, [institute_name]);
 
-    const heading = [['name', 'userid', 'attended', 'correct', 'score']];
+    const heading = [["name", "userid", "attended", "correct", "score"]];
 
     const workbook = xlsx.utils.book_new();
     const worksheet = xlsx.utils.json_to_sheet(rows);
 
-    xlsx.utils.sheet_add_aoa(worksheet, heading, { origin: 'A1' });
+    xlsx.utils.sheet_add_aoa(worksheet, heading, { origin: "A1" });
 
-    xlsx.utils.book_append_sheet(workbook, worksheet, 'details');
+    xlsx.utils.book_append_sheet(workbook, worksheet, "details");
 
-    const buffer = xlsx.write(workbook, { bookType: 'xlsx', type: 'buffer' });
+    const buffer = xlsx.write(workbook, { bookType: "xlsx", type: "buffer" });
 
-    res.attachment('details.xlsx');
+    res.attachment("details.xlsx");
     return res.send(buffer);
   } catch (e) {
     console.log(e);
@@ -421,5 +420,5 @@ module.exports = {
   deleteUser,
   getUserAttempts,
   leaderShipByInstitute,
-  fileData
+  fileData,
 };

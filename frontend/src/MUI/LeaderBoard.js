@@ -17,7 +17,6 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     fontSize: 14,
   },
 }));
-
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   "&:nth-of-type(odd)": {
     backgroundColor: theme.palette.action.hover,
@@ -29,6 +28,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 export default function LeaderBoard({ data }) {
+  console.log(data);
   return (
     <TableContainer component={Paper} align="center">
       <Table aria-label="customized table">
@@ -37,6 +37,7 @@ export default function LeaderBoard({ data }) {
             <StyledTableCell align="center">S.No</StyledTableCell>
             <StyledTableCell align="center">Name</StyledTableCell>
             <StyledTableCell align="center">User ID</StyledTableCell>
+            <StyledTableCell align="center">Institue Name</StyledTableCell>
             <StyledTableCell align="center">Attended</StyledTableCell>
             <StyledTableCell align="center">Correct</StyledTableCell>
             <StyledTableCell align="center">Score</StyledTableCell>
@@ -49,6 +50,9 @@ export default function LeaderBoard({ data }) {
                 <StyledTableCell align="center">{index + 1}</StyledTableCell>
                 <StyledTableCell align="center">{row.name}</StyledTableCell>
                 <StyledTableCell align="center">{row.userid}</StyledTableCell>
+                <StyledTableCell align="center">
+                  {row.institute_name}
+                </StyledTableCell>
                 <StyledTableCell align="center">{row.attended}</StyledTableCell>
                 <StyledTableCell align="center">{row.correct}</StyledTableCell>
                 <StyledTableCell align="center">{row.score}</StyledTableCell>
