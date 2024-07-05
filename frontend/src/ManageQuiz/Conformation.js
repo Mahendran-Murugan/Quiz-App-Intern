@@ -110,15 +110,9 @@ export default function Conformation({
   const isMobile = useMediaQuery("(max-width:600px)");
   return (
     <React.Fragment>
-      <Button
-        variant={isMobile ? "" : "outlined"}
-        color={color}
-        onClick={(e) => handleClickOpen(e)}
-      >
-        {isMobile && button === "Edit" && <EditIcon color="primary" />}
-        {isMobile && button === "Delete" && <DeleteIcon color="error" />}
-
-        {!isMobile && button}
+      <Button variant={""} color={color} onClick={(e) => handleClickOpen(e)}>
+        {button === "Edit" && <EditIcon color="primary" />}
+        {button === "Delete" && <DeleteIcon color="error" />}
       </Button>
       <Dialog
         open={open}
