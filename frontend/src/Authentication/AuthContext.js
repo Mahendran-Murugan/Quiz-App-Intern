@@ -9,16 +9,19 @@ export const AuthContext = ({ children }) => {
     name: "",
     userid: "",
     password: "",
+    superUser: false,
   });
 
-  const login = (id, name, userid, password) => {
+  const login = (id, name, userid, password, superuser) => {
     localStorage.setItem("id", id);
     localStorage.setItem("name", name);
     localStorage.setItem("userid", userid);
+    localStorage.setItem("superuser", superuser)
     setUser({
       name: name,
       userid: userid,
       password: password,
+      superUser: superuser,
     });
     setLogin(true);
   };
@@ -28,12 +31,14 @@ export const AuthContext = ({ children }) => {
       name: "",
       userid: "",
       password: "",
+      superUser: false,
     });
     setLogin(false);
     localStorage.setItem("name", "");
     localStorage.setItem("id", "");
     localStorage.setItem("userid", "");
     localStorage.setItem("password", "");
+    localStorage.setItem("superuser", false);
     navigate("/login");
   };
   return (

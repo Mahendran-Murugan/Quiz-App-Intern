@@ -38,7 +38,8 @@ export function Login() {
     axios
       .post(USER_SERVER + "/login", all)
       .then((res) => {
-        login(res.data.id, res.data.name, res.data.userid, res.data.password);
+        console.log(res);
+        login(res.data.id, res.data.name, res.data.userid, res.data.password, res.data.role === "Representative" && res.data.verified === 1);
         navigate("/");
       })
       .catch((err) => alert(err));

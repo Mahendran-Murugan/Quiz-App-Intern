@@ -19,8 +19,6 @@ import { colors } from "@mui/material";
 import { ADMIN_MAIL } from "../data";
 
 const drawerWidth = 240;
-const navItems = ["Home", "Quiz", "Profile"];
-const navLink = ["/", "/quiz", "/profile"];
 
 function MyNavBar(props) {
   const { user, logout, isLogin } = UseAuth();
