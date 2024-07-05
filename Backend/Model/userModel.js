@@ -1,5 +1,6 @@
 const { json } = require("body-parser");
 const connection = require("../db");
+const xlsx = require("xlsx");
 const showAllQuiz = (req, res) => {
   connection.query("SELECT * FROM quizz", (err, result, fields) => {
     if (err) {
@@ -173,7 +174,7 @@ const getUserAttempts = (req, res) => {
 };
 
 const updateOrInsertAttempt = (req, res) => {
-  // console.log(req.body);
+
   const { quizid, userid } = req.body;
 
   if (!quizid || !userid) {
@@ -297,6 +298,56 @@ const leaderShip = (req, res) => {
     res.json(results);
   });
 };
+
+const leaderShipByInstitute = (req, res) => {
+  const { institute_name } = req.body;
+  console.log(institute_name);
+  const sql = `
+    SELECT name, userid ,attended, correct , score
+    FROM user
+    where institute_name = ?
+    ORDER BY score DESC;`;
+  connection.query(sql, [institute_name], (error, results) => {
+    if (error) {
+      console.error("Error fetching leadership board:", error);
+      res.status(500).json({ error: "Internal server error" });
+      return;
+    }
+    res.json(results);
+  });
+};
+
+
+const fileData = async (req, res) => {
+  const { institute_name } = req.params;
+  const sql = `
+    SELECT name, userid, attended, correct, score
+    FROM user
+    WHERE institute_name = ?
+    ORDER BY score DESC;`;
+
+  try {
+    const [rows] = await connection.promise().query(sql, [institute_name]);
+
+    const heading = [['name', 'userid', 'attended', 'correct', 'score']];
+
+    const workbook = xlsx.utils.book_new();
+    const worksheet = xlsx.utils.json_to_sheet(rows);
+
+    xlsx.utils.sheet_add_aoa(worksheet, heading, { origin: 'A1' });
+
+    xlsx.utils.book_append_sheet(workbook, worksheet, 'details');
+
+    const buffer = xlsx.write(workbook, { bookType: 'xlsx', type: 'buffer' });
+
+    res.attachment('details.xlsx');
+    return res.send(buffer);
+  } catch (e) {
+    console.log(e);
+    return res.json({ err: e });
+  }
+};
+
 module.exports = {
   leaderShip,
   showAllQuiz,
@@ -310,4 +361,6 @@ module.exports = {
   editUser,
   deleteUser,
   getUserAttempts,
+  leaderShipByInstitute,
+  fileData
 };

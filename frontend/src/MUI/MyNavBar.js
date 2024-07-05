@@ -15,7 +15,6 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { NavLink, useNavigate } from "react-router-dom";
 import { UseAuth } from "../Authentication/AuthContext";
-import { colors } from "@mui/material";
 import { ADMIN_MAIL } from "../data";
 
 const drawerWidth = 240;
@@ -137,6 +136,13 @@ function MyNavBar(props) {
               <>
                 <NavLink to="/admin">
                   <Button sx={{ color: "#fff" }}>Admin</Button>
+                </NavLink>
+              </>
+            )}
+            {localStorage.getItem("superuser") === "true" && (
+              <>
+                <NavLink to="/records">
+                  <Button sx={{ color: "#fff" }}>Records</Button>
                 </NavLink>
               </>
             )}

@@ -34,17 +34,33 @@ app.post("/api/post/excel", uploadExcel.single("excel"), (req, res) => {
       let data = [];
       for (let col = range.s.c; col <= range.e.c; col++) {
         let cell = worksheet[xlsx.utils.encode_cell({ r: row, c: col })];
-        data.push(cell.v);
+        if (!cell) continue;
+        try {
+          data.push(cell.v);
+        } catch (e) {
+          console.log(e);
+        }
       }
-      axios
-        .post(BACKEND_SERVER + "/api/user/register", {
-          name: data[0],
-          password: data[2],
-          userid: data[1],
-        })
-        .then((res) => console.log(res.data))
-        .catch((err) => console.log(err));
-      console.log(data);
+      if (data.length === 12) {
+        axios
+          .post(BACKEND_SERVER + "/api/user/register", {
+            name: data[0],
+            password: data[1],
+            userid: data[2],
+            role: data[3],
+            phone_number: data[4],
+            parents_number: data[5],
+            address: data[6],
+            father_name: data[7],
+            mother_name: data[8],
+            standard: data[9],
+            institute_name: data[10],
+            gender: data[11],
+          })
+          .then((res) => console.log(res.data))
+          .catch((err) => console.log(err));
+        console.log(data);
+      }
     }
     res.json({ file: file });
     return;
@@ -65,6 +81,15 @@ app.get("/Images/:name", (req, res) => {
     console.log(data);
   });
 });
+
+app.get("/getTemplate", (req, res) => {
+  res.download('./Excel/Template_for_Student_Info.xlsx');
+});
+
+app.post("/studentPerformace", (req, res) => {
+  const { institute } = req.body;
+  res.json({ institute: institute });
+})
 
 app.listen(PORT, () => {
   console.log(`Port ${PORT} is running`);

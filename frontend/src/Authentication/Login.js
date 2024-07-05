@@ -39,7 +39,7 @@ export function Login() {
       .post(USER_SERVER + "/login", all)
       .then((res) => {
         console.log(res);
-        login(res.data.id, res.data.name, res.data.userid, res.data.password, res.data.role === "Representative" && res.data.verified === 1);
+        login(res.data.id, res.data.name, res.data.userid, res.data.password, res.data.role === "Representative" && res.data.verified === 1, res.data.institute_name);
         navigate("/");
       })
       .catch((err) => alert(err));
