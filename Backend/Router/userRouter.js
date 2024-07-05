@@ -11,6 +11,8 @@ const {
   updateUserScore,
   getUser,
   leaderShip,
+  leaderShipByInstitute,
+  fileData
 } = require("../Model/userModel");
 const routerUser = require("express").Router();
 
@@ -26,4 +28,6 @@ routerUser.put("/update/score/:id", updateUserScore);
 routerUser.get("/get/userDetails/:id", getUser);
 routerUser.post("/attempt/increase", updateOrInsertAttempt);
 routerUser.get("/leadership", leaderShip);
+routerUser.post("/studentPerformance", leaderShipByInstitute);
+routerUser.get("/getReport/:institute_name", fileData);
 module.exports = routerUser;

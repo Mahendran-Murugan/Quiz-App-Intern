@@ -17,6 +17,7 @@ import Profile from "./components/Profile";
 import { ADMIN_SERVER } from "./data";
 import { Provider } from "react-redux";
 import { store } from "./app/store";
+import { Records } from "./components/Records";
 
 export const App = () => {
   return (
@@ -32,6 +33,7 @@ export const App = () => {
               <Route path="/admin" element={<Admin />} />
               <Route path="/student" element={<Student />} />
               <Route path="/profile" element={<Profile />} />
+              <Route path="/records" element={<Records />} />
               <Route path="/quiz" element={<Quiz />}>
                 <Route index element={<ListQuiz />} />
                 <Route path=":quiz_id">

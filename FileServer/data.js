@@ -1,2 +1,2 @@
-const BACKEND_SERVER = "http://192.168.124.242:8000";
+const BACKEND_SERVER = "http://localhost:7000";
 module.exports = { BACKEND_SERVER };

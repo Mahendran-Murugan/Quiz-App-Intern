@@ -12,11 +12,13 @@ export const AuthContext = ({ children }) => {
     superUser: false,
   });
 
-  const login = (id, name, userid, password, superuser) => {
+  const login = (id, name, userid, password, superuser, institute_name) => {
     localStorage.setItem("id", id);
     localStorage.setItem("name", name);
     localStorage.setItem("userid", userid);
     localStorage.setItem("superuser", superuser);
+    localStorage.setItem("institute", institute_name);
+    
     setUser({
       name: name,
       userid: userid,
@@ -39,6 +41,7 @@ export const AuthContext = ({ children }) => {
     localStorage.setItem("userid", "");
     localStorage.setItem("password", "");
     localStorage.setItem("superuser", false);
+    localStorage.setItem("institute", "");
     navigate("/login");
   };
   return (
