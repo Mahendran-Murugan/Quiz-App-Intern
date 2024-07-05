@@ -386,7 +386,6 @@ export default function MyTable({ rows }) {
                                           points: e.target.value,
                                         };
                                         newA.splice(index, 1, changeA);
-                                        console.log(newA);
                                         return newA;
                                       });
                                     }}
