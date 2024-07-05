@@ -1,2 +1,2 @@
-const BACKEND_SERVER = "http://localhost:7000";
+const BACKEND_SERVER = "https://quiz-app-intern-1.onrender.com";
 module.exports = { BACKEND_SERVER };
