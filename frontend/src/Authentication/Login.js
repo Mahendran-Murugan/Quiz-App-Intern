@@ -14,6 +14,7 @@ import axios from "axios";
 import { UseAuth } from "./AuthContext";
 import { useNavigate } from "react-router-dom";
 import { USER_SERVER } from "../data";
+import MyDialog from "../ManageQuiz/MyDialog";
 const defaultTheme = createTheme();
 
 export function Login() {
@@ -24,30 +25,53 @@ export function Login() {
       navigate("/quiz");
     }
   });
+  const [isError, setError] = React.useState(false);
+  const [title, setTitle] = React.useState(null);
+  const [body, setBody] = React.useState(null);
   const handleSubmit = (event) => {
+    event.preventDefault();
     const data = new FormData(event.currentTarget);
     const all = {
       userid: data.get("userid"),
       password: data.get("password"),
     };
     if (all.userid === "" || all.password === "") {
-      alert("Input Field should be filled");
+      setTitle("Login Failed");
+      setBody("Input Field should be filled");
+      setError(true);
       return;
     }
 
     axios
       .post(USER_SERVER + "/login", all)
       .then((res) => {
-        console.log(res);
-        login(res.data.id, res.data.name, res.data.userid, res.data.password, res.data.role === "Representative" && res.data.verified === 1, res.data.institute_name);
+        // console.log(res);
+        if (res.data.role === "Representative" && res.data.verified === 0) {
+          setTitle("Login Failed");
+          setBody(
+            "Representative login cannot be accessed.Contact Admin to Verify"
+          );
+          setError(true);
+          return;
+        }
+        login(
+          res.data.id,
+          res.data.name,
+          res.data.userid,
+          res.data.password,
+          res.data.role === "Representative" && res.data.verified === 1
+        );
         navigate("/");
       })
-      .catch((err) => alert(err));
-    event.preventDefault();
+      .catch((err) => {
+        setTitle("Login Failed");
+        setBody(err.response.data.status);
+        setError(true);
+      });
   };
-
   return (
     <ThemeProvider theme={defaultTheme}>
+      {isError && <MyDialog setError={setError} title={title} body={body} />}
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box

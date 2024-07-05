@@ -27,6 +27,13 @@ export default function UserTable({ rows }) {
   const [pass, setPass] = React.useState("");
   const [role, setRole] = React.useState("");
   const [gender, setGender] = React.useState("");
+  const [mother, setMother] = React.useState("");
+  const [father, setFather] = React.useState("");
+  const [parent, setParent] = React.useState("");
+  const [address, setAddress] = React.useState("");
+  const [institute, setInstitute] = React.useState("");
+  const [number, setNumber] = React.useState("");
+  const [STD, setSTD] = React.useState("");
   const [title, setTitle] = React.useState("");
   const [body, setBody] = React.useState("");
   const [isError, setError] = React.useState(false);
@@ -40,13 +47,23 @@ export default function UserTable({ rows }) {
       userid == "" ||
       pass == "" ||
       role == "" ||
-      gender == ""
+      gender == "" ||
+      number === "" ||
+      isNaN(number) ||
+      isNaN(parent) ||
+      parent === "" ||
+      institute === "" ||
+      father === "" ||
+      mother === "" ||
+      address === "" ||
+      STD === ""
     ) {
       setBody("Please Fill the details correctly");
       setTitle("Fill the form");
       setError(true);
       return;
     }
+
     axios
       .post(USER_SERVER + "/edit", {
         id: id,
@@ -56,6 +73,13 @@ export default function UserTable({ rows }) {
         role: role,
         gender: gender,
         verified: isVerify,
+        father_name: father,
+        mother_name: mother,
+        institute_name: institute,
+        phone_number: number,
+        address: address,
+        standard: STD,
+        parents_number: parent,
       })
       .then((res) => {
         setTitle("Detail Updated Successfully");
@@ -72,16 +96,14 @@ export default function UserTable({ rows }) {
     e.preventDefault();
     axios
       .post(USER_SERVER + "/delete", { id: id })
-      .then((res) =>
-       
-      {}
+      .then(
+        (res) => {}
         // console.log(res)
-       
-       )
+      )
       .catch((err) => console.log(err));
   };
-  
-  return (  
+  // console.log(rows);
+  return (
     <TableContainer
       component={Paper}
       sx={{
@@ -145,6 +167,20 @@ export default function UserTable({ rows }) {
                       handleDelete,
                       name,
                       role,
+                      mother,
+                      setMother,
+                      father,
+                      setFather,
+                      parent,
+                      number,
+                      setNumber,
+                      setParent,
+                      institute,
+                      setInstitute,
+                      STD,
+                      setSTD,
+                      address,
+                      setAddress,
                       isVerify,
                       setVerify,
                       setRole,
@@ -154,6 +190,8 @@ export default function UserTable({ rows }) {
                       userid,
                       setEmail,
                       pass,
+                      STD,
+                      setSTD,
                       setPass,
                     }}
                   >
@@ -165,8 +203,15 @@ export default function UserTable({ rows }) {
                       name={row.name}
                       userid={row.userid}
                       r={row.role}
+                      parent={row.parents_number}
+                      add={row.address}
+                      mother={row.mother_name}
+                      father={row.father_name}
+                      std={row.standard}
+                      inst={row.institute_name}
                       g={row.gender}
                       pass={row.password}
+                      num={row.phone_number}
                       body={
                         <>
                           <Grid container spacing={2}>
@@ -270,6 +315,98 @@ export default function UserTable({ rows }) {
                                   ))}
                                 </Select>
                               </FormControl>
+                            </Grid>
+                            <Grid item xs={12}>
+                              <TextField
+                                name="phonenumber"
+                                label={"Phone Number"}
+                                type="number"
+                                fullWidth
+                                value={number ? number : ""}
+                                onChange={(e) => {
+                                  setNumber(e.target.value);
+                                }}
+                              />
+                            </Grid>
+                            <Grid item xs={12}>
+                              <TextField
+                                name="address"
+                                label={"Address"}
+                                type="text"
+                                fullWidth
+                                value={address}
+                                onChange={(e) => {
+                                  setAddress(e.target.value);
+                                }}
+                              />
+                            </Grid>
+                            <Grid item xs={12}>
+                              <TextField
+                                name="institute"
+                                label={
+                                  role.startsWith("School")
+                                    ? "School Name"
+                                    : "Institute Name"
+                                }
+                                type="text"
+                                fullWidth
+                                value={institute ? institute : ""}
+                                onChange={(e) => {
+                                  setInstitute(e.target.value);
+                                }}
+                              />
+                            </Grid>
+                            <Grid item xs={12}>
+                              <TextField
+                                name="standard"
+                                label={
+                                  role.startsWith("School")
+                                    ? "Standard"
+                                    : "Degree & Department"
+                                }
+                                type="text"
+                                fullWidth
+                                value={STD ? STD : ""}
+                                onChange={(e) => {
+                                  setSTD(e.target.value);
+                                }}
+                              />
+                            </Grid>
+                            <Grid item xs={12}>
+                              <TextField
+                                name="fathername"
+                                label={"Father Name"}
+                                type="text"
+                                fullWidth
+                                value={father ? father : ""}
+                                onChange={(e) => {
+                                  setFather(e.target.value);
+                                }}
+                              />
+                            </Grid>
+                            <Grid item xs={12}>
+                              <TextField
+                                name="mothername"
+                                label={"Mother Name"}
+                                type="text"
+                                fullWidth
+                                value={mother ? mother : ""}
+                                onChange={(e) => {
+                                  setMother(e.target.value);
+                                }}
+                              />
+                            </Grid>
+                            <Grid item xs={12}>
+                              <TextField
+                                name="phone_parent"
+                                label={"Parent Number"}
+                                type="number"
+                                fullWidth
+                                value={parent ? parent : ""}
+                                onChange={(e) => {
+                                  setParent(e.target.value);
+                                }}
+                              />
                             </Grid>
                           </Grid>
                         </>

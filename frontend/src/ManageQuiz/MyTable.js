@@ -64,11 +64,12 @@ export default function MyTable({ rows }) {
     }
 
     try {
+      console.log(questions);
       questions.map((quest) => {
         if (
           !quest.question ||
           quest.choices.length <= 0 ||
-          quest.answer === null ||
+          !quest.answer ||
           quest.answer === undefined ||
           !quest.points ||
           quest.answer.length <= 0 ||
@@ -356,7 +357,15 @@ export default function MyTable({ rows }) {
                                     multiline
                                     value={question.question}
                                     onChange={(e) => {
-                                      question.question = e.target.value;
+                                      setQuestions((prevQuestion) => {
+                                        const newA = [...questions];
+                                        const changeA = {
+                                          ...question,
+                                          question: e.target.value,
+                                        };
+                                        newA.splice(index, 1, changeA);
+                                        return newA;
+                                      });
                                     }}
                                   />
                                 </Grid>
@@ -374,15 +383,21 @@ export default function MyTable({ rows }) {
 
                                 <Grid item xs={12} sm={6}>
                                   <TextField
-                                    id="points"
-                                    name="points"
+                                    id="point1"
+                                    name="point1"
                                     type="number"
-                                    onChange={(e) => {
-                                      const value = e.target.value;
-                                      question.points = value;
-                                      // console.log(question);
-                                    }}
                                     value={question.points}
+                                    onChange={(e) => {
+                                      setQuestions((prevQuestion) => {
+                                        const newA = [...questions];
+                                        const changeA = {
+                                          ...question,
+                                          points: e.target.value,
+                                        };
+                                        newA.splice(index, 1, changeA);
+                                        return newA;
+                                      });
+                                    }}
                                     InputProps={{ inputProps: { min: 0 } }}
                                     label="Points"
                                     fullWidth
