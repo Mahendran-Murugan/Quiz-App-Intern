@@ -218,7 +218,16 @@ export default function MyTable({ rows }) {
     });
   };
   return (
-    <TableContainer component={Paper}>
+    <TableContainer
+      component={Paper}
+      sx={{
+        maxWidth: {
+          xs: 250,
+          sm: 850,
+          md: 950,
+        },
+      }}
+    >
       <Table aria-label="simple table">
         <TableHead>
           <TableRow>

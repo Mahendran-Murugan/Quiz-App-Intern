@@ -5,6 +5,7 @@ import { Navigate } from "react-router-dom";
 import CreateQuiz from "../ManageQuiz/CreateQuiz";
 
 export const Admin = () => {
+  
   return (
     <Container>
       <Tabbed />

@@ -23,7 +23,7 @@ export const App = () => {
     <>
       <MyNavBar />
       <Provider store={store}>
-        <Box sx={{ m: 3 }}>
+        <Box mt={3}>
           <QuestionContext>
             <Routes>
               <Route path="/" element={<Home />} />

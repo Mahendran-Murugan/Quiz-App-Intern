@@ -49,7 +49,7 @@ export default function Tabbed() {
   return (
     <Container
       sx={{
-        maxWidth: { xs: 360, sm: 620 },
+        maxWidth: { xs: 360, sm: 750, md: 950 },
         display: "flex",
         alignItems: "center",
         gap: "30px",

@@ -75,9 +75,18 @@ export default function UserTable({ rows }) {
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
   };
-
-  return (
-    <TableContainer component={Paper}>
+  
+  return (  
+    <TableContainer
+      component={Paper}
+      sx={{
+        maxWidth: {
+          xs: 250,
+          sm: 850,
+          md: 950,
+        },
+      }}
+    >
       {isError && <MyDialog title={title} body={body} setError={setError} />}
       <FormControl
         variant="standard"

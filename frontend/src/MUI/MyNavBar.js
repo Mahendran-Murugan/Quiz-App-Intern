@@ -30,9 +30,10 @@ function MyNavBar(props) {
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
-
+  const navigate = useNavigate();
   const handleLogout = () => {
     logout();
+    navigate("/");
   };
 
   const drawer = (
@@ -62,13 +63,15 @@ function MyNavBar(props) {
         )}
 
         {localStorage.getItem("userid") === ADMIN_MAIL && (
-          <ListItem disablePadding>
-            <ListItemButton sx={{ textAlign: "center" }}>
-              <ListItemText primary="Admin" />
-            </ListItemButton>
-          </ListItem>
+          <NavLink to={"/admin"}>
+            <ListItem disablePadding>
+              <ListItemButton sx={{ textAlign: "center" }}>
+                <ListItemText primary="Admin" />
+              </ListItemButton>
+            </ListItem>
+          </NavLink>
         )}
-        {localStorage.getItem("name")  && (
+        {localStorage.getItem("name") && (
           <NavLink to="/quiz">
             <ListItem disablePadding>
               <ListItemButton sx={{ textAlign: "center" }}>
@@ -122,7 +125,7 @@ function MyNavBar(props) {
             Silicon Software Services
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
-            {!localStorage.getItem("name")  && (
+            {!localStorage.getItem("name") && (
               <>
                 <NavLink to="/login">
                   <Button sx={{ color: "#fff" }}>Login</Button>
@@ -139,14 +142,10 @@ function MyNavBar(props) {
                 </NavLink>
               </>
             )}
-            <NavLink
-              to={localStorage.getItem("name")  ? "/quiz" : "/login"}
-            >
+            <NavLink to={localStorage.getItem("name") ? "/quiz" : "/login"}>
               <Button sx={{ color: "#fff" }}>Quiz</Button>
             </NavLink>
-            <NavLink
-              to={localStorage.getItem("name") ? "/profile" : "/login"}
-            >
+            <NavLink to={localStorage.getItem("name") ? "/profile" : "/login"}>
               {localStorage.getItem("name") && (
                 <Button sx={{ color: "#fff" }}>Profile</Button>
               )}

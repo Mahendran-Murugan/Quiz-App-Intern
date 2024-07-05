@@ -30,7 +30,7 @@ const Profile = () => {
   }
   const navigate = useNavigate();
   useEffect(() => {
-    if (localStorage.getItem("name") ) {
+    if (localStorage.getItem("name")) {
       Async();
       console.log(details);
     } else {
@@ -70,9 +70,25 @@ const Profile = () => {
               align="center"
             ></Typography>
 
-            <Typography variant="body1">
+            <Typography variant="body1" align="center">
               userid : {localStorage.getItem("userid")}
             </Typography>
+            <Box
+              sx={{
+                display: {
+                  sm: "block",
+                  xs: "block",
+                  md: "none",
+                },
+              }}
+            >
+              <Typography align="center">
+                Attended : {details && details.attended}
+              </Typography>
+              <Typography align="center">
+                Correct : {details && details.correct}
+              </Typography>
+            </Box>
           </CardContent>
         </Card>
         <Card
@@ -83,7 +99,15 @@ const Profile = () => {
             },
           }}
         >
-          <CardContent>
+          <CardContent
+            sx={{
+              display: {
+                md: "block",
+                sm: "none",
+                xs: "none",
+              },
+            }}
+          >
             {details && (
               <>
                 <PieChart
@@ -117,22 +141,7 @@ const Profile = () => {
                   width={450}
                   height={200}
                 />
-                <Box
-                  align="center"
-                  sx={{
-                    display: {
-                      md: "none",
-                      sm: "block",
-                    },
-                  }}
-                >
-                  <Typography variant="h6" color="initial">
-                    Attended : {details.attended}
-                  </Typography>
-                  <Typography variant="h6" color="initial">
-                    Correct : {details.correct}
-                  </Typography>
-                </Box>
+
                 <Typography align="center" mt={4} variant="h6" color="initial">
                   Score :{" "}
                   {((details.correct / details.attended) * 100).toFixed(2)}
