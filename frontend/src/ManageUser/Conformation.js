@@ -30,18 +30,32 @@ export default function Conformation({
   left,
   right,
   button,
+  inst,
+  mother,
+  father,
+  add,
+  parent,
   name,
   userid,
   pass,
+  num,
   r,
+  std,
   g,
   id,
   verified,
 }) {
   const {
+    setNumber,
     handleEdit,
+    setSTD,
     handleDelete,
     setName,
+    setMother,
+    setFather,
+    setParent,
+    setInstitute,
+    setAddress,
     setEmail,
     setPass,
     role,
@@ -58,10 +72,17 @@ export default function Conformation({
     e.preventDefault();
     setName(name);
     setEmail(userid);
+    setNumber(num);
     setPass(pass);
+    setSTD(std);
     setRole(r);
     setGender(g);
     setVerify(verified);
+    setAddress(add);
+    setMother(mother);
+    setFather(father);
+    setInstitute(inst);
+    setParent(parent);
     // console.log(r, g);
     setOpen(true);
   };

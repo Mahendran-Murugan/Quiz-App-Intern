@@ -379,10 +379,10 @@ export default function MyTable({ rows }) {
                                     type="number"
                                     onChange={(e) => {
                                       const value = e.target.value;
-                                      question.points = value;
-                                      // console.log(question);
+                                      question.points = e.target.value;
+                                      console.log(question.points);
                                     }}
-                                    value={question.points}
+                                    value={question.points.toString()}
                                     InputProps={{ inputProps: { min: 0 } }}
                                     label="Points"
                                     fullWidth

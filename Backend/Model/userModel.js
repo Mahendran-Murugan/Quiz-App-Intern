@@ -110,14 +110,63 @@ const showAllUser = (req, res) => {
 };
 
 const editUser = (req, res) => {
-  const { name, userid, password, id, role, gender, verified } = req.body;
-  if (name == "" && password == "" && userid == "") {
-    res.status(404).end();
+  const {
+    name,
+    userid,
+    password,
+    id,
+    role,
+    gender,
+    verified,
+    father_name,
+    mother_name,
+    institute_name,
+    phone_number,
+    address,
+    standard,
+    parents_number,
+  } = req.body;
+
+  if (!name || !password || !userid || !id) {
+    return res.status(400).json({ status: "Required fields are missing" });
   }
+  const query = `
+    UPDATE user 
+    SET 
+      name = ?, 
+      userid = ?, 
+      password = ?, 
+      role = ?, 
+      gender = ?, 
+      verified = ?, 
+      father_name = ?, 
+      mother_name = ?, 
+      institute_name = ?, 
+      phone_number = ?, 
+      address = ?, 
+      standard = ?, 
+      parents_number = ? 
+    WHERE id = ?`;
+
+  const params = [
+    name,
+    userid,
+    password,
+    role,
+    gender,
+    verified,
+    father_name,
+    mother_name,
+    institute_name,
+    phone_number,
+    address,
+    standard,
+    parents_number,
+    id,
+  ];
+  console.log(params);
   connection
-    .query(
-      `UPDATE user set name = "${name}", userid = "${userid}", password = "${password}" , role = "${role}" , gender = "${gender}" , verified = ${verified}  where id = ${id}`
-    )
+    .query(query, params)
     .on("error", (err) => {
       res.status(404).json({
         status: err,
