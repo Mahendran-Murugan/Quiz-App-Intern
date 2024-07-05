@@ -16,7 +16,7 @@ export const AuthContext = ({ children }) => {
     localStorage.setItem("id", id);
     localStorage.setItem("name", name);
     localStorage.setItem("userid", userid);
-    localStorage.setItem("superuser", superuser)
+    localStorage.setItem("superuser", superuser);
     setUser({
       name: name,
       userid: userid,

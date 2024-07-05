@@ -86,17 +86,27 @@ const registerUser = (req, res) => {
 const loginUser = (req, res) => {
   const { userid, password } = req.body;
 
-  if (userid == "" || password == "") res.status(404).json({ status: "error" });
-  connection
-    .query(
-      `SELECT * FROM user where userid = "${userid}" and password = "${password}"`
-    )
-    .on("error", (err) => {
-      res.status(404).json({ status: err });
-    })
-    .on("result", (result) => {
-      res.status(200).json(result);
-    });
+  if (!userid || !password) {
+    return res.status(400).json({ status: "Missing userid or password" });
+  }
+
+  const query = "SELECT * FROM user WHERE userid = ? AND password = ?";
+  const values = [userid, password];
+
+  connection.query(query, values, (err, results) => {
+    if (err) {
+      console.error("Error querying the database:", err);
+      return res.status(500).json({ status: "Database error", error: err });
+    }
+
+    if (results.length === 0) {
+      return res
+        .status(404)
+        .json({ status: "User not found or incorrect password" });
+    }
+
+    res.status(200).json(results[0]);
+  });
 };
 const showAllUser = (req, res) => {
   connection.query("SELECT * FROM user", (err, result, fields) => {
