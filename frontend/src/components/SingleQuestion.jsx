@@ -55,7 +55,7 @@ export const SingleQuestion = ({ question, index }) => {
             points: question.points,
           })
         );
-        console.log(choice);
+        // console.log(choice);
         setSelect(choice);
       } else {
         choiceDispatch(

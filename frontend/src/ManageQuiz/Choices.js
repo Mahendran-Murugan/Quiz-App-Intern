@@ -28,7 +28,7 @@ import ChoiceUploader from "../MUI/ChoiceUploader";
 
 const Choices = forwardRef(
   ({ src, myAnswer, myChoices, count, isimage }, ref) => {
-    const { question } = UseChoiceContext();
+    const { question, questions, index } = UseChoiceContext();
 
     const [selected, setSelected] = useState(0);
     const [isImage, setIsImage] = useState(question.isImage);
@@ -37,7 +37,7 @@ const Choices = forwardRef(
     const [choiceValue, setChoiceValue] = useState(question.choices);
 
     const handleChoiceCount = () => {
-      console.log(selected);
+      // console.log(selected);
       question.choices = [...question.choices, ""];
       setChoiceValue([...choiceValue, ""]);
       setChoiceCount((p) => p + 1);
@@ -70,16 +70,15 @@ const Choices = forwardRef(
         if (prevSelected.includes(index)) {
           const newA = prevSelected.filter((i) => i !== index);
           question.answer = newA;
-          console.log(newA);
+          // console.log(newA);
           return newA;
         } else {
           const newA = [...prevSelected, index];
 
           question.answer = newA;
-          console.log(newA);
+          // console.log(newA);
           return newA;
         }
-        
       });
     };
     return (
@@ -89,7 +88,6 @@ const Choices = forwardRef(
             mt: 2,
           }}
         >
-          {" "}
           <Typography variant="button" color="initial">
             Image Choice {isImage ? "ON" : "OFF"}
           </Typography>

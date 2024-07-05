@@ -72,7 +72,12 @@ export default function UserTable({ rows }) {
     e.preventDefault();
     axios
       .post(USER_SERVER + "/delete", { id: id })
-      .then((res) => console.log(res))
+      .then((res) =>
+       
+      {}
+        // console.log(res)
+       
+       )
       .catch((err) => console.log(err));
   };
   

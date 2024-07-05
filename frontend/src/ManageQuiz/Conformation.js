@@ -61,7 +61,7 @@ export default function Conformation({
     setDuration(dura);
     setCount(questCount);
     setAttempt(attemptCount);
-    console.log(attemptCount);
+    // console.log(attemptCount);
     setOpen(true);
   };
   const selector = useSelector((state) => state.imageFiles.data);
@@ -82,7 +82,7 @@ export default function Conformation({
             an[ind] = ch.indexOf(elem);
           });
         }
-        console.log(an);
+        // console.log(an);
         setQuestions((p) => [
           ...p,
           {

@@ -43,7 +43,7 @@ export default function CreateQuiz({ props }) {
 
   const dispatch = useDispatch();
   const handleCreate = async (e) => {
-    console.log("before :", questions);
+    // console.log("before :", questions);
 
     if (
       !name ||
@@ -55,8 +55,8 @@ export default function CreateQuiz({ props }) {
       attempt <= 0 ||
       duration <= 0
     ) {
-      console.log("Enter Valid Quiz");
-      console.log(isError);
+      // console.log("Enter Valid Quiz");
+      // console.log(isError);
       setError(true);
       return;
     }
@@ -71,7 +71,7 @@ export default function CreateQuiz({ props }) {
           quest.answer.length <= 0 ||
           isNaN(quest.points)
         ) {
-          console.log("Enter Valid Question");
+          // console.log("Enter Valid Question");
           throw "Enter valid Question and fill the empty block";
         }
       });
@@ -83,11 +83,11 @@ export default function CreateQuiz({ props }) {
       e.preventDefault();
       const uploadPromises = selector.map(async (select, index) => {
         const formData = new FormData();
-        console.log(select.qimage);
-        console.log(select);
+        // console.log(select.qimage);
+        // console.log(select);
         formData.append("qimage", select.qimage);
 
-        // console.log(formData);
+        // // console.log(formData);
         const response = await axios.post(
           `${FILE_SERVER}/api/post/image`,
           formData,
@@ -99,7 +99,7 @@ export default function CreateQuiz({ props }) {
         );
         const file =
           response.data.file != "error" ? response.data.file.filename : "none";
-        console.log(file);
+        // console.log(file);
         setQuestions((prevQuestions) => {
           const newQuestions = [...prevQuestions];
           newQuestions[index] = {
@@ -117,7 +117,7 @@ export default function CreateQuiz({ props }) {
             await Promise.all(
               quest.choices.map(async (ch, j) => {
                 const newFormData = new FormData();
-                console.log(ch);
+                // console.log(ch);
                 newFormData.append("qimage", ch); // Assuming ch is the file
 
                 try {
@@ -130,7 +130,7 @@ export default function CreateQuiz({ props }) {
                       },
                     }
                   );
-                  console.log(response);
+                  // console.log(response);
                   quest.choices[j] =
                     response.data.file.filename !== "error"
                       ? response.data.file.filename
@@ -146,7 +146,7 @@ export default function CreateQuiz({ props }) {
         })
       );
 
-      console.log(questions);
+      // console.log(questions);
 
       await Promise.all(uploadPromises).then((resolver) => {
         const response = axios.post(ADMIN_SERVER + "/quiz/create", {

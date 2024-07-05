@@ -19,7 +19,7 @@ export const QuizInstructions = ({ id }) => {
           quizid: QID,
         })
         .then((res) => {
-          console.log(res.data.attempts);
+          // console.log(res.data.attempts);
           setCurrentAttempt(res.data.attempts);
         });
     }
@@ -31,7 +31,7 @@ export const QuizInstructions = ({ id }) => {
         quizid: QID,
         userid: localStorage.getItem("id"),
       });
-      console.log(QID);
+      // console.log(QID);
     }
 
     const doc = document.documentElement;

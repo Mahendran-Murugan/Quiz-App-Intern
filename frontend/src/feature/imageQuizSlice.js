@@ -10,7 +10,7 @@ export const imageQuizSlice = createSlice({
   reducers: {
     addAction: (state, action) => {
       state.data = [...state.data, { qimage: action.payload }];
-      // console.log(state.data);
+      // // console.log(state.data);
     },
     insertAction: (state, action) => {
       const { index, qimage } = action.payload;

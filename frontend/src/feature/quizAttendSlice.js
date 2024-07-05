@@ -11,7 +11,7 @@ export const quizAttendSlice = createSlice({
     changeSelected: (state, action) => {
       const { questionId, choice, isSingleAnswer, answer, points } =
         action.payload;
-      console.log(questionId, choice, isSingleAnswer, answer);
+      // console.log(questionId, choice, isSingleAnswer, answer);
 
       const questionIndex = state.data.findIndex(
         (item) => item.questionId === questionId

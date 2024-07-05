@@ -32,7 +32,7 @@ const Profile = () => {
   useEffect(() => {
     if (localStorage.getItem("name")) {
       Async();
-      console.log(details);
+      // console.log(details);
     } else {
       navigate("/");
     }

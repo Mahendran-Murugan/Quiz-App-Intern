@@ -69,19 +69,18 @@ export default function CreateUser({ props }) {
       .post(USER_SERVER + "/register", all)
       .then((res) => {
         setError(true);
-        setTitle("User Created")
+        setTitle("User Created");
         setBody(all.name + " User Created Successfully");
-        console.log(res);
+        // console.log(res);
       })
       .catch((err) => alert(err));
     setOpen(false);
   };
 
   return (
-    
     <React.Fragment>
-    {isError && <MyDialog title={title} body={body} setError={setError} />}
-      
+      {isError && <MyDialog title={title} body={body} setError={setError} />}
+
       <Stack
         direction="row"
         spacing={2}

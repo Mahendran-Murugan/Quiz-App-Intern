@@ -9,8 +9,8 @@ import Paper from "@mui/material/Paper";
 import Draggable from "react-draggable";
 import { UseUserTableContext } from "./UserTable";
 import { useMediaQuery } from "@mui/material";
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 
 function PaperComponent(props) {
   return (
@@ -62,7 +62,7 @@ export default function Conformation({
     setRole(r);
     setGender(g);
     setVerify(verified);
-    console.log(r, g);
+    // console.log(r, g);
     setOpen(true);
   };
 

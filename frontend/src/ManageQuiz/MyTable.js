@@ -46,7 +46,7 @@ export default function MyTable({ rows }) {
   const dispatcher = useDispatch();
   const handleEdit = async (e, id) => {
     e.preventDefault();
-    console.log(questions);
+    // console.log(questions);
     if (
       !name ||
       !count ||
@@ -57,8 +57,8 @@ export default function MyTable({ rows }) {
       attempt <= 0 ||
       duration <= 0
     ) {
-      console.log("Enter Valid Quiz");
-      console.log(isError);
+      // console.log("Enter Valid Quiz");
+      // console.log(isError);
       setError(true);
       return;
     }
@@ -75,7 +75,7 @@ export default function MyTable({ rows }) {
           quest.points < 0 ||
           isNaN(quest.points)
         ) {
-          console.log("Enter Valid Question");
+          // console.log("Enter Valid Question");
           throw "Enter valid Question and fill the empty block";
         }
       });
@@ -126,7 +126,7 @@ export default function MyTable({ rows }) {
                 if (ch instanceof File) {
                   const newFormData = new FormData();
 
-                  console.log(ch);
+                  // console.log(ch);
                   newFormData.append("qimage", ch); // Assuming ch is the file
 
                   try {
@@ -139,7 +139,7 @@ export default function MyTable({ rows }) {
                         },
                       }
                     );
-                    console.log(response);
+                    // console.log(response);
                     quest.choices[j] =
                       response.data.file.filename !== "error"
                         ? response.data.file.filename
@@ -156,11 +156,11 @@ export default function MyTable({ rows }) {
                 quest.answer[ind] = quest.choices[element];
               });
             }
-            console.log(quest.answer);
+            // console.log(quest.answer);
           }
         })
       );
-      console.log(questions);
+      // console.log(questions);
 
       await Promise.all(uploadPromises);
 
@@ -174,7 +174,7 @@ export default function MyTable({ rows }) {
           questions: questions,
         })
         .then((resu) => {
-          console.log(resu.data);
+          // console.log(resu.data);
         })
         .catch((err) => console.log(err));
       // console.log(questions);
@@ -188,13 +188,16 @@ export default function MyTable({ rows }) {
   const handleRemove = (e, index) => {
     e.preventDefault();
     dispatcher(removeAction(index));
-    setQuestions((prevItems) => {
-      const newItems = prevItems.filter((_, i) => i !== index);
-      prevItems.choices = [];
-      setCount(newItems.length); // Update count based on the new length
-      console.log(newItems);
-      return newItems;
-    });
+    const updatedQuestions = [...questions];
+
+    updatedQuestions[index].choices = [];
+
+    const newItems = updatedQuestions.filter((_, i) => i !== index);
+
+    setQuestions(newItems);
+
+    setCount(newItems.length);
+
     if (childRef.current) {
       childRef.current.handleChoiceDelete();
     }
@@ -294,7 +297,6 @@ export default function MyTable({ rows }) {
                                   onChange={(e) => {
                                     setName(e.target.value);
                                   }}
-                                  te=""
                                 />
                               </Grid>
                             </Grid>
@@ -359,7 +361,9 @@ export default function MyTable({ rows }) {
                                   />
                                 </Grid>
 
-                                <ChoiceContext.Provider value={{ question }}>
+                                <ChoiceContext.Provider
+                                  value={{ question, questions, index }}
+                                >
                                   <Choices
                                     myAnswer={question.answer}
                                     ref={childRef}
@@ -371,13 +375,14 @@ export default function MyTable({ rows }) {
                                 <Grid item xs={12} sm={6}>
                                   <TextField
                                     id="points"
-                                    value={question.points}
                                     name="points"
                                     type="number"
-                                    minRows={"0"}
                                     onChange={(e) => {
-                                      question.points = e.target.value;
+                                      const value = e.target.value;
+                                      question.points = value;
+                                      // console.log(question);
                                     }}
+                                    value={question.points}
                                     InputProps={{ inputProps: { min: 0 } }}
                                     label="Points"
                                     fullWidth

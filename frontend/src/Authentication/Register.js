@@ -48,7 +48,7 @@ export function Register() {
   const rep_data = useSelector((state) => state.register.rep_data);
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(student_data);
+    // console.log(student_data);
     if (student_data.role === "") {
       setTitle("Please fill the Form");
       setBody("Select the Role");
@@ -82,7 +82,7 @@ export function Register() {
 
       default: {
         for (let stud in student_data) {
-          console.log(stud);
+          // console.log(stud);
           if (student_data[stud] === "") {
             setBody("Fill the " + stud + " field");
             setError(true);
@@ -114,14 +114,14 @@ export function Register() {
         dispatcher(resetAll());
         navigate("/login");
 
-        console.log(res);
+        // console.log(res);
       })
       .catch((err) => {
         setError(true);
         setTitle("Error");
         dispatcher(resetAll());
         setBody(err.message);
-        console.log(err);
+        // console.log(err);
       });
   };
 

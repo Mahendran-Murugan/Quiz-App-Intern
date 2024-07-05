@@ -22,7 +22,11 @@ export const UploadeXL = () => {
     formData.append("excel", e.target.files[0]);
     axios
       .post(FILE_SERVER + "/api/post/excel", formData)
-      .then((res) => console.log(res.data))
+      .then((res) =>
+      {}
+        // console.log(res.data)
+       
+       )
       .catch((err) => console.log(err));
     e.preventDefault();
   };

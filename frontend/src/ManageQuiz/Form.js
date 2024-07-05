@@ -43,7 +43,7 @@ export default function Form() {
 
       return newItems;
     });
-    console.log(questions);
+    // console.log(questions);
     if (childRef.current) {
       childRef.current.handleChoiceDelete();
     }
