@@ -4,6 +4,7 @@ import { styled } from "@mui/material/styles";
 import axios from "axios";
 import { useState } from "react";
 import { FILE_SERVER } from "../data";
+
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",
   clipPath: "inset(50%)",
@@ -22,9 +23,9 @@ export const UploadeXL = () => {
     formData.append("excel", e.target.files[0]);
     axios
       .post(FILE_SERVER + "/api/post/excel", formData)
-      .then((res) => { }
+      .then(
+        (res) => {}
         // console.log(res.data)
-
       )
       .catch((err) => console.log(err));
     e.preventDefault();
@@ -40,7 +41,7 @@ export const UploadeXL = () => {
         type="submit"
       >
         <CloudUpload />
-        &#12644; &#12644; Upload From xlsx
+        &#12644; Upload From xlsx
         <VisuallyHiddenInput
           accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
           type="file"

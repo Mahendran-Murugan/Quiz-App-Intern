@@ -7,7 +7,7 @@ import LeaderBoard from "../MUI/LeaderBoard";
 
 export const Records = () => {
   const [data, setData] = useState(null);
-
+  
   useEffect(() => {
     const getData = async () => {
       await axios
@@ -15,6 +15,7 @@ export const Records = () => {
           institute_name: localStorage.getItem("institute"),
         })
         .then((res) => {
+          console.log(res.data);
           setData(res.data);
         })
         .catch((err) => console.log(err));

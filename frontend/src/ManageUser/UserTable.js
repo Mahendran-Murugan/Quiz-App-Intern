@@ -344,7 +344,7 @@ export default function UserTable({ rows }) {
                               <TextField
                                 name="institute"
                                 label={
-                                  role.startsWith("School")
+                                  role && role.startsWith("School")
                                     ? "School Name"
                                     : "Institute Name"
                                 }
@@ -360,7 +360,7 @@ export default function UserTable({ rows }) {
                               <TextField
                                 name="standard"
                                 label={
-                                  role.startsWith("School")
+                                  role && role.startsWith("School")
                                     ? "Standard"
                                     : "Degree & Department"
                                 }

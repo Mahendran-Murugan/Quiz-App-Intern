@@ -1,0 +1,755 @@
+commit d6c0b131a0dcb7fc9ac33317068f60ff03d5bd1b
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Fri Jul 5 15:52:02 2024 +0530
+
+    feat:Deploy
+
+commit ec6134769dbeccd803b67942273cc79e37cb8e68
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Fri Jul 5 15:50:32 2024 +0530
+
+    feat:Deploy
+
+commit 26d253b29fc873b414d55fb42dcadf81b464fccd
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Fri Jul 5 15:08:42 2024 +0530
+
+    fix:leadership board
+
+commit 9e0d229f066a6a38fd492d32978c34ced9fa3a2f
+Merge: 5ca5fcb a814b0a
+Author: Mahendran Murugan <mahendran1482004@gmail.com>
+Date:   Fri Jul 5 13:29:47 2024 +0530
+
+    Merge pull request #16 from Mahendran-Murugan/main
+    
+    feat: add records page and enable feature for download excel sheet an…
+
+commit a814b0a082b5e5ee08f14fb2668d17694ceb179d
+Merge: 86747e1 5ca5fcb
+Author: Mahendran Murugan <mahendran1482004@gmail.com>
+Date:   Fri Jul 5 13:29:03 2024 +0530
+
+    Merge branch 'main' into main
+
+commit 86747e17df3e3296ba92e61cd6dbb0a72d09024a
+Author: Mahendran-Murugan <mahendran1482004@gmail.com>
+Date:   Fri Jul 5 13:27:11 2024 +0530
+
+    feat: add records page and enable feature for download excel sheet and template file
+
+commit 5ca5fcb636834edfb63d018319e1c653faecaea1
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Fri Jul 5 12:20:46 2024 +0530
+
+    fix:Changed Image Size in Quiz
+
+commit f560ed733b2ad23884a7b3d7f5761f0feffdb75a
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Fri Jul 5 12:16:00 2024 +0530
+
+    fix:immutable question bug
+
+commit d2fbf948a7c9744ee9a0f55d5970c6e6f158f17b
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Fri Jul 5 12:07:12 2024 +0530
+
+    fix:Changed button style in operation
+
+commit 5c834f2fa18db7860283fbfdf69cab914a8b4558
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Fri Jul 5 11:59:37 2024 +0530
+
+    feat:log removed
+
+commit b32cfd3d4449bc641d605f41943019f5b9617cb3
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Fri Jul 5 11:58:43 2024 +0530
+
+    fix:fixed static  points
+
+commit d0fe0668985040e83cff0d7ca5ecdf7c4bb1c834
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Fri Jul 5 11:30:03 2024 +0530
+
+    fix:representative login permission denied added
+
+commit de94ae6b0e67d3d27884dd5e35804e803254f381
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Fri Jul 5 11:07:08 2024 +0530
+
+    feat:user edit feature advanced
+
+commit 559ee47c231a51ba3fd84b7d18737932da9c4186
+Merge: e44dbe5 4e40a34
+Author: Mahendran Murugan <mahendran1482004@gmail.com>
+Date:   Fri Jul 5 10:21:55 2024 +0530
+
+    Merge pull request #15 from Mahendran-Murugan/main
+    
+    feat: modify auth for identify superuser
+
+commit 4e40a34330a7d7e0d6b31c1056b8e24e9b694c91
+Author: Mahendran-Murugan <mahendran1482004@gmail.com>
+Date:   Fri Jul 5 10:21:24 2024 +0530
+
+    feat: modify auth for identify superuser
+
+commit e44dbe5bb0dad3512cd8ff786d043a6a12c668b5
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Fri Jul 5 10:15:52 2024 +0530
+
+    fix:log removed
+
+commit 09f588f53b6166c956015235a11807f92059ce72
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Fri Jul 5 08:31:20 2024 +0530
+
+    fix:Scorecard and Leadership board updated
+
+commit adde2f525700755432a6af6b68dda05928e4ff26
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Fri Jul 5 07:26:48 2024 +0530
+
+    feat:Added Responsive to Admin
+
+commit cfea1d1438b4c5d0092275a276564e93717a653c
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Fri Jul 5 00:14:19 2024 +0530
+
+    feat:Check Box Added for Quiz
+
+commit 2277838992e6e3295f660a073183099e7c3314c4
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Thu Jul 4 21:18:29 2024 +0530
+
+    feat:added multiple choice
+
+commit 6f699b35c68910ac0a42747008b20e7bcbb68737
+Author: danielprinced <d.danielprince2003@gmail.com>
+Date:   Thu Jul 4 14:23:24 2024 +0530
+
+    fix:useEffect dependency array
+
+commit c3745751ae58bb62ad9415962d22782426d0b8ab
+Author: danielprinced <d.danielprince2003@gmail.com>
+Date:   Thu Jul 4 11:00:03 2024 +0530
+
+    feat:Deploy Frontend
+
+commit f81114332af48a6227ecbf4a06406a8a6ca8b89b
+Author: danielprinced <d.danielprince2003@gmail.com>
+Date:   Thu Jul 4 09:49:46 2024 +0530
+
+    feat:predeploy docker compose completed
+
+commit 0dc190ec114bddcc97c1831e470bbec8b92a77de
+Author: danielprinced <danielprince2003@gmail.com>
+Date:   Thu Jul 4 07:14:40 2024 +0530
+
+    feat:completed predeploy docker compose
+
+commit aca8a03b3f2b628ce41d66cdc2d22444f9d03c3d
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Wed Jul 3 15:20:53 2024 +0530
+
+    fix:Resitaration failure
+
+commit 5836421c7edb95cc0866c0630f7c01a0148d74e4
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Tue Jul 2 21:45:30 2024 +0530
+
+    feat:Added Mobile Responsive
+
+commit d901150a48c67adc0ad34981f3ee0d1131f626e8
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Tue Jul 2 20:40:25 2024 +0530
+
+    fix:changed sortby margin
+
+commit 330e5878c9421e4350c85b0c1aaf525099a67a8c
+Merge: 3a931fd d176ae9
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Tue Jul 2 20:29:20 2024 +0530
+
+    feat:Added Sortby in Mange User
+
+commit 3a931fd8da88603ab0b3d10164d5739bc69e6d05
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Tue Jul 2 20:08:25 2024 +0530
+
+    feat:Added Sortby in Mange User
+
+commit d176ae91fb178ffe5d862fa125d4ae0748a1615f
+Merge: 180944a b97e8ad
+Author: Mahendran Murugan <mahendran1482004@gmail.com>
+Date:   Tue Jul 2 19:32:46 2024 +0530
+
+    Merge pull request #14 from Mahendran-Murugan/main
+    
+    adding functionality to create users with excel data
+
+commit b97e8adbe8e946db2c374abfc6b874fbc6f5b2c5
+Author: Mahendran-Murugan <mahendran1482004@gmail.com>
+Date:   Tue Jul 2 19:31:58 2024 +0530
+
+    feat: add functionality ti create users by uploading an excel sheet
+
+commit 7c665d449903d2437200b3ee09594e8307ced649
+Author: Mahendran-Murugan <mahendran1482004@gmail.com>
+Date:   Tue Jul 2 18:50:24 2024 +0530
+
+    feat: add uploading excel functionality
+
+commit 180944aec357b22c8d4784b12646af75fa8f647f
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Tue Jul 2 18:30:20 2024 +0530
+
+    feat:Completed Signup
+
+commit f2439568bc03b9b9b1ab3880d1f7c56b24564b02
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Tue Jul 2 10:28:48 2024 +0530
+
+    fix:fixedalignment in admin console
+
+commit eed47c191c43560b070d8ad4e0f64a5a1a34d6d1
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Tue Jul 2 10:14:10 2024 +0530
+
+    feat:Completed Choices in Edit feature
+
+commit 9d827d0026ab5dbb4c190f42090fa1c7754738e9
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Tue Jul 2 10:02:38 2024 +0530
+
+    feat:completed choice for questions
+
+commit bc251355d11c53dee0ed8a29e192bbed77733e82
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Tue Jul 2 08:48:20 2024 +0530
+
+    feat:Completed Create Feature
+
+commit c1f3555ba74ba580e64299eeba05ab9243d631e7
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Tue Jul 2 08:02:13 2024 +0530
+
+    fix:Alignment in Manage Quiz
+
+commit 97c14ada0bddf6077030eadd43600762029c828e
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Tue Jul 2 07:58:16 2024 +0530
+
+    feat:Completed Image Quiz Choice
+
+commit 623d1d6e7075dc45de0476a217501a1edebbd326
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Mon Jul 1 23:06:21 2024 +0530
+
+    feat:Added Multi Choice Image
+
+commit 61e97da406702ba81173c93d908d032064dcd9de
+Merge: f47dedb b606419
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Mon Jul 1 14:16:46 2024 +0530
+
+    Merge branch 'main' of https://github.com/danielprinceD/Quiz-App-Intern
+
+commit b6064193e769fc400c5ac10ab1ce8014b0d5a431
+Merge: 2294393 a5f98f0
+Author: Mahendran Murugan <mahendran1482004@gmail.com>
+Date:   Mon Jul 1 14:16:02 2024 +0530
+
+    Merge pull request #13 from Mahendran-Murugan/main
+    
+    feat: add visibily change detection
+
+commit a5f98f057e619e1372593741469fc8a0e93ec920
+Author: Mahendran-Murugan <mahendran1482004@gmail.com>
+Date:   Mon Jul 1 14:15:36 2024 +0530
+
+    feat: add visibily change detection
+
+commit f47dedb982804bafc7aa88660b2478182339263d
+Merge: d3c20b5 2294393
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Mon Jul 1 14:08:45 2024 +0530
+
+    Merge branch 'main' of https://github.com/danielprinceD/Quiz-App-Intern
+
+commit d3c20b5939a2c60f4cfe50f2acc908d75caf8ddc
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Mon Jul 1 14:08:41 2024 +0530
+
+    fix:changed profile
+
+commit 22943932fee875c2c56ab20efb30a56f1dd806dc
+Merge: ee2b5b0 c56cad1
+Author: Mahendran Murugan <mahendran1482004@gmail.com>
+Date:   Mon Jul 1 14:02:33 2024 +0530
+
+    Merge pull request #12 from Mahendran-Murugan/main
+    
+    feat: add fixes for url using data
+
+commit c56cad108f9495dba2c80c2ad62d677b4acfdf3d
+Author: Mahendran-Murugan <mahendran1482004@gmail.com>
+Date:   Mon Jul 1 14:02:04 2024 +0530
+
+    feat: add fixes for url using data
+
+commit ee2b5b00b1a54623db3bcf02fd3ce9cbc6354237
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Mon Jul 1 13:45:52 2024 +0530
+
+    feat:Completed User Profile
+
+commit f66d817ca696149daf7ef2c949c92a1463849db0
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Sun Jun 30 19:45:26 2024 +0530
+
+    feat:Completed quiz fullscreen feature
+
+commit 8022283081cea22a9b1c50473e622d5376f4800a
+Merge: bd1ed09 614a500
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Sun Jun 30 19:20:38 2024 +0530
+
+    Merge branch 'main' of https://github.com/danielprinceD/Quiz-App-Intern
+
+commit bd1ed093533f9cd75044f645d4927e3a07d38c32
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Sun Jun 30 19:15:00 2024 +0530
+
+    feat:Completed quiz attended updation
+
+commit 614a500333a4ff61b50975252c6d80ed522c1bba
+Merge: 26ccc37 0d7f495
+Author: Mahendran Murugan <mahendran1482004@gmail.com>
+Date:   Sun Jun 30 19:06:38 2024 +0530
+
+    Merge pull request #11 from Mahendran-Murugan/main
+    
+    feat: add switch tab prevention
+
+commit 0d7f4959992e0a0636b9bd00d9b046af4223fc38
+Author: Mahendran-Murugan <mahendran1482004@gmail.com>
+Date:   Sun Jun 30 19:06:15 2024 +0530
+
+    feat: add switch tab prevention
+
+commit 26ccc3764f260311c498b4c99af6911edc59ca92
+Merge: c09f02e 3d307f3
+Author: Mahendran Murugan <mahendran1482004@gmail.com>
+Date:   Sun Jun 30 18:30:10 2024 +0530
+
+    Merge pull request #10 from Mahendran-Murugan/main
+    
+    Adding functionalities to give better quiz experience
+
+commit 3d307f3010cd2109d98f93839dcb222e9aa9e8d4
+Author: Mahendran-Murugan <mahendran1482004@gmail.com>
+Date:   Sun Jun 30 18:27:04 2024 +0530
+
+    feat: add switch tab prevention
+
+commit a320b46ec9fbff70adbbeae27582c1133daa4c3b
+Author: Mahendran-Murugan <mahendran1482004@gmail.com>
+Date:   Sun Jun 30 18:08:13 2024 +0530
+
+    feat: add fullscreen functionality
+
+commit c09f02ee2a5ee97b95b3f0d53225633656040c8a
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Sun Jun 30 17:49:55 2024 +0530
+
+    feat:Completed quiz attended updation
+
+commit b0014ed1ac7b6d55eb8327e73dc39353aeeec15b
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Sun Jun 30 16:52:02 2024 +0530
+
+    feat:Completed Quiz read instructions
+
+commit 4e894fd9f125485e961cf77cf21f5323f2615dcd
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Sun Jun 30 14:09:04 2024 +0530
+
+    feat:Get attempt added
+
+commit a3bd0acf1d9a7221f4ea4c771ce0a3a7424ca614
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Sun Jun 30 14:00:44 2024 +0530
+
+    feat:Completed Attempt Table
+
+commit 2499956bd90a421b726513c8a6101e3a45b78afc
+Merge: e157594 f06b466
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Sun Jun 30 14:00:23 2024 +0530
+
+    Merge branch 'main' of https://github.com/danielprinceD/Quiz-App-Intern
+
+commit e157594097635a26b7bbc4f36e90a0b8d49d4ecb
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Sun Jun 30 14:00:15 2024 +0530
+
+    feat:Completed Attempt Table
+
+commit f06b4660c177d05bf51c345071c61ea31cfc3155
+Merge: e61e5e1 597795c
+Author: Mahendran Murugan <mahendran1482004@gmail.com>
+Date:   Sun Jun 30 13:51:16 2024 +0530
+
+    Merge pull request #9 from Mahendran-Murugan/main
+    
+    feat: add create edit and delete user functionality
+
+commit 597795c011921d823c21d7b34209709947d9f1e2
+Merge: c8d0cc4 e61e5e1
+Author: Mahendran Murugan <mahendran1482004@gmail.com>
+Date:   Sun Jun 30 13:51:08 2024 +0530
+
+    Merge branch 'main' into main
+
+commit c8d0cc462bd7a63f00b4177048816caaf8fcb9d3
+Author: Mahendran-Murugan <mahendran1482004@gmail.com>
+Date:   Sun Jun 30 13:44:18 2024 +0530
+
+    feat: add create edit and delete user functionality
+
+commit e61e5e14123307a23f982009b0348c2328850f4c
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Sun Jun 30 13:42:30 2024 +0530
+
+    feat:Changed Login for Attempt
+
+commit 1d329407a9cc5cc916632fe307e966d30bab3430
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Sun Jun 30 13:06:50 2024 +0530
+
+    feat:Update quiz completed
+
+commit a79740f017cfeb7fe9c3ca6246d2df62efee63de
+Merge: aa34e42 974fdc7
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Sun Jun 30 12:50:40 2024 +0530
+
+    Merge branch 'main' of https://github.com/danielprinceD/Quiz-App-Intern
+
+commit aa34e4294b86974fd2c78fc1e46fa04d1b56a9b5
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Sun Jun 30 12:50:31 2024 +0530
+
+    feat:Editing feature updated
+
+commit 974fdc7e4cb386d2d659de3683968572cac6fae4
+Merge: c25f8d7 557c759
+Author: Mahendran Murugan <mahendran1482004@gmail.com>
+Date:   Sun Jun 30 12:23:38 2024 +0530
+
+    Merge pull request #7 from Mahendran-Murugan/main
+    
+    feat: add create user functionality
+
+commit 557c759a4e70e7b143aafd49f002d5eb8751f16a
+Author: Mahendran-Murugan <mahendran1482004@gmail.com>
+Date:   Sun Jun 30 12:21:32 2024 +0530
+
+    feat: add create user functionality
+
+commit c25f8d766e69fa34f3f5b01f62580e1408fa0a32
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Sat Jun 29 22:10:17 2024 +0530
+
+    feat:Completed Quiz Timer and Attend without error
+
+commit a5e609bb71a6e155f61faf1993aadd34944742d0
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Sat Jun 29 21:49:57 2024 +0530
+
+    fix:timer issue fixed
+
+commit b8ca0828d148a9a9aeeda94801493f0babfd2342
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Sat Jun 29 21:34:28 2024 +0530
+
+    fix:quiz attending session
+
+commit 01f89a41c12420de60a9db079bd6691d473ed203
+Merge: fd1aeb2 94bc736
+Author: Mahendran Murugan <mahendran1482004@gmail.com>
+Date:   Sat Jun 29 20:47:11 2024 +0530
+
+    Merge pull request #6 from Mahendran-Murugan/main
+    
+    fix: timer issue in quiz
+
+commit 94bc7360b88ac566076790b4329e4bda7e780462
+Author: Mahendran-Murugan <mahendran1482004@gmail.com>
+Date:   Sat Jun 29 20:46:24 2024 +0530
+
+    fix: timer issue in quiz
+
+commit fd1aeb2cf0192f1b649dcf748781489843f573f9
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Sat Jun 29 20:43:19 2024 +0530
+
+    feat:Completed Quiz Image Feature
+
+commit 722f1f46bfc947b0555803b9b061561f2fe1ce71
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Sat Jun 29 20:27:07 2024 +0530
+
+    feat:Completed Quiz Image Feature
+
+commit 2af10909ca98d1348d4b5d5a0798e3bcb3d4a842
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Sat Jun 29 11:11:09 2024 +0530
+
+    feat:Changed Tabbed index
+
+commit d5507676939ac2095db8c1974e764d772109485d
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Sat Jun 29 11:10:03 2024 +0530
+
+    feat:Edit create theme changed
+
+commit 0e4d906b8cea0d975121d1048bd61850ad3ed902
+Merge: c8d9f28 dc26f49
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Sat Jun 29 10:30:11 2024 +0530
+
+    fix:Create feature adding multiple choice
+
+commit c8d9f282d24d1e0fbb81f8d1e4570d15486ada52
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Sat Jun 29 10:19:55 2024 +0530
+
+    fix:Create feature adding multiple choice
+
+commit 1e30b01697c8716a2051de4583dda6f34969a986
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Sat Jun 29 09:55:57 2024 +0530
+
+    fix:edit fixed
+
+commit dc26f494096de64f54f7b6d618a983a4a78d5fa4
+Merge: bb9f833 8e147c2
+Author: Mahendran Murugan <mahendran1482004@gmail.com>
+Date:   Sat Jun 29 09:27:25 2024 +0530
+
+    Merge pull request #5 from Mahendran-Murugan/main
+    
+    fix: issue with timer
+
+commit 8e147c29dca25e85f23d0db09e505c089b7b2a01
+Author: Mahendran-Murugan <mahendran1482004@gmail.com>
+Date:   Sat Jun 29 09:27:02 2024 +0530
+
+    fix: issue with timer
+
+commit bb9f8332fe19879327929e886b24c0b626d032b3
+Merge: b5d99df f8edc9f
+Author: Mahendran Murugan <mahendran1482004@gmail.com>
+Date:   Sat Jun 29 09:06:54 2024 +0530
+
+    Merge pull request #4 from Mahendran-Murugan/main
+    
+    fix: comparison issues and unnecessary imports
+
+commit f8edc9f3ab6b84174caa068abeb1c312bb58f61d
+Author: Mahendran-Murugan <mahendran1482004@gmail.com>
+Date:   Sat Jun 29 09:05:48 2024 +0530
+
+    fix: comparison issues and unnecessary imports
+
+commit b5d99dfa4e09ff6091866598f4a93c02ce7b212a
+Merge: ac1a3be 385f9b4
+Author: Mahendran Murugan <mahendran1482004@gmail.com>
+Date:   Sat Jun 29 08:56:45 2024 +0530
+
+    Merge pull request #3 from Mahendran-Murugan/main
+    
+    feat: fix bugs
+
+commit 385f9b4ccd8d1216e4192476a3edb5de078b42ef
+Author: Mahendran-Murugan <mahendran1482004@gmail.com>
+Date:   Sat Jun 29 08:56:11 2024 +0530
+
+    feat: fix bugs
+
+commit ac1a3be3e817ad2775e083ac3328c686d21834a4
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Sat Jun 29 08:10:54 2024 +0530
+
+    fix:edit fixed
+
+commit 0d71e846566a1ba3360797f05e0b3e5086f94845
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Sat Jun 29 07:46:38 2024 +0530
+
+    fix:edit fixed
+
+commit 6f8c916b837a03f19dc817f4a10e12227b0b15ef
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Fri Jun 28 22:00:53 2024 +0530
+
+    feat:edit multiple choice mcq
+
+commit e4352ad3c5764d8fb3052ce62fdcb6d06f835721
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Fri Jun 28 21:00:27 2024 +0530
+
+    feat:Added Choice with edit feature
+
+commit 44b38c759f6881f5685db088a53b890e4cfd3c16
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Fri Jun 28 19:25:20 2024 +0530
+
+    feat:added image storage server
+
+commit 1072da3951d2cdc23b0757b96e8b7baaabeefb30
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Fri Jun 28 19:06:01 2024 +0530
+
+    feat:File server added
+
+commit 1be92265bca4c1b0721c5fea7c93fee56be1d57e
+Merge: 941b804 1cbc497
+Author: Mahendran Murugan <mahendran1482004@gmail.com>
+Date:   Fri Jun 28 15:21:59 2024 +0530
+
+    Merge pull request #2 from Mahendran-Murugan/main
+    
+    feat: add timer functionality for quiz
+
+commit 1cbc49703838c695ed1794e5998f0e0b70dff890
+Author: Mahendran-Murugan <mahendran1482004@gmail.com>
+Date:   Fri Jun 28 15:21:04 2024 +0530
+
+    feat: add timer functionality for quiz
+
+commit 941b80479ecb7e098aa55c6c6c23e51bcba0f7be
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Fri Jun 28 13:00:26 2024 +0530
+
+    fix:backend error
+
+commit 2855b148e2b2c4d5f708b4362b62a6da7b1815c5
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Fri Jun 28 11:35:55 2024 +0530
+
+    feat:Completed edit feature
+
+commit b01651b60983b39532da8a94762b912085f9b636
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Thu Jun 27 17:01:37 2024 +0530
+
+    feat:Completed Create Quiz panel
+
+commit 5bfdaa7025369ca4a429da9c97d8f7c0aca5c696
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Thu Jun 27 14:26:49 2024 +0530
+
+    feat:added auth condition render
+
+commit 3a2e6bf9dc283a73e7aa29b4120565bfa380da88
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Thu Jun 27 14:02:28 2024 +0530
+
+    feat:Added Tabbed Layout to Admin Console
+
+commit 0f1fe38205ddf44aa887e5485a4c69ce5b994a5f
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Thu Jun 27 13:42:10 2024 +0530
+
+    feat:completed login signup feature
+
+commit 7e41cdf82025f9ae3036f3f176ff7517c526b57c
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Thu Jun 27 10:30:25 2024 +0530
+
+    feat:changed quiz display
+
+commit 2062a78f73f20d13b032209c2a7188875ccbf0cc
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Thu Jun 27 10:22:30 2024 +0530
+
+    feat:Navbar is added
+
+commit 819112189162853ddf73891471b1633ae2864828
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Thu Jun 27 09:55:59 2024 +0530
+
+    feat:Completed UI Quiz app
+
+commit 290c142d261704e03337aaacd0ada13fae03dc42
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Wed Jun 26 22:18:39 2024 +0530
+
+    feat:changed ui for quiz
+
+commit 05b2b503e46df9101837f1ca0b788f402435439e
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Wed Jun 26 15:01:42 2024 +0530
+
+    feat:Completed Quiz Listing UI
+
+commit 921d18801077ad2743cedf683707dfb82214af7d
+Merge: bcef47d 041359c
+Author: Mahendran Murugan <mahendran1482004@gmail.com>
+Date:   Wed Jun 26 12:46:07 2024 +0530
+
+    Merge pull request #1 from Mahendran-Murugan/frontend
+    
+    Frontend
+
+commit 041359c40c6d9d0a454a196f5aacc38f1b891bc2
+Author: Mahendran-Murugan <mahendran1482004@gmail.com>
+Date:   Wed Jun 26 12:42:08 2024 +0530
+
+    feat: add an basic structure
+
+commit 06c874a9f47eb504bfa4007c0a150ef33f9ab420
+Author: Mahendran-Murugan <mahendran1482004@gmail.com>
+Date:   Tue Jun 25 15:45:16 2024 +0530
+
+    feat: fix issue with index of question
+
+commit 3f5044cb47d5bc500601a26c7c51447179fce83c
+Author: Mahendran-Murugan <mahendran1482004@gmail.com>
+Date:   Tue Jun 25 15:41:24 2024 +0530
+
+    feat: complete the basic functional interface of quiz
+
+commit bcef47dc8dfea6c22af24f4dfe14d8d1e056c537
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Wed Jun 26 12:43:56 2024 +0530
+
+    feat:completed api route for question list
+
+commit 67fc2cbf4db879d8f45f3338af7f743dfe98bd57
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Tue Jun 25 21:30:11 2024 +0530
+
+    feat:Added update query feature to admin panel
+
+commit e70aa3f9ffe0e36ef5f4e2cdf947fa05946bb4c9
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Tue Jun 25 21:15:59 2024 +0530
+
+    feat:Added deleting feature for admin
+
+commit 13d9dac9d6fd6f2bdfe303ef9ef529e0efdb499b
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Tue Jun 25 10:13:12 2024 +0530
+
+    feat:user can list quiz and question api
+
+commit ef21f999eab02202d4fa71357d1f7b28f3fcccdd
+Author: daniel <d.danielprince2003@gmail.com>
+Date:   Tue Jun 25 08:49:07 2024 +0530
+
+    feat:Completed Creating Quiz with mcqs

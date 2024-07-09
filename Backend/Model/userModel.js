@@ -362,7 +362,7 @@ const leaderShipByInstitute = (req, res) => {
   const { institute_name } = req.body;
   console.log(institute_name);
   const sql = `
-    SELECT name, userid ,attended, correct , score
+    SELECT name, userid ,attended, correct , score , institute_name
     FROM user
     where institute_name = ?
     ORDER BY score DESC;`;
